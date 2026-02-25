@@ -24,10 +24,11 @@
     }
 
     body {
-      background-color: #6b5c4a;
+      /* Gradiente verticale che richiama la locandina: scuro in alto, taupe in basso */
+      background-color: #2d2926;
       background-image:
-        radial-gradient(ellipse at 20% 50%, rgba(90,74,56,0.6) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(55,44,33,0.5) 0%, transparent 55%);
+        linear-gradient(160deg, #1e1a17 0%, #2d2926 40%, #5a4a3a 75%, #7a6855 100%),
+        radial-gradient(ellipse at 80% 20%, rgba(30,22,16,0.7) 0%, transparent 55%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -42,7 +43,7 @@
       position: fixed;
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-      opacity: 0.5;
+      opacity: 0.45;
       pointer-events: none;
       z-index: 0;
     }
@@ -64,19 +65,18 @@
       font-size: 0.7rem;
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: rgba(201,169,110,0.55); /* oro desaturato */
       padding-top: 6px;
       line-height: 1.6;
     }
 
-    /* Logo: JPEG bianco/nero → bianco su fondo scuro */
     .logo {
       width: 90px;
       height: auto;
       flex-shrink: 0;
       filter: invert(1);
       mix-blend-mode: screen;
-      opacity: 0.88;
+      opacity: 0.82;
     }
 
     /* ---- BODY ---- */
@@ -97,11 +97,12 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* Titolo oro come nella locandina */
     .title {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 600;
       font-size: clamp(4.5rem, 12vw, 9rem);
-      color: #ffffff;
+      color: #c9a96e;
       line-height: 0.92;
       letter-spacing: 0.02em;
       text-transform: uppercase;
@@ -112,7 +113,7 @@
       width: 100%;
       max-width: 520px;
       height: 1px;
-      background: rgba(255,255,255,0.18);
+      background: rgba(201,169,110,0.25); /* oro tenue */
       margin-bottom: 44px;
     }
 
@@ -121,10 +122,43 @@
       font-style: italic;
       font-weight: 300;
       font-size: clamp(1.25rem, 3vw, 1.85rem);
-      color: rgba(255,255,255,0.88);
+      color: rgba(255,255,255,0.82);
       line-height: 1.55;
       max-width: 600px;
       margin-bottom: 64px;
+    }
+
+    /* ---- INFO MOSTRA ---- */
+    .mostra-info {
+      margin-bottom: 56px;
+    }
+
+    .mostra-tipo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(201,169,110,0.6);
+      margin-bottom: 10px;
+    }
+
+    .mostra-luogo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 4px;
+    }
+
+    .mostra-date {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
     }
 
     /* ---- COUNTDOWN ---- */
@@ -134,7 +168,7 @@
       font-size: 0.65rem;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(201,169,110,0.5);
       margin-bottom: 16px;
     }
 
@@ -155,7 +189,7 @@
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 200;
       font-size: clamp(3.5rem, 8vw, 6.5rem);
-      color: #ffffff;
+      color: #c9a96e; /* oro per i numeri */
       line-height: 1;
       letter-spacing: -0.01em;
       min-width: 2ch;
@@ -167,7 +201,7 @@
       font-size: 0.6rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.38);
+      color: rgba(255,255,255,0.3);
     }
 
     /* ---- FOOTER ---- */
@@ -175,7 +209,7 @@
       position: relative;
       z-index: 1;
       padding: 28px 44px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(201,169,110,0.15);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -190,7 +224,16 @@
       font-size: 0.65rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.28);
+    }
+
+    .footer-text a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .footer-text a:hover {
+      color: rgba(201,169,110,0.7);
     }
 
     @media (max-width: 520px) {
@@ -208,7 +251,7 @@
 
   <div class="header">
     <div class="label-top">
-      Rimini · 2026
+      Rimini · Museo della Città · 2026
     </div>
     <img class="logo" src="./logo.jpeg" alt="Nodo di Dara" />
   </div>
@@ -223,7 +266,13 @@
       è una radice che si fortifica"
     </p>
 
-    <p class="cd-label">L'evento si svela tra</p>
+    <div class="mostra-info">
+      <p class="mostra-tipo">Mostra fotografica</p>
+      <p class="mostra-luogo">Museo della Città · Rimini</p>
+      <p class="mostra-date">7 marzo — 10 maggio 2026</p>
+    </div>
+
+    <p class="cd-label">La vernissage si apre tra</p>
 
     <div class="countdown">
       <div class="cd-unit">
@@ -246,13 +295,14 @@
   </div>
 
   <div class="footer">
-    <span class="footer-text">elisabettacquaviva.it</span>
     <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+    <span class="footer-text"><a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a></span>
   </div>
 
   <script>
     (function () {
-      var target = new Date('2026-03-05T10:00:00').getTime();
+      // Vernissage: 7 marzo 2026 ore 18:00
+      var target = new Date('2026-03-07T18:00:00').getTime();
       function pad(n) { return n < 10 ? '0' + n : String(n); }
       function tick() {
         var diff = target - Date.now();
