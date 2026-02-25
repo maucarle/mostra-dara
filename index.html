@@ -1,181 +1,276 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Nodo di Dara - Soundscape</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* Rimuove il lampo blu al tocco su mobile */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nodo di Dara</title>
+  <meta name="description" content="Non è un ciclo che si chiude, è una radice che si fortifica. Rimini · 2026" />
+  <meta property="og:title" content="Nodo di Dara" />
+  <meta property="og:description" content="Non è un ciclo che si chiude, è una radice che si fortifica." />
+  <meta property="og:image" content="./logo.jpeg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap');
 
-        body {
-            background-color: #080808; /* Nero profondo materico */
-            color: #f5f5f0;
-            font-family: 'Jost', sans-serif;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px;
-            overflow: hidden; /* Blocca lo scroll dello schermo */
-        }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.8rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 5px;
-            color: #f5f5f0;
-        }
+    html, body {
+      height: 100%;
+    }
 
-        .subtitle {
-            font-size: 1rem;
-            font-weight: 300;
-            opacity: 0.5;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 60px;
-        }
+    body {
+      background-color: #6b5c4a;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(90,74,56,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(55,44,33,0.5) 0%, transparent 55%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Barlow', sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        .instructions {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            color: #8B2B2B; /* Rosso Nodo di Dara */
-            margin-bottom: 50px;
-            line-height: 1.4;
-        }
+    /* Grain texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* Tasto Play Personalizzato Elegante */
-        .play-btn {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            background-color: transparent;
-            border: 1px solid rgba(139, 43, 43, 0.5);
-            color: #8B2B2B;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.5s ease;
-            outline: none;
-        }
+    /* ---- HEADER ---- */
+    .header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 36px 44px 0;
+      gap: 20px;
+    }
 
-        /* Effetto quando è in riproduzione */
-        .play-btn.playing {
-            background-color: rgba(139, 43, 43, 0.1);
-            border-color: #8B2B2B;
-            box-shadow: 0 0 30px rgba(139, 43, 43, 0.2);
-        }
+    .label-top {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      padding-top: 6px;
+      line-height: 1.6;
+    }
 
-        .play-btn svg {
-            width: 35px;
-            height: 35px;
-            fill: currentColor;
-            margin-left: 6px; /* Compensa l'ottica del triangolo Play */
-            transition: all 0.3s;
-        }
+    /* Logo: JPEG bianco/nero → bianco su fondo scuro */
+    .logo {
+      width: 90px;
+      height: auto;
+      flex-shrink: 0;
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.88;
+    }
 
-        .play-btn.playing svg {
-            margin-left: 0; /* Centra le due barre della Pausa */
-        }
+    /* ---- BODY ---- */
+    .body {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 44px 20px;
+      opacity: 0;
+      animation: fadein 1.6s ease forwards 0.4s;
+    }
 
-        .status {
-            margin-top: 30px;
-            font-size: 0.8rem;
-            opacity: 0.4;
-            font-weight: 300;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-        /* Nasconde il brutto player di sistema */
-        audio {
-            display: none;
-        }
-    </style>
+    .title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(4.5rem, 12vw, 9rem);
+      color: #ffffff;
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+
+    .rule {
+      width: 100%;
+      max-width: 520px;
+      height: 1px;
+      background: rgba(255,255,255,0.18);
+      margin-bottom: 44px;
+    }
+
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.25rem, 3vw, 1.85rem);
+      color: rgba(255,255,255,0.88);
+      line-height: 1.55;
+      max-width: 600px;
+      margin-bottom: 64px;
+    }
+
+    /* ---- COUNTDOWN ---- */
+    .cd-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    .countdown {
+      display: flex;
+      gap: clamp(20px, 4vw, 52px);
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cd-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      min-width: 2ch;
+    }
+
+    .cd-unit-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+    }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      position: relative;
+      z-index: 1;
+      padding: 28px 44px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .footer-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    @media (max-width: 520px) {
+      .header, .body, .footer {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .title {
+        font-size: clamp(3.8rem, 18vw, 6rem);
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="logo">Il Nodo di Dara</div>
-    <div class="subtitle">La Foresta Sospesa</div>
+  <div class="header">
+    <div class="label-top">
+      Rimini · 2026
+    </div>
+    <img class="logo" src="./logo.jpeg" alt="Nodo di Dara" />
+  </div>
 
-    <div class="instructions">Indossa le cuffie, premi play.<br>Inizia l'immersione.</div>
+  <div class="body">
+    <h1 class="title">NODO<br>DI DARA</h1>
 
-    <button class="play-btn" id="playBtn" onclick="togglePlay()">
-        <svg id="playIcon" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"/>
-        </svg>
-        <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;">
-            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-        </svg>
-    </button>
+    <div class="rule"></div>
 
-    <div class="status" id="statusText">In attesa</div>
+    <p class="tagline">
+      "Non è un ciclo che si chiude,<br>
+      è una radice che si fortifica"
+    </p>
 
-    <audio id="soundscape" loop preload="auto">
-        <source src="https://f002.backblazeb2.com/file/SoundScape/soundscape20.mp3" type="audio/mpeg">
-    </audio>
+    <p class="cd-label">L'evento si svela tra</p>
 
-    <script>
-const audio = document.getElementById("soundscape");
-const playBtn = document.getElementById("playBtn");
-const playIcon = document.getElementById("playIcon");
-const pauseIcon = document.getElementById("pauseIcon");
-const statusText = document.getElementById("statusText");
+    <div class="countdown">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-days">--</span>
+        <span class="cd-unit-label">Giorni</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-hours">--</span>
+        <span class="cd-unit-label">Ore</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-mins">--</span>
+        <span class="cd-unit-label">Minuti</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-secs">--</span>
+        <span class="cd-unit-label">Secondi</span>
+      </div>
+    </div>
+  </div>
 
-// Rendi il tasto subito cliccabile (fondamentale per mobile)
-playBtn.style.opacity = "1";
-playBtn.style.cursor = "pointer";
-statusText.innerText = "Tocca per iniziare";
+  <div class="footer">
+    <span class="footer-text">elisabettacquaviva.it</span>
+    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+  </div>
 
-function togglePlay() {
-    // Forza il caricamento al primo click se non è ancora partito
-    if (audio.readyState === 0) {
-        statusText.innerText = "Connessione in corso...";
-        audio.load();
-    }
+  <script>
+    (function () {
+      var target = new Date('2026-03-05T10:00:00').getTime();
+      function pad(n) { return n < 10 ? '0' + n : String(n); }
+      function tick() {
+        var diff = target - Date.now();
+        if (diff <= 0) {
+          ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id){
+            document.getElementById(id).textContent = '00';
+          });
+          return;
+        }
+        document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
+        document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+        document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+        document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
 
-    if (audio.paused) {
-        // La "Promise" di play() gestisce i blocchi dei browser mobile
-        audio.play().then(() => {
-            playBtn.classList.add("playing");
-            playIcon.style.display = "none";
-            pauseIcon.style.display = "block";
-            statusText.innerText = "In riproduzione";
-        }).catch(error => {
-            console.error("Errore Play:", error);
-            statusText.innerText = "Tocca di nuovo per riprodurre";
-        });
-    } else {
-        audio.pause();
-        playBtn.classList.remove("playing");
-        playIcon.style.display = "block";
-        pauseIcon.style.display = "none";
-        statusText.innerText = "In pausa";
-    }
-}
-
-// Opzionale: se l'audio si interrompe per buffering, avvisa l'utente
-audio.addEventListener('waiting', () => {
-    statusText.innerText = "Caricamento...";
-});
-    audio.addEventListener('error', () => {
-    statusText.innerText = "Errore di connessione";
-    playBtn.classList.remove("playing");
-    playIcon.style.display = "block";
-    pauseIcon.style.display = "none";
-});
-    </script>
 </body>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script><!-- End Cloudflare Web Analytics -->
 </html>
