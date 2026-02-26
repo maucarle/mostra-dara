@@ -1,1 +1,706 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventi — Nodo di Dara</title>
+  <meta name="description" content="Incontri, dialoghi e presentazioni alla mostra Il Nodo di Dara. Museo della Città di Rimini, marzo–maggio 2026." />
 
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --oro:       #c9a96e;
+      --oro-dim:   rgba(201,169,110,0.18);
+      --oro-mid:   rgba(201,169,110,0.55);
+      --white:     #f5f5f0;
+      --white-mid: rgba(245,245,240,0.75);
+      --white-low: rgba(245,245,240,0.50);
+      --bg:        #0e0c0a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ══ NAV ══ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 44px;
+      background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 36px;
+      height: auto;
+      filter: invert(1);
+      opacity: 0.75;
+    }
+
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--oro); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white-low);
+    }
+
+    /* ══ HEADER PAGINA ══ */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      padding: 140px 44px 64px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .page-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--oro);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 32px;
+    }
+
+    .page-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--white-mid);
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    /* ══ CALENDARIO ══ */
+    .calendar {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 44px 120px;
+    }
+
+    /* Mese separator */
+    .month-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      padding: 40px 0 20px;
+      border-bottom: 1px solid var(--oro-dim);
+      margin-bottom: 0;
+    }
+
+    .month-label:first-child { padding-top: 0; }
+
+    /* Card evento */
+    .evento {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 28px;
+      align-items: start;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--oro-dim);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .evento:last-child { border-bottom: none; }
+
+    /* Colonna data */
+    .evento-date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 4px;
+    }
+
+    .evento-day {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: clamp(2.4rem, 5vw, 3.2rem);
+      color: var(--oro);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .evento-dow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.6vw, 0.88rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      margin-top: 4px;
+    }
+
+    /* Colonna contenuto */
+    .evento-body {}
+
+    .evento-time {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.12em;
+      color: var(--white-low);
+      margin-bottom: 8px;
+    }
+
+    .evento-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.1rem, 2.8vw, 1.45rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .evento-relatore {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      color: var(--white-mid);
+      margin-bottom: 10px;
+    }
+
+    .evento-location {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.82rem, 1.8vw, 0.92rem);
+      color: var(--white-low);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .evento-location svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--oro-mid);
+      flex-shrink: 0;
+    }
+
+    /* Badge tipo */
+    .evento-badge {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--oro-dim);
+      color: var(--oro-mid);
+      margin-bottom: 12px;
+    }
+
+    .evento-badge.stampa {
+      border-color: rgba(245,245,240,0.12);
+      color: var(--white-low);
+    }
+
+    /* Colonna azioni */
+    .evento-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+      padding-top: 4px;
+      min-width: 120px;
+    }
+
+    .btn-detail {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
+    .btn-detail:hover { color: var(--oro); }
+
+    .btn-detail svg {
+      width: 14px; height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      flex-shrink: 0;
+    }
+
+    .btn-luma {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--oro);
+      padding: 8px 16px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.3s;
+      display: inline-block;
+    }
+
+    .btn-luma:hover { opacity: 0.85; }
+
+    .btn-luma.disabled {
+      background: transparent;
+      border: 1px solid var(--oro-dim);
+      color: var(--white-low);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 28px 44px;
+      border-top: 1px solid var(--oro-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .footer-text a:hover { color: var(--oro-mid); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 680px) {
+      .nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(14,12,10,0.97);
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        z-index: 200;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .nav-toggle { display: flex; z-index: 300; }
+
+      .page-header { padding: 120px 24px 48px; }
+      .calendar { padding: 0 24px 80px; }
+
+      .evento {
+        grid-template-columns: 60px 1fr;
+        grid-template-rows: auto auto;
+        gap: 16px 20px;
+      }
+
+      .evento-actions {
+        grid-column: 2;
+        flex-direction: row;
+        align-items: center;
+        min-width: auto;
+        flex-wrap: wrap;
+      }
+
+      footer { padding: 24px; }
+    }
+
+    @media (max-width: 420px) {
+      .evento { grid-template-columns: 50px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="/">
+      <img src="../logo.jpeg" alt="Nodo di Dara" />
+      <span class="nav-logo-text">Nodo di Dara</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi" class="active">Eventi</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-label">Marzo — Maggio 2026</p>
+    <h1 class="page-title">EVENTI</h1>
+    <p class="page-sub">Incontri, dialoghi e presentazioni.<br>Ingresso gratuito con prenotazione.</p>
+  </div>
+
+  <div class="calendar">
+
+    <!-- ═══ MARZO ═══ -->
+    <div class="month-label">Marzo 2026</div>
+
+    <!-- 5 mar – Conferenza stampa -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">05</span>
+        <span class="evento-dow">Gio</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge stampa">Riservato alla stampa</span>
+        <p class="evento-time">11:00 – 12:00</p>
+        <h2 class="evento-title">Conferenza Stampa</h2>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Comune di Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <span class="btn-luma disabled">Solo stampa</span>
+      </div>
+    </div>
+
+    <!-- 7 mar – Inaugurazione -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">07</span>
+        <span class="evento-dow">Sab</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge">Vernissage</span>
+        <p class="evento-time">17:45 – 20:45</p>
+        <h2 class="evento-title">Inaugurazione</h2>
+        <p class="evento-relatore">Apertura ufficiale della mostra</p>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Museo della Città · Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <a class="btn-detail" href="./inaugurazione">Scopri
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="btn-luma" href="#" target="_blank" rel="noopener">Prenota</a>
+      </div>
+    </div>
+
+    <!-- 8 mar – Shooting Eli -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">08</span>
+        <span class="evento-dow">Dom</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge">Shooting fotografico</span>
+        <p class="evento-time">16:00 – 18:30</p>
+        <h2 class="evento-title">Shooting con Elisabetta Acquaviva</h2>
+        <p class="evento-relatore">Elisabetta Acquaviva</p>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Museo della Città · Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <a class="btn-detail" href="./shooting-elisabetta">Scopri
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="btn-luma" href="#" target="_blank" rel="noopener">Prenota</a>
+      </div>
+    </div>
+
+    <!-- 21 mar – Yoga -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">21</span>
+        <span class="evento-dow">Sab</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge">Workshop</span>
+        <p class="evento-time">16:00 – 18:00</p>
+        <h2 class="evento-title">Yoga</h2>
+        <p class="evento-relatore">Sabrina Rossi</p>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Museo della Città · Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <a class="btn-detail" href="./yoga-sabrina-rossi">Scopri
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="btn-luma" href="#" target="_blank" rel="noopener">Prenota</a>
+      </div>
+    </div>
+
+    <!-- 22 mar – Agopuntura -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">22</span>
+        <span class="evento-dow">Dom</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge">Incontro</span>
+        <p class="evento-time">16:00 – 18:30</p>
+        <h2 class="evento-title">Agopuntura e Menopausa</h2>
+        <p class="evento-relatore">Dott.ssa Marta Baldrati</p>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Museo della Città · Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <a class="btn-detail" href="./agopuntura-baldrati">Scopri
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="btn-luma" href="#" target="_blank" rel="noopener">Prenota</a>
+      </div>
+    </div>
+
+    <!-- 28 mar – Chiara Gregori -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">28</span>
+        <span class="evento-dow">Sab</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge">Presentazione libro</span>
+        <p class="evento-time">16:00 – 18:30</p>
+        <h2 class="evento-title">Mi sento una favola</h2>
+        <p class="evento-relatore">Chiara Gregori</p>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Museo della Città · Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <a class="btn-detail" href="./mi-sento-una-favola">Scopri
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="btn-luma" href="#" target="_blank" rel="noopener">Prenota</a>
+      </div>
+    </div>
+
+    <!-- ═══ APRILE ═══ -->
+    <div class="month-label">Aprile 2026</div>
+
+    <!-- 11 apr – Tenda Rossa -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">11</span>
+        <span class="evento-dow">Sab</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge">Incontro</span>
+        <p class="evento-time">16:00 – 18:30</p>
+        <h2 class="evento-title">La Tenda Rossa</h2>
+        <p class="evento-relatore">Monica Maddiona</p>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Studio Elisabetta Acquaviva · Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <a class="btn-detail" href="./la-tenda-rossa">Scopri
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="btn-luma" href="#" target="_blank" rel="noopener">Prenota</a>
+      </div>
+    </div>
+
+    <!-- 12 apr – Roberta Marcaccio -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">12</span>
+        <span class="evento-dow">Dom</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge">Presentazione libro</span>
+        <p class="evento-time">16:00 – 18:30</p>
+        <h2 class="evento-title">Menopausa+ Benessere</h2>
+        <p class="evento-relatore">Roberta Marcaccio</p>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Museo della Città · Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <a class="btn-detail" href="./menopausa-piu-benessere">Scopri
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="btn-luma" href="#" target="_blank" rel="noopener">Prenota</a>
+      </div>
+    </div>
+
+    <!-- 18 apr – TOS e Memoria -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">18</span>
+        <span class="evento-dow">Sab</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge">Incontro medico</span>
+        <p class="evento-time">16:00 – 18:00</p>
+        <h2 class="evento-title">TOS e Memoria</h2>
+        <p class="evento-relatore">Dott.ssa Nascetti · Dott.ssa Gosio</p>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Museo della Città · Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <a class="btn-detail" href="./tos-e-memoria">Scopri
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="btn-luma" href="#" target="_blank" rel="noopener">Prenota</a>
+      </div>
+    </div>
+
+    <!-- 19 apr – Perdite e Pavimento Pelvico -->
+    <div class="evento">
+      <div class="evento-date">
+        <span class="evento-day">19</span>
+        <span class="evento-dow">Dom</span>
+      </div>
+      <div class="evento-body">
+        <span class="evento-badge">Incontro medico</span>
+        <p class="evento-time">16:00 – 18:00</p>
+        <h2 class="evento-title">Perdite e Pavimento Pelvico</h2>
+        <p class="evento-relatore">Dott.ssa Nascetti · Irene Scarascia</p>
+        <p class="evento-location">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Museo della Città · Rimini
+        </p>
+      </div>
+      <div class="evento-actions">
+        <a class="btn-detail" href="./perdite-pavimento-pelvico">Scopri
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="btn-luma" href="#" target="_blank" rel="noopener">Prenota</a>
+      </div>
+    </div>
+
+  </div><!-- /calendar -->
+
+  <footer>
+    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+    <span class="footer-text">
+      <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
+    </span>
+  </footer>
+
+  <script>
+    var toggle = document.getElementById('navToggle');
+    var links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+  </script>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
+</body>
+</html>
