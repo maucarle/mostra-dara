@@ -1,1 +1,630 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foresta Sospesa — Il Nodo di Dara</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@200;300;400&display=swap');
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1410;
+    --bark: #2c241c;
+    --moss: #3d3328;
+    --thread: #8a7a6a;
+    --parchment: #f2ece3;
+    --cream: #faf7f2;
+    --gold: #c9a96e;
+    --fog: rgba(242,236,227,0.06);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--ink);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    color: var(--parchment);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Grain overlay ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; opacity: 0.4;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 60px 20px 20px;
+  }
+
+  .project-label {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--thread);
+    margin-bottom: 14px;
+  }
+
+  header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(32px, 5vw, 52px);
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    line-height: 1.1;
+  }
+
+  header h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .tagline {
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 200;
+    letter-spacing: 0.12em;
+    color: var(--thread);
+  }
+
+  /* ── Mode selector ── */
+  .mode-bar {
+    position: relative; z-index: 10;
+    display: flex; justify-content: center; gap: 8px;
+    padding: 28px 20px 10px;
+  }
+
+  .mode-btn {
+    background: transparent;
+    border: 1px solid var(--moss);
+    color: var(--thread);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 7px 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 0;
+  }
+
+  .mode-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .mode-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+
+  /* ── Forest ceiling: hanging threads ── */
+  .ceiling {
+    position: relative; z-index: 5;
+    height: 80px;
+    display: flex; align-items: flex-start;
+    padding: 0 40px;
+    overflow: hidden;
+  }
+
+  .ceiling svg {
+    width: 100%; height: 80px;
+    position: absolute; top: 0; left: 0;
+  }
+
+  /* ── Gallery grid ── */
+  .forest {
+    position: relative; z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0 30px;
+    padding: 0 40px 80px;
+    align-items: start;
+  }
+
+  /* ── Card ── */
+  .card-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  /* staggered top margins to simulate different hang lengths */
+  .card-wrap:nth-child(1)  { margin-top: 0; }
+  .card-wrap:nth-child(2)  { margin-top: 55px; }
+  .card-wrap:nth-child(3)  { margin-top: 20px; }
+  .card-wrap:nth-child(4)  { margin-top: 70px; }
+  .card-wrap:nth-child(5)  { margin-top: 10px; }
+  .card-wrap:nth-child(6)  { margin-top: 45px; }
+  .card-wrap:nth-child(7)  { margin-top: 30px; }
+  .card-wrap:nth-child(8)  { margin-top: 65px; }
+  .card-wrap:nth-child(9)  { margin-top: 5px; }
+  .card-wrap:nth-child(10) { margin-top: 50px; }
+
+  /* thread line above card */
+  .card-wrap::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--thread));
+    margin-bottom: 0;
+    opacity: 0.5;
+  }
+
+  /* swing animation */
+  @keyframes sway {
+    0%, 100% { transform: rotate(-0.8deg); }
+    50%       { transform: rotate(0.8deg); }
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    animation: sway 6s ease-in-out infinite;
+    transform-origin: top center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  }
+
+  /* stagger sway timing */
+  .card-wrap:nth-child(odd)  .card { animation-duration: 7s; animation-delay: -1s; }
+  .card-wrap:nth-child(even) .card { animation-duration: 5.5s; animation-delay: -3s; }
+
+  /* photo placeholder */
+  .photo {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: sepia(15%) brightness(0.88);
+    transition: filter 0.5s ease;
+  }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    background: var(--bark);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
+  }
+
+  .photo-placeholder .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--moss);
+    line-height: 1;
+  }
+
+  .photo-placeholder .pname {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--thread);
+    text-transform: uppercase;
+  }
+
+  /* ── Didascalia overlay ── */
+  .didascalia {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(20,15,10,0.1) 0%,
+      rgba(20,15,10,0.75) 35%,
+      rgba(20,15,10,0.97) 100%
+    );
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px 16px 18px;
+    opacity: 0;
+    transition: opacity 0.55s ease;
+    pointer-events: none;
+  }
+
+  .card.revealed .didascalia,
+  .mode-hover .card:hover .didascalia {
+    opacity: 1;
+  }
+
+  .dida-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .dida-age {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--thread);
+    margin-bottom: 10px;
+  }
+
+  .dida-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--cream);
+    /* show only first 3 lines, expand on full reveal */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card.revealed .dida-text { -webkit-line-clamp: unset; }
+
+  /* caption below card */
+  .card-label {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--thread);
+    opacity: 0.7;
+  }
+
+  /* ── Full overlay modal ── */
+  .modal-bg {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(10,8,6,0.92);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
+    backdrop-filter: blur(6px);
+  }
+
+  .modal-bg.open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    position: relative;
+    max-width: 780px; width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: var(--bark);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  }
+
+  @media (max-width: 600px) {
+    .modal { grid-template-columns: 1fr; }
+  }
+
+  .modal-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    filter: sepia(10%) brightness(0.9);
+  }
+
+  .modal-img-placeholder {
+    width: 100%; aspect-ratio: 3/4;
+    background: var(--moss);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+  }
+
+  .modal-img-placeholder .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px; font-weight: 300;
+    color: var(--bark); line-height: 1;
+  }
+
+  .modal-body {
+    padding: 36px 32px;
+    display: flex; flex-direction: column; justify-content: center;
+    overflow-y: auto;
+  }
+
+  .modal-label {
+    font-size: 10px; letter-spacing: 0.35em;
+    text-transform: uppercase; color: var(--thread);
+    margin-bottom: 8px;
+  }
+
+  .modal-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 28px;
+    font-weight: 300; color: var(--gold);
+    line-height: 1.2; margin-bottom: 4px;
+  }
+
+  .modal-age {
+    font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--thread);
+    margin-bottom: 24px;
+  }
+
+  .modal-divider {
+    width: 40px; height: 1px;
+    background: var(--gold); opacity: 0.4;
+    margin-bottom: 20px;
+  }
+
+  .modal-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; font-weight: 300;
+    line-height: 1.8; color: var(--parchment);
+  }
+
+  .modal-close {
+    position: absolute; top: 16px; right: 18px;
+    background: none; border: none;
+    color: var(--thread); font-size: 22px;
+    cursor: pointer; line-height: 1;
+    transition: color 0.2s;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .modal-close:hover { color: var(--gold); }
+
+  /* ── Footer line ── */
+  footer {
+    position: relative; z-index: 5;
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--moss);
+    border-top: 1px solid var(--moss);
+  }
+
+  /* ── Timer bar ── */
+  .timer-bar {
+    height: 2px;
+    background: var(--gold);
+    position: absolute; bottom: 0; left: 0;
+    width: 0;
+    transition: none;
+  }
+
+  .card.timing .timer-bar {
+    transition: width linear;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="project-label">Il Nodo di Dara &nbsp;·&nbsp; Foresta Sospesa</p>
+  <h1>Didascalie <em>dell'Anima</em></h1>
+  <p class="tagline">10 ritratti &nbsp;·&nbsp; 10 voci &nbsp;·&nbsp; Museo della Città, Rimini — Marzo 2026</p>
+</header>
+
+<div class="mode-bar">
+  <button class="mode-btn active" data-mode="click">↖ Click</button>
+  <button class="mode-btn" data-mode="hover">◉ Hover</button>
+  <button class="mode-btn" data-mode="timer">⏱ Timer 3s</button>
+</div>
+
+<div class="ceiling">
+  <svg id="threads-svg" preserveAspectRatio="none"></svg>
+</div>
+
+<div class="forest mode-click" id="forest">
+</div>
+
+<!-- Modal -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div id="modal-img-col"></div>
+    <div class="modal-body">
+      <p class="modal-label" id="m-label">Cartella</p>
+      <h2 class="modal-name" id="m-name"></h2>
+      <p class="modal-age" id="m-age"></p>
+      <div class="modal-divider"></div>
+      <p class="modal-text" id="m-text"></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Non è un ciclo che si chiude, è una radice che si fortifica
+</footer>
+
+<script>
+const women = [
+  {
+    id: "06",
+    name: "Silvia",
+    age: "51 anni",
+    short: "Il ventaglio davanti a tutti",
+    text: "Silvia è in menopausa conclamata da un anno e mezzo, ma i sintomi erano già lì da cinque o sei anni — vampate, nebbia mentale, ansia, attacchi di panico, una depressione affrontata da sola. Cinque anni in cui ha girato medici che non sapevano darle un nome a quello che stava vivendo. A un certo punto si ferma, si scusa per le lacrime. \"Io non piango mai.\" Ed è forse il momento più vero di tutto il pomeriggio. Ne è uscita da sola, in silenzio, con scelte fatte in completa autonomia. Al lavoro, quando arriva la vampata, tira fuori il ventaglio davanti a tutti e dichiara ad alta voce di essere in menopausa. Vede l'imbarazzo negli occhi delle donne intorno a lei — e questo la spinge a dirlo ancora di più."
+  },
+  {
+    id: "26",
+    name: "Manuela",
+    age: "55 anni",
+    short: "\"Non ce l'ho una risorsa\"",
+    text: "La testimonianza di Manuela è un atto di coraggio puro nella sua onestà brutale. Di fronte alla domanda sulle risorse, lei risponde senza fingere: \"Non ce l'ho una risorsa\". Confessa la fatica più grande: \"Non riuscire più a riconoscermi, io non sono più quella che ero\". La sua voce rappresenta tutte le donne che sono ancora nel mezzo della tempesta, che cercano il buco della serratura al buio. È un promemoria fondamentale: a volte la risorsa è proprio ammettere di non averla ancora trovata, e darsi il tempo di cercarla."
+  },
+  {
+    id: "65",
+    name: "Stefania",
+    age: "55 anni",
+    short: "\"Non me la faccio pesare\"",
+    text: "Stefania è entrata in menopausa a 40 anni e da allora conta i minuti. Ogni dieci, una caldana. Quindici anni così, dalla mattina alla sera, estate compresa — \"l'estate è un delirio\". La terapia ormonale le ha attenuato i demoni, non li ha tolti. A questo ci si aggiunge la fibromialgia: dolori con cui convive ogni giorno. Se le chiedi cosa c'è di bello, risponde secca: \"Non c'è.\" Poi si ferma un secondo e aggiunge: \"Ho di bello che non me la faccio pesare.\" È la frase più onesta del pomeriggio. Non è una risoluzione, non è un lieto fine: è la descrizione precisa di una donna che porta un peso reale e ha scelto di non farne il centro della propria identità. \"Ci sto convivendo.\" Basta così."
+  },
+  {
+    id: "56",
+    name: "Roberta",
+    age: "55 anni",
+    short: "Lavorare sull'interno",
+    text: "Roberta è arrivata in menopausa di punto in bianco, senza preavviso, come una porta che sbatte. Ha fatto i test di gravidanza prima di capire cosa stava succedendo. Poi è arrivato tutto insieme: i chili, la depressione già sua, la famiglia che non capiva, il ginocchio che ha ceduto. Non ha trovato vie brevi. Ha trovato invece una direzione: \"non potendo lavorare sulla parte esteriore, ho lavorato sulla parte interiore.\" Adesso va a teatro da sola, compra libri, guarda i tramonti, investe in ricordi — non in borse. L'unica cosa che le manca ancora, quella su cui sta lavorando: riuscire a guardarsi allo specchio. \"Ci provo.\""
+  },
+  {
+    id: "43",
+    name: "Eleonora",
+    age: "38 anni",
+    short: "La cicatrice di una battaglia vinta",
+    text: "Eleonora ha una storia diversa, segnata dalla urgenza della sopravvivenza. La sua menopausa non è arrivata con l'età, ma a 38 anni, indotta per proteggerla dopo la lotta contro due tumori. Parla di \"sfide estremamente personali\" e di crisi da cui nascono opportunità. Non c'è spazio per il lamento superficiale: la sua menopausa è la cicatrice di una battaglia vinta, il prezzo da pagare per la sua \"rinascita\". È la gratitudine pura di chi sa che essere qui a raccontarlo è l'unica cosa che conta."
+  },
+  {
+    id: "73",
+    name: "Lorella",
+    age: "64 anni",
+    short: "Una menopausa inghiottita",
+    text: "La menopausa di Lorella è arrivata a 45 anni mentre lei stava facendo la chemioterapia. Non c'era spazio per pensarci: la malattia occupava tutto il campo visivo, ogni energia era concentrata sulle cure. Quando il percorso si è concluso, ha scoperto di essere già dall'altra parte — senza vampate, senza i segnali classici, perché era già tutto spianato da quello che aveva attraversato. Una menopausa quasi silenziosa, inghiottita da una battaglia più grande. La sua testimonianza ci ricorda che a volte il corpo affronta più trasformazioni contemporaneamente, e che sopravvivere a tutte è già una forma di forza."
+  },
+  {
+    id: "04",
+    name: "Chiara",
+    age: "43 anni",
+    short: "\"Si sono spente le luci\"",
+    text: "Chiara la menopausa non l'ha voluta. È arrivata dopo una mammografia di routine che ha trovato qualcosa che lei, in fondo, già sentiva. \"Si sono spente le luci.\" Poi ha capito di essere stata fortunata. Non ha avuto paura di morire né di operarsi: \"Fate quello che volete, basta che poi sto bene.\" I sintomi non la spaventano, dice. La fanno incazzare. Ma la sua conclusione è disarmante nella sua semplicità: \"Ringrazio chi mi ha trovato questa cosa, ringrazio di non avere più il ciclo, ringrazio le caldane.\" Essere qui a raccontarlo è già tutto."
+  },
+  {
+    id: "57",
+    name: "Lucia",
+    age: "54 anni",
+    short: "\"Felicemente\"",
+    text: "Lucia usa una parola rivoluzionaria: \"Felicemente\". Non vuole tornare indietro, perché a 54 anni ha scoperto il lusso di scegliere solo ciò che la fa stare bene. Ha smesso di investire in vestiti per investire in esperienze: \"Mi piace guardare i tramonti, mi piace vedere i colori\". La sua menopausa è una pulizia del superfluo che ha lasciato spazio solo alla meraviglia e alla voglia di vedere il mondo con occhi nuovi."
+  },
+  {
+    id: "88",
+    name: "Monica",
+    age: "54 anni",
+    short: "Un paradigma, non un destino",
+    text: "Monica è entrata in menopausa a 46 anni e non ha quasi sofferto. La sua spiegazione non è genetica: è culturale. Ha lavorato per anni sul ciclo mestruale come linguaggio del corpo, ha imparato ad ascoltare le proprie energie fase per fase, e quando la menopausa è arrivata l'ha accolta come un passaggio, non come una patologia. Porta un'idea radicata in culture lontane: dove la menopausa non è vissuta come declino, le donne non la soffrono allo stesso modo. Non è il corpo che decide — è il paradigma in cui si vive. La fine della ciclicità non è la fine della femminilità. È l'inizio della sorgente."
+  },
+  {
+    id: "87",
+    name: "Eugenia",
+    age: "67 anni",
+    short: "Il portamento",
+    text: "Eugenia ha avuto la fortuna di incontrare presto una ginecologa illuminata che, tredici anni fa, le ha prescritto una terapia ormonale bioidentica quando quasi nessuno ne parlava ancora. Quella scelta le ha cambiato la qualità di vita: pelle, capelli, umore, energia. Sale e scende la scalinata di Trinità dei Monti ogni mattina cercando di non guardare i gradini mentre scende. Perché è convinta di una cosa: quello che invecchia una persona non è la ruga, ma la camminata. Il portamento, la sicurezza, il modo di muoversi nel mondo. Ha imparato a dire i no che prima non riusciva a dire. La sua risposta al tempo che passa non è la resa: è il portamento."
+  }
+];
+
+const forest = document.getElementById('forest');
+const modalBg = document.getElementById('modal-bg');
+const modalClose = document.getElementById('modal-close');
+let currentMode = 'click';
+let timerHandles = {};
+
+// Build cards
+women.forEach((w, i) => {
+  const wrap = document.createElement('div');
+  wrap.className = 'card-wrap';
+  wrap.innerHTML = `
+    <div class="card" data-index="${i}">
+      <div class="photo-placeholder">
+        <span class="num">${w.id}</span>
+        <span class="pname">${w.name}</span>
+      </div>
+      <div class="didascalia">
+        <p class="dida-name">${w.name}</p>
+        <p class="dida-age">${w.age} &nbsp;·&nbsp; Cartella ${w.id}</p>
+        <p class="dida-text">${w.text}</p>
+      </div>
+      <div class="timer-bar" id="tbar-${i}"></div>
+    </div>
+    <p class="card-label">${w.short}</p>
+  `;
+  forest.appendChild(wrap);
+});
+
+// Draw ceiling threads
+function drawThreads() {
+  const svg = document.getElementById('threads-svg');
+  const cards = document.querySelectorAll('.card-wrap');
+  const forestRect = forest.getBoundingClientRect();
+  const ceilRect = svg.getBoundingClientRect();
+  let paths = '';
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const x = rect.left - forestRect.left + rect.width / 2 + 40;
+    paths += `<line x1="${x}" y1="0" x2="${x}" y2="80" stroke="#3d3328" stroke-width="1" opacity="0.6"/>`;
+  });
+  svg.innerHTML = paths;
+}
+
+setTimeout(drawThreads, 100);
+window.addEventListener('resize', drawThreads);
+
+// Mode switcher
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentMode = btn.dataset.mode;
+    forest.className = `forest mode-${currentMode}`;
+    // clear all reveals
+    document.querySelectorAll('.card').forEach(c => {
+      c.classList.remove('revealed','timing');
+    });
+    Object.values(timerHandles).forEach(clearTimeout);
+    timerHandles = {};
+    if (currentMode === 'timer') startAllTimers();
+  });
+});
+
+function startAllTimers() {
+  document.querySelectorAll('.card').forEach((card, i) => {
+    const delay = i * 800;
+    timerHandles[i] = setTimeout(() => {
+      const bar = document.getElementById(`tbar-${i}`);
+      bar.style.transition = 'width 3s linear';
+      bar.style.width = '100%';
+      setTimeout(() => {
+        card.classList.add('revealed');
+        bar.style.width = '0';
+        bar.style.transition = 'none';
+      }, 3000);
+    }, delay);
+  });
+}
+
+// Click handler
+forest.addEventListener('click', e => {
+  const card = e.target.closest('.card');
+  if (!card) return;
+  const idx = parseInt(card.dataset.index);
+  const w = women[idx];
+  if (currentMode === 'click') {
+    openModal(w);
+  }
+});
+
+// Modal
+function openModal(w) {
+  document.getElementById('m-label').textContent = `Cartella ${w.id}`;
+  document.getElementById('m-name').textContent = w.name;
+  document.getElementById('m-age').textContent = w.age;
+  document.getElementById('m-text').textContent = w.text;
+  const imgCol = document.getElementById('modal-img-col');
+  imgCol.innerHTML = `
+    <div class="modal-img-placeholder">
+      <span class="num">${w.id}</span>
+      <span class="pname" style="font-family:'Raleway';font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--thread)">${w.name}</span>
+    </div>`;
+  modalBg.classList.add('open');
+}
+
+modalClose.addEventListener('click', () => modalBg.classList.remove('open'));
+modalBg.addEventListener('click', e => { if (e.target === modalBg) modalBg.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') modalBg.classList.remove('open'); });
+</script>
+</body>
+</html>
