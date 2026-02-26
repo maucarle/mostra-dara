@@ -13,14 +13,13 @@
 
   <style>
     :root {
-      --oro:        #c9a96e;
-      --oro-dim:    rgba(201,169,110,0.18);
-      --oro-mid:    rgba(201,169,110,0.45);
-      --white:      #f5f5f0;
-      --white-mid:  rgba(245,245,240,0.62);
-      --white-low:  rgba(245,245,240,0.32);
-      --bg:         #0e0c0a;
-      --bg-warm:    #161210;
+      --oro:       #c9a96e;
+      --oro-dim:   rgba(201,169,110,0.18);
+      --oro-mid:   rgba(201,169,110,0.55);
+      --white:     #f5f5f0;
+      --white-mid: rgba(245,245,240,0.75);
+      --white-low: rgba(245,245,240,0.50);
+      --bg:        #0e0c0a;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,7 +34,6 @@
       position: relative;
     }
 
-    /* Grain */
     body::before {
       content: '';
       position: fixed;
@@ -46,9 +44,7 @@
       z-index: 0;
     }
 
-    /* ══════════════════════
-       NAVIGAZIONE
-    ══════════════════════ */
+    /* ══ NAVIGAZIONE ══ */
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -57,7 +53,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 20px 44px;
-      background: linear-gradient(to bottom, rgba(14,12,10,0.95), transparent);
+      background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
     }
@@ -79,8 +75,8 @@
     .nav-logo-text {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 600;
-      font-size: 0.75rem;
-      letter-spacing: 0.22em;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--oro);
     }
@@ -88,15 +84,16 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
 
+    /* Voci di menu — leggibili */
     .nav-links a {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 300;
-      font-size: 0.62rem;
-      letter-spacing: 0.35em;
+      font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--white-low);
       text-decoration: none;
@@ -104,11 +101,8 @@
     }
 
     .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--oro);
-    }
+    .nav-links a.active { color: var(--oro); }
 
-    /* Hamburger mobile */
     .nav-toggle {
       display: none;
       flex-direction: column;
@@ -121,15 +115,13 @@
 
     .nav-toggle span {
       display: block;
-      width: 22px;
+      width: 24px;
       height: 1px;
       background: var(--white-low);
       transition: all 0.3s;
     }
 
-    /* ══════════════════════
-       HERO
-    ══════════════════════ */
+    /* ══ HERO ══ */
     .hero {
       position: relative;
       z-index: 1;
@@ -138,17 +130,13 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 0 44px 80px;
-      background: linear-gradient(to bottom, transparent 40%, rgba(14,12,10,0.7) 100%);
     }
 
-    /* Sfondo hero con gradiente taupe */
     .hero::after {
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse at 70% 30%, rgba(90,74,56,0.25) 0%, transparent 60%),
-        radial-gradient(ellipse at 20% 80%, rgba(30,22,16,0.5) 0%, transparent 55%);
+      background: radial-gradient(ellipse at 70% 30%, rgba(90,74,56,0.2) 0%, transparent 60%);
       z-index: 0;
     }
 
@@ -164,11 +152,12 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* "Rimini · Museo della Città · 7 mar..." — leggibile */
     .hero-kicker {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 300;
-      font-size: 0.6rem;
-      letter-spacing: 0.5em;
+      font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--oro-mid);
       margin-bottom: 20px;
@@ -196,19 +185,14 @@
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+      font-size: clamp(1.15rem, 2.8vw, 1.65rem);
       color: var(--white-mid);
       line-height: 1.6;
       max-width: 580px;
     }
 
-    /* ══════════════════════
-       SEZIONI CONTENUTO
-    ══════════════════════ */
-    main {
-      position: relative;
-      z-index: 1;
-    }
+    /* ══ SEZIONI ══ */
+    main { position: relative; z-index: 1; }
 
     .section {
       padding: 100px 44px;
@@ -217,55 +201,48 @@
       border-top: 1px solid var(--oro-dim);
     }
 
-    .section:first-child {
-      border-top: none;
-    }
-
+    /* Label sezione — leggibile */
     .section-label {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 300;
-      font-size: 0.58rem;
-      letter-spacing: 0.5em;
+      font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--oro-mid);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .section-title {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 600;
-      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      font-size: clamp(2rem, 5vw, 3.8rem);
       color: var(--oro);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       line-height: 1;
       margin-bottom: 40px;
     }
 
     .section-title.large {
-      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
     }
 
-    /* Testo corpo */
     .prose {
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
-      font-size: clamp(0.95rem, 2vw, 1.08rem);
+      font-size: clamp(1rem, 2vw, 1.1rem);
       color: var(--white-mid);
       line-height: 1.85;
       max-width: 680px;
     }
 
-    .prose + .prose {
-      margin-top: 24px;
-    }
+    .prose + .prose { margin-top: 24px; }
 
-    /* Quote grande */
     .blockquote {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(1.3rem, 3.5vw, 2rem);
+      font-size: clamp(1.2rem, 3.2vw, 1.9rem);
       color: var(--white-mid);
       line-height: 1.55;
       border-left: 1px solid var(--oro-mid);
@@ -278,8 +255,9 @@
       display: block;
       font-style: normal;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.35em;
+      font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--oro-mid);
       margin-top: 16px;
@@ -295,22 +273,14 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 16px;
       margin: 48px 0;
       position: relative;
-      overflow: hidden;
-    }
-
-    .video-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.04) 0%, transparent 70%);
     }
 
     .video-placeholder-icon {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       border: 1px solid var(--oro-dim);
       display: flex;
@@ -320,46 +290,40 @@
     }
 
     .video-placeholder-icon svg {
-      width: 18px;
-      height: 18px;
+      width: 20px; height: 20px;
       fill: currentColor;
       margin-left: 3px;
     }
 
+    /* Label placeholder video — leggibile */
     .video-placeholder-label {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 300;
-      font-size: 0.58rem;
-      letter-spacing: 0.4em;
+      font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--white-low);
     }
 
     /* Griglia 5 spazi */
-    .spaces-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
-      margin-top: 16px;
-    }
+    .spaces-grid { margin-top: 16px; }
 
     .space-item {
       padding: 36px 0;
       border-bottom: 1px solid var(--oro-dim);
       display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: 32px;
+      grid-template-columns: 160px 1fr;
+      gap: 36px;
       align-items: start;
     }
 
-    .space-item:last-child {
-      border-bottom: none;
-    }
+    .space-item:last-child { border-bottom: none; }
 
+    /* Nome spazio — leggibile */
     .space-name {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 500;
-      font-size: clamp(0.85rem, 2vw, 1rem);
+      font-size: clamp(1rem, 2vw, 1.1rem);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--oro);
@@ -369,7 +333,7 @@
     .space-desc {
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
-      font-size: clamp(0.88rem, 1.8vw, 0.98rem);
+      font-size: clamp(1rem, 2vw, 1.1rem);
       color: var(--white-mid);
       line-height: 1.8;
     }
@@ -377,23 +341,16 @@
     /* Simbolo */
     .symbol-block {
       display: grid;
-      grid-template-columns: 1fr 220px;
+      grid-template-columns: 1fr 200px;
       gap: 64px;
       align-items: center;
     }
 
     .symbol-img {
       width: 100%;
-      max-width: 220px;
+      max-width: 200px;
       filter: invert(1);
-      opacity: 0.55;
-    }
-
-    /* Bio */
-    .bio-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 32px;
+      opacity: 0.5;
     }
 
     /* Ringraziamenti */
@@ -407,19 +364,19 @@
     .thanks-item-name {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 500;
-      font-size: 0.8rem;
+      font-size: clamp(1rem, 2vw, 1.08rem);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--oro);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .thanks-item-desc {
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
-      font-size: 0.85rem;
+      font-size: clamp(1rem, 2vw, 1.05rem);
       color: var(--white-low);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     .thanks-closing {
@@ -435,9 +392,7 @@
       max-width: 560px;
     }
 
-    /* ══════════════════════
-       FOOTER
-    ══════════════════════ */
+    /* ══ FOOTER ══ */
     footer {
       position: relative;
       z-index: 1;
@@ -448,29 +403,21 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
-      max-width: 100%;
     }
 
     .footer-text {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 200;
-      font-size: 0.58rem;
-      letter-spacing: 0.32em;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--white-low);
     }
 
-    .footer-text a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
+    .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
     .footer-text a:hover { color: var(--oro-mid); }
 
-    /* ══════════════════════
-       RESPONSIVE
-    ══════════════════════ */
+    /* ══ RESPONSIVE ══ */
     @media (max-width: 680px) {
       .nav { padding: 18px 24px; }
       .nav-links { display: none; }
@@ -478,30 +425,26 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
+        inset: 0;
         background: rgba(14,12,10,0.97);
         justify-content: center;
         align-items: center;
-        gap: 36px;
+        gap: 40px;
         z-index: 200;
       }
-      .nav-links.open a { font-size: 1rem; }
+      .nav-links.open a { font-size: 1.1rem; }
       .nav-toggle { display: flex; z-index: 300; }
-
       .hero { padding: 0 24px 64px; }
       .section { padding: 64px 24px; }
-
-      .space-item { grid-template-columns: 1fr; gap: 12px; }
+      .space-item { grid-template-columns: 1fr; gap: 10px; }
       .symbol-block { grid-template-columns: 1fr; }
-      .symbol-img { max-width: 140px; }
-
+      .symbol-img { max-width: 130px; }
       footer { padding: 24px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ══ NAVIGAZIONE ══ -->
   <nav class="nav">
     <a class="nav-logo" href="/">
       <img src="../logo.jpeg" alt="Nodo di Dara" />
@@ -518,8 +461,6 @@
     </button>
   </nav>
 
-
-  <!-- ══ HERO ══ -->
   <div class="hero">
     <div class="hero-inner">
       <p class="hero-kicker">Rimini · Museo della Città · 7 mar — 10 mag 2026</p>
@@ -533,15 +474,12 @@
     </div>
   </div>
 
-
   <main>
 
-    <!-- ══ LA GENESI ══ -->
     <section class="section">
       <p class="section-label">La genesi</p>
       <h2 class="section-title large">Il Progetto</h2>
 
-      <!-- Placeholder video genesi — sostituire con <video> o <iframe> -->
       <div class="video-placeholder">
         <div class="video-placeholder-icon">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -555,128 +493,77 @@
         un canto, una risata collettiva."
       </blockquote>
 
-      <p class="prose">
-        "Ciao, sono Elisabetta, ho 53 anni e sono in menopausa."
-        Ci tengo a dirlo perché non se ne parla. La menopausa è considerata un tabù e, nel momento in cui una donna entra in menopausa, in automatico è un concetto che viene nascosto.
-      </p>
-      <p class="prose">
-        Per me è stato come un tornado. Mi ha cambiato la vita, mi ha fatto fare tanta fatica, mi ha fatto sentire pesantemente in difficoltà. Mi sono sentita vecchia, non utile, non mi sono più ritrovata nel mio corpo. Mi ha fatto sentire "meno". E noi non ci possiamo sentire "meno".
-      </p>
-      <p class="prose">
-        Oggi mi sento chiamata a nominarla, a pronunciarla, a dirla: "sono in menopausa", non è un problema. Come me, tantissime donne non si devono sentire "meno" e voglio che tutto ciò che di bello ha la menopausa venga detto a voce alta.
-      </p>
-      <p class="prose">
-        Da qui nasce questo progetto. Un progetto in cui ti prendi del tempo, in cui fai i conti con te stessa e capisci che sei vera, sei radicata e hai tanto da dare.
-      </p>
-      <p class="prose">
-        Ogni donna che arriva in studio da me non sa cosa l'aspetta. Arriva fidandosi, spesso "alla cieca". E io sento la responsabilità di creare uno spazio sicuro dove possano sentirsi accolte, dove possano svuotare il barile, piangere, ridere, dire a voce alta cose che forse non avevano mai confessato nemmeno a se stesse.
-      </p>
-      <p class="prose">
-        Mi sento come un mignolo: quel sostegno discreto che serve a un bambino che già sa camminare ma cerca quel contatto per sentirsi stabile. Il mio obiettivo non è fare una bella fotografia. È accompagnare ogni donna in un percorso di trasformazione. La fotografia, qui, diventa cura.
-      </p>
+      <p class="prose">"Ciao, sono Elisabetta, ho 53 anni e sono in menopausa." Ci tengo a dirlo perché non se ne parla. La menopausa è considerata un tabù e, nel momento in cui una donna entra in menopausa, in automatico è un concetto che viene nascosto.</p>
+      <p class="prose">Per me è stato come un tornado. Mi ha cambiato la vita, mi ha fatto fare tanta fatica, mi ha fatto sentire pesantemente in difficoltà. Mi sono sentita vecchia, non utile, non mi sono più ritrovata nel mio corpo. Mi ha fatto sentire "meno". E noi non ci possiamo sentire "meno".</p>
+      <p class="prose">Oggi mi sento chiamata a nominarla, a pronunciarla, a dirla: "sono in menopausa", non è un problema. Come me, tantissime donne non si devono sentire "meno" e voglio che tutto ciò che di bello ha la menopausa venga detto a voce alta.</p>
+      <p class="prose">Da qui nasce questo progetto. Un progetto in cui ti prendi del tempo, in cui fai i conti con te stessa e capisci che sei vera, sei radicata e hai tanto da dare.</p>
+      <p class="prose">Ogni donna che arriva in studio da me non sa cosa l'aspetta. Arriva fidandosi, spesso "alla cieca". E io sento la responsabilità di creare uno spazio sicuro dove possano sentirsi accolte, dove possano svuotare il barile, piangere, ridere, dire a voce alta cose che forse non avevano mai confessato nemmeno a se stesse.</p>
+      <p class="prose">Mi sento come un mignolo: quel sostegno discreto che serve a un bambino che già sa camminare ma cerca quel contatto per sentirsi stabile. Il mio obiettivo non è fare una bella fotografia. È accompagnare ogni donna in un percorso di trasformazione. La fotografia, qui, diventa cura.</p>
 
       <blockquote class="blockquote">
         "Io non fotografo, io accompagno."
         <cite>— Elisabetta Acquaviva</cite>
       </blockquote>
 
-      <!-- Placeholder video TG3 -->
-      <video controls width="100%" style="margin:48px 0;">
-  <source src="./Il Nodo di dara al TG3.mp4" type="video/mp4">
-      </video>
+      <div class="video-placeholder">
+        <div class="video-placeholder-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <span class="video-placeholder-label">Video — Il Nodo di Dara al TG3 Nazionale</span>
+      </div>
     </section>
 
-
-    <!-- ══ IL SIMBOLO ══ -->
     <section class="section">
       <p class="section-label">Il simbolo</p>
       <h2 class="section-title">Il Nodo di Dara</h2>
-
       <div class="symbol-block">
         <div>
-          <p class="prose">
-            Il Nodo di Dara prende il nome da un antico simbolo celtico che rappresenta le radici della quercia: <em>Doire</em>, in gaelico, significa proprio "quercia".
-          </p>
-          <p class="prose" style="margin-top:20px;">
-            Come le radici di una quercia secolare, intrecciate, profonde e indistruttibili, questo simbolo racconta la forza invisibile che sostiene l'albero attraverso ogni stagione. Radici che non si vedono ma che tengono, che affondano nella terra e ne traggono nutrimento, che si espandono e si fortificano con il tempo.
-          </p>
-          <p class="prose" style="margin-top:20px;">
-            Proprio come noi donne che attraversiamo la menopausa: abbiamo radici profonde fatte di anni vissuti, di esperienze accumulate, di saggezza conquistata. Abbiamo dato tanto e abbiamo ancora tanto da dare. Non siamo "meno". Siamo radicate, forti, vere. E oltre ad avere radici profonde, ancora fiorisce.
-          </p>
-          <p class="prose" style="margin-top:20px;">
-            Il Nodo di Dara non ha inizio né fine: è un intreccio continuo che simboleggia il legame tra tutte le donne che condividono questa trasformazione. Ogni donna è un nodo in questa rete infinita di forza collettiva.
-          </p>
+          <p class="prose">Il Nodo di Dara prende il nome da un antico simbolo celtico che rappresenta le radici della quercia: <em>Doire</em>, in gaelico, significa proprio "quercia".</p>
+          <p class="prose" style="margin-top:20px;">Come le radici di una quercia secolare, intrecciate, profonde e indistruttibili, questo simbolo racconta la forza invisibile che sostiene l'albero attraverso ogni stagione. Radici che non si vedono ma che tengono, che affondano nella terra e ne traggono nutrimento, che si espandono e si fortificano con il tempo.</p>
+          <p class="prose" style="margin-top:20px;">Proprio come noi donne che attraversiamo la menopausa: abbiamo radici profonde fatte di anni vissuti, di esperienze accumulate, di saggezza conquistata. Abbiamo dato tanto e abbiamo ancora tanto da dare. Non siamo "meno". Siamo radicate, forti, vere. E oltre ad avere radici profonde, ancora fiorisce.</p>
+          <p class="prose" style="margin-top:20px;">Il Nodo di Dara non ha inizio né fine: è un intreccio continuo che simboleggia il legame tra tutte le donne che condividono questa trasformazione. Ogni donna è un nodo in questa rete infinita di forza collettiva.</p>
         </div>
         <img class="symbol-img" src="../logo.jpeg" alt="Simbolo Nodo di Dara" />
       </div>
     </section>
 
-
-    <!-- ══ L'ESPERIENZA IN MOSTRA ══ -->
     <section class="section">
       <p class="section-label">Museo della Città · Rimini</p>
       <h2 class="section-title large">L'Esperienza<br>in Mostra</h2>
-      <p class="prose" style="margin-bottom:16px;">
-        Questa mostra è un viaggio attraverso più spazi, ognuno pensato per offrirti un'esperienza diversa. Non c'è un percorso obbligato: lasciati guidare dalla curiosità e dall'emozione.
-      </p>
+      <p class="prose" style="margin-bottom:16px;">Questa mostra è un viaggio attraverso più spazi, ognuno pensato per offrirti un'esperienza diversa. Non c'è un percorso obbligato: lasciati guidare dalla curiosità e dall'emozione.</p>
 
       <div class="spaces-grid">
         <div class="space-item">
-          <span class="space-name">La Foresta<br>Sospesa</span>
-          <p class="space-desc">
-            Lo spazio principale della mostra, dove i ritratti delle donne sono sospesi come in una foresta di voci. Qui troverai 87 fotografie accompagnate dalle parole dirette di ogni donna. Prenditi il tempo di leggere, di ascoltare il soundscape che ti avvolge, di sentirti parte di questa rete di esperienze condivise.
-          </p>
+          <span class="space-name">La Foresta Sospesa</span>
+          <p class="space-desc">Lo spazio principale della mostra, dove i ritratti delle donne sono sospesi come in una foresta di voci. Qui troverai 87 fotografie accompagnate dalle parole dirette di ogni donna. Prenditi il tempo di leggere, di ascoltare il soundscape che ti avvolge, di sentirti parte di questa rete di esperienze condivise.</p>
         </div>
         <div class="space-item">
-          <span class="space-name">La Stanza della<br>Trasformazione</span>
-          <p class="space-desc">
-            Un angolo dedicato al prima e al dopo. Qui vedrai ingrandimenti generosi che mostrano il primo scatto e l'ultimo di alcune donne: la prova visiva di come l'accoglienza e l'ascolto possano far sbocciare la verità di ognuna.
-          </p>
+          <span class="space-name">La Stanza della Trasformazione</span>
+          <p class="space-desc">Un angolo dedicato al prima e al dopo. Qui vedrai ingrandimenti generosi che mostrano il primo scatto e l'ultimo di alcune donne: la prova visiva di come l'accoglienza e l'ascolto possano far sbocciare la verità di ognuna.</p>
         </div>
         <div class="space-item">
           <span class="space-name">La Black Box</span>
-          <p class="space-desc">
-            Una stanza separata dove ascoltare le testimonianze video. Concediti almeno 10 minuti. Qui le voci diventano corpi, sguardi, silenzi. È uno spazio intimo: fermati, ascolta per intero.
-          </p>
+          <p class="space-desc">Una stanza separata dove ascoltare le testimonianze video. Concediti almeno 10 minuti. Qui le voci diventano corpi, sguardi, silenzi. È uno spazio intimo: fermati, ascolta per intero.</p>
         </div>
         <div class="space-item">
-          <span class="space-name">La Stanza<br>degli Eventi</span>
-          <p class="space-desc">
-            Durante il periodo della mostra, questo spazio ospiterà incontri, dialoghi e presentazioni con persone e personaggi autorevoli che hanno scelto di dare voce a questo progetto. Consulta il programma all'ingresso per scoprire gli appuntamenti.
-          </p>
+          <span class="space-name">La Stanza degli Eventi</span>
+          <p class="space-desc">Durante il periodo della mostra, questo spazio ospiterà incontri, dialoghi e presentazioni con persone e personaggi autorevoli che hanno scelto di dare voce a questo progetto. Consulta il programma all'ingresso per scoprire gli appuntamenti.</p>
         </div>
         <div class="space-item">
           <span class="space-name">Il Tuo Nodo</span>
-          <p class="space-desc">
-            Alla fine del percorso, potrai lasciare la tua testimonianza, legare il tuo nodo, aggiungere la tua voce a questa rete infinita. Puoi farlo in forma anonima o con il tuo nome. Puoi scrivere poche parole o raccontare la tua storia. Questo è il tuo tempo. Non avere fretta.
-          </p>
+          <p class="space-desc">Alla fine del percorso, potrai lasciare la tua testimonianza, legare il tuo nodo, aggiungere la tua voce a questa rete infinita. Puoi farlo in forma anonima o con il tuo nome. Questo è il tuo tempo. Non avere fretta.</p>
         </div>
       </div>
     </section>
 
-
-    <!-- ══ ELISABETTA ══ -->
     <section class="section">
       <p class="section-label">Fotografa e ideatrice</p>
       <h2 class="section-title">Elisabetta<br>Acquaviva</h2>
-
-      <div class="bio-grid">
-        <p class="prose">
-          Elisabetta Acquaviva è una fotografa di Rimini con oltre 35 anni di esperienza. Cresciuta nel laboratorio di stampa in bianco e nero dei genitori, tra l'odore di chimici e le mani sporche d'emulsione, la fotografia è sempre stata parte della sua identità.
-        </p>
-        <p class="prose">
-          La sua ricerca artistica si concentra sulle soglie del femminile, esplorando quei passaggi di vita spesso avvolti nel silenzio. Dopo il progetto <em>La Tenda Rossa</em>, dedicato al tabù delle mestruazioni, nel 2019 entra in menopausa e vive questa trasformazione come un "tornado" che le cambia la vita.
-        </p>
-        <p class="prose">
-          Da questa esperienza personale nasce <em>Il Nodo di Dara</em>, un progetto fotografico e sociale che documenta il vissuto di donne in menopausa attraverso ritratti intimi e testimonianze video. Ad oggi, Elisabetta ha fotografato 87 donne tra i 45 e i 65 anni, creando uno spazio sicuro dove la fotografia diventa strumento di trasformazione.
-        </p>
-        <p class="prose">
-          Formata anche come doula, Elisabetta applica nel suo lavoro fotografico l'ascolto profondo e l'accoglienza che caratterizzano questa figura di sostegno. Il suo approccio non mira alla perfezione estetica, ma all'autenticità emotiva: ogni sessione fotografica è un percorso di riconoscimento e rinascita.
-        </p>
-        <p class="prose">
-          Il progetto è stato presentato al TG3 Nazionale nel novembre 2025 e ha ricevuto attenzione mediatica per la sua capacità di rompere il tabù della menopausa attraverso il linguaggio visivo.
-        </p>
-      </div>
+      <p class="prose">Elisabetta Acquaviva è una fotografa di Rimini con oltre 35 anni di esperienza. Cresciuta nel laboratorio di stampa in bianco e nero dei genitori, tra l'odore di chimici e le mani sporche d'emulsione, la fotografia è sempre stata parte della sua identità.</p>
+      <p class="prose">La sua ricerca artistica si concentra sulle soglie del femminile, esplorando quei passaggi di vita spesso avvolti nel silenzio. Dopo il progetto <em>La Tenda Rossa</em>, dedicato al tabù delle mestruazioni, nel 2019 entra in menopausa e vive questa trasformazione come un "tornado" che le cambia la vita.</p>
+      <p class="prose">Da questa esperienza personale nasce <em>Il Nodo di Dara</em>, un progetto fotografico e sociale che documenta il vissuto di donne in menopausa attraverso ritratti intimi e testimonianze video. Ad oggi, Elisabetta ha fotografato 87 donne tra i 45 e i 65 anni, creando uno spazio sicuro dove la fotografia diventa strumento di trasformazione.</p>
+      <p class="prose">Formata anche come doula, Elisabetta applica nel suo lavoro fotografico l'ascolto profondo e l'accoglienza che caratterizzano questa figura di sostegno. Il suo approccio non mira alla perfezione estetica, ma all'autenticità emotiva: ogni sessione fotografica è un percorso di riconoscimento e rinascita.</p>
+      <p class="prose">Il progetto è stato presentato al TG3 Nazionale nel novembre 2025 e ha ricevuto attenzione mediatica per la sua capacità di rompere il tabù della menopausa attraverso il linguaggio visivo.</p>
 
       <blockquote class="blockquote" style="margin-top:48px;">
         "Io non fotografo, io accompagno."
@@ -684,51 +571,35 @@
       </blockquote>
     </section>
 
-
-    <!-- ══ RINGRAZIAMENTI ══ -->
     <section class="section">
       <p class="section-label">Con il sostegno di</p>
       <h2 class="section-title">Ringraziamenti</h2>
-      <p class="prose" style="margin-bottom:48px;">
-        Il Nodo di Dara è nato dalla forza collettiva di tante donne e dal sostegno di istituzioni e partner che hanno creduto nell'importanza di questo progetto.
-      </p>
+      <p class="prose" style="margin-bottom:48px;">Il Nodo di Dara è nato dalla forza collettiva di tante donne e dal sostegno di istituzioni e partner che hanno creduto nell'importanza di questo progetto.</p>
 
       <div class="thanks-grid">
         <div>
           <p class="thanks-item-name">Le 87 donne</p>
-          <p class="thanks-item-desc">
-            Che hanno avuto il coraggio di metterci la faccia, di dire a voce alta "sono in menopausa", di trasformare la fragilità in potenza. Senza di loro, questo progetto non esisterebbe.
-          </p>
+          <p class="thanks-item-desc">Che hanno avuto il coraggio di metterci la faccia, di dire a voce alta "sono in menopausa", di trasformare la fragilità in potenza. Senza di loro, questo progetto non esisterebbe.</p>
         </div>
         <div>
           <p class="thanks-item-name">Museo della Città di Rimini</p>
-          <p class="thanks-item-desc">
-            Per aver accolto questo progetto e avergli dato spazio e dignità.
-          </p>
+          <p class="thanks-item-desc">Per aver accolto questo progetto e avergli dato spazio e dignità.</p>
         </div>
         <div>
           <p class="thanks-item-name">Comune di Rimini</p>
-          <p class="thanks-item-desc">
-            Per il sostegno istituzionale e per aver creduto nell'importanza culturale e sociale di questa narrazione.
-          </p>
+          <p class="thanks-item-desc">Per il sostegno istituzionale e per aver creduto nell'importanza culturale e sociale di questa narrazione.</p>
         </div>
         <div>
           <p class="thanks-item-name">Casa delle Donne di Rimini</p>
-          <p class="thanks-item-desc">
-            Per la collaborazione preziosa e per il lavoro quotidiano nel dare voce alle donne del territorio.
-          </p>
+          <p class="thanks-item-desc">Per la collaborazione preziosa e per il lavoro quotidiano nel dare voce alle donne del territorio.</p>
         </div>
         <div>
           <p class="thanks-item-name">Casali e Associati</p>
-          <p class="thanks-item-desc">
-            Per la strategia di comunicazione e per aver contribuito a portare questa storia oltre i confini locali.
-          </p>
+          <p class="thanks-item-desc">Per la strategia di comunicazione e per aver contribuito a portare questa storia oltre i confini locali.</p>
         </div>
         <div>
           <p class="thanks-item-name">TG3 Nazionale</p>
-          <p class="thanks-item-desc">
-            Per aver dato visibilità mediatica al progetto e aver contribuito a rompere il silenzio sulla menopausa.
-          </p>
+          <p class="thanks-item-desc">Per aver dato visibilità mediatica al progetto e aver contribuito a rompere il silenzio sulla menopausa.</p>
         </div>
       </div>
 
@@ -739,8 +610,6 @@
 
   </main>
 
-
-  <!-- ══ FOOTER ══ -->
   <footer>
     <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
     <span class="footer-text">
@@ -748,23 +617,15 @@
     </span>
   </footer>
 
-
   <script>
-    // Menu hamburger mobile
     var toggle = document.getElementById('navToggle');
     var links  = document.getElementById('navLinks');
-    toggle.addEventListener('click', function() {
-      links.classList.toggle('open');
-    });
-    // Chiudi menu al click su un link
+    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
     links.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', function() {
-        links.classList.remove('open');
-      });
+      a.addEventListener('click', function() { links.classList.remove('open'); });
     });
   </script>
 
-  <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
 </body>
 </html>
