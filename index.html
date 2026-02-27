@@ -3,33 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Il Progetto — Nodo di Dara</title>
-  <meta name="description" content="Il corpo femminile non è oggetto di giudizio, ma territorio di mutamento. Viaggio nella metamorfosi della donna." />
-  <meta property="og:title" content="Il Progetto — Nodo di Dara" />
-  <meta property="og:description" content="Il corpo femminile non è oggetto di giudizio, ma territorio di mutamento." />
-  <meta property="og:image" content="../logo.jpeg" />
+  <title>Nodo di Dara</title>
+  <meta name="description" content="Non è un ciclo che si chiude, è una radice che si fortifica. Rimini · 2026" />
+  <meta property="og:title" content="Nodo di Dara" />
+  <meta property="og:description" content="Non è un ciclo che si chiude, è una radice che si fortifica." />
+  <meta property="og:image" content="./logo.jpeg" />
+  <meta property="og:type" content="website" />
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --oro:       #c9a96e;
-      --oro-dim:   rgba(201,169,110,0.18);
-      --oro-mid:   rgba(201,169,110,0.55);
+      --oro-dim:   rgba(201,169,110,0.22);
       --white:     #f5f5f0;
       --white-mid: rgba(245,245,240,0.75);
       --white-low: rgba(245,245,240,0.50);
-      --bg:        #0e0c0a;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html, body { height: 100%; }
 
     body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Barlow', sans-serif;
+      background: #0e0c0a;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Barlow', sans-serif;
+      color: var(--white);
       overflow-x: hidden;
       position: relative;
     }
@@ -39,383 +40,329 @@
       position: fixed;
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
-      opacity: 0.5;
+      opacity: 0.6;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* ══ NAVIGAZIONE ══ */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 44px;
-      background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .nav-logo img {
-      width: 36px;
-      height: auto;
-      filter: invert(1);
-      opacity: 0.75;
-    }
-
-    .nav-logo-text {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 600;
-      font-size: clamp(1rem, 2vw, 1.05rem);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--oro);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      list-style: none;
-    }
-
-    /* Voci di menu — leggibili */
-    .nav-links a {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 400;
-      font-size: clamp(1rem, 2vw, 1.05rem);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--white-low);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--oro); }
-
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: var(--white-low);
-      transition: all 0.3s;
-    }
-
-    /* ══ HERO ══ */
-    /* wrapper full-width per gradiente di sfondo */
-    .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .hero::after {
+    body::after {
       content: '';
-      position: absolute;
+      position: fixed;
       inset: 0;
-      background: radial-gradient(ellipse at 70% 30%, rgba(90,74,56,0.2) 0%, transparent 60%);
-      z-index: 0;
+      background: radial-gradient(ellipse at 50% 40%, transparent 30%, rgba(0,0,0,0.55) 100%);
       pointer-events: none;
-    }
-
-    /* stesso allineamento delle sezioni sotto */
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-      opacity: 0;
-      animation: arise 2s cubic-bezier(0.16,1,0.3,1) forwards 0.3s;
-      max-width: 900px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0 44px 80px;
+      z-index: 0;
     }
 
     @keyframes arise {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* "Rimini · Museo della Città · 7 mar..." — leggibile */
-    .hero-kicker {
+    /* ══ FASE 1 ══ */
+    #phase-1 {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 32px;
+      opacity: 0;
+      animation: arise 2s cubic-bezier(0.16,1,0.3,1) forwards 0.3s;
+    }
+
+    .p1-logo {
+      width: clamp(150px, 36vw, 260px);
+      height: auto;
+      filter: invert(1);
+      opacity: 0.7;
+      margin-bottom: 52px;
+      animation: breathe 7s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 0.7;  transform: scale(1); }
+      50%       { opacity: 0.88; transform: scale(1.02); }
+    }
+
+    .p1-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.6rem, 8vw, 5.2rem);
+      color: var(--oro);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 30px;
+    }
+
+    .p1-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.15rem, 3vw, 1.55rem);
+      color: var(--white-mid);
+      line-height: 1.65;
+      max-width: 460px;
+      margin-bottom: 64px;
+    }
+
+    .p1-rule {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, transparent, var(--oro-dim), transparent);
+      margin-bottom: 40px;
+    }
+
+    /* Label "Qualcosa affiora tra" — leggibile */
+    .p1-cd-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      margin-bottom: 24px;
+    }
+
+    .p1-countdown {
+      display: flex;
+      gap: clamp(22px, 5vw, 54px);
+      align-items: flex-end;
+      margin-bottom: 28px;
+    }
+
+    .p1-cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .p1-cd-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: var(--oro);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      min-width: 2ch;
+    }
+
+    /* Giorni / Ore / Minuti / Secondi — leggibili */
+    .p1-cd-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    /* Data hint — leggibile */
+    .p1-date-hint {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(201,169,110,0.5);
+    }
+
+
+    /* ══ FASE 2 ══ */
+    #phase-2 {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      opacity: 0;
+      animation: arise 2s cubic-bezier(0.16,1,0.3,1) forwards 0.3s;
+    }
+
+    .p2-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 36px 44px 0;
+      gap: 16px;
+    }
+
+    /* "Rimini · Museo della Città · 2026" — leggibile */
+    .p2-label {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 400;
       font-size: clamp(1rem, 2vw, 1.05rem);
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--oro-mid);
-      margin-bottom: 20px;
+      color: rgba(201,169,110,0.65);
+      padding-top: 4px;
+      line-height: 1.7;
     }
 
-    .hero-title {
+    .p2-logo {
+      width: 78px;
+      height: auto;
+      filter: invert(1);
+      opacity: 0.76;
+    }
+
+    .p2-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 44px 20px;
+    }
+
+    .p2-title {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 600;
-      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-size: clamp(4rem, 11vw, 8.5rem);
       color: var(--oro);
       line-height: 0.9;
       letter-spacing: 0.02em;
       text-transform: uppercase;
-      margin-bottom: 32px;
-    }
-
-    .hero-rule {
-      width: 60px;
-      height: 1px;
-      background: var(--oro-dim);
-      margin-bottom: 28px;
-    }
-
-    .hero-sub {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: clamp(1.15rem, 2.8vw, 1.65rem);
-      color: var(--white-mid);
-      line-height: 1.6;
-      max-width: 580px;
-    }
-
-    /* ══ SEZIONI ══ */
-    main { position: relative; z-index: 1; }
-
-    .section {
-      padding: 100px 44px;
-      max-width: 900px;
-      margin: 0 auto;
-      border-top: 1px solid var(--oro-dim);
-    }
-
-    /* Label sezione — leggibile */
-    .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 400;
-      font-size: clamp(1rem, 2vw, 1.05rem);
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--oro-mid);
-      margin-bottom: 18px;
-    }
-
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 600;
-      font-size: clamp(2rem, 5vw, 3.8rem);
-      color: var(--oro);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      line-height: 1;
       margin-bottom: 40px;
     }
 
-    .section-title.large {
-      font-size: clamp(2.4rem, 6vw, 4.8rem);
+    .p2-rule {
+      width: 100%;
+      max-width: 500px;
+      height: 1px;
+      background: var(--oro-dim);
+      margin-bottom: 40px;
     }
 
-    .prose {
-      font-family: 'Barlow', sans-serif;
-      font-weight: 300;
-      font-size: clamp(1rem, 2vw, 1.1rem);
-      color: var(--white-mid);
-      line-height: 1.85;
-      max-width: 680px;
-    }
-
-    .prose + .prose { margin-top: 24px; }
-
-    /* Enfasi nel testo */
-    .prose strong {
-      font-weight: 500;
-      color: var(--oro);
-    }
-
-    .prose mark {
-      background: none;
-      color: var(--white);
-      font-weight: 400;
-    }
-
-    .blockquote {
+    .p2-tagline {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(1.2rem, 3.2vw, 1.9rem);
+      font-size: clamp(1.15rem, 2.8vw, 1.7rem);
       color: var(--white-mid);
-      line-height: 1.55;
-      border-left: 1px solid var(--oro-mid);
-      padding-left: 28px;
-      margin: 48px 0;
-      max-width: 640px;
+      line-height: 1.6;
+      max-width: 560px;
+      margin-bottom: 52px;
     }
 
-    .blockquote cite {
-      display: block;
-      font-style: normal;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 400;
-      font-size: clamp(1rem, 2vw, 1.05rem);
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--oro-mid);
-      margin-top: 16px;
-    }
-
-    /* Placeholder video */
-    .video-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--oro-dim);
+    .p2-fragments {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin: 48px 0;
-      position: relative;
+      gap: 12px;
+      max-width: 480px;
+      margin-bottom: 60px;
     }
 
-    .video-placeholder-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      border: 1px solid var(--oro-dim);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--oro-mid);
+    /* Frammenti — leggibili */
+    .p2-fragment {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      color: var(--white-low);
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+      opacity: 0;
+      animation: arise 1s ease forwards;
     }
 
-    .video-placeholder-icon svg {
-      width: 20px; height: 20px;
-      fill: currentColor;
-      margin-left: 3px;
+    .p2-fragment:nth-child(1) { animation-delay: 0.8s; }
+    .p2-fragment:nth-child(2) { animation-delay: 1.1s; }
+    .p2-fragment:nth-child(3) { animation-delay: 1.4s; }
+    .p2-fragment:nth-child(4) { animation-delay: 1.7s; }
+    .p2-fragment:nth-child(5) { animation-delay: 2.0s; }
+    .p2-fragment:nth-child(6) { animation-delay: 2.3s; }
+
+    .p2-fragment-rule {
+      width: 28px;
+      height: 1px;
+      background: var(--oro-dim);
+      margin: 4px 0;
     }
 
-    /* Label placeholder video — leggibile */
-    .video-placeholder-label {
+    .p2-event { margin-bottom: 52px; }
+
+    /* "Vernissage · 7 marzo 2026" — leggibile */
+    .p2-event-tipo {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 400;
       font-size: clamp(1rem, 2vw, 1.05rem);
-      letter-spacing: 0.25em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--white-low);
-    }
-
-    /* Griglia 5 spazi */
-    .spaces-grid { margin-top: 16px; }
-
-    .space-item {
-      padding: 36px 0;
-      border-bottom: 1px solid var(--oro-dim);
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 36px;
-      align-items: start;
-    }
-
-    .space-item:last-child { border-bottom: none; }
-
-    /* Nome spazio — leggibile */
-    .space-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 500;
-      font-size: clamp(1rem, 2vw, 1.1rem);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--oro);
-      padding-top: 3px;
-    }
-
-    .space-desc {
-      font-family: 'Barlow', sans-serif;
-      font-weight: 300;
-      font-size: clamp(1rem, 2vw, 1.1rem);
-      color: var(--white-mid);
-      line-height: 1.8;
-    }
-
-    /* Simbolo */
-    .symbol-block {
-      display: grid;
-      grid-template-columns: 1fr 200px;
-      gap: 64px;
-      align-items: center;
-    }
-
-    .symbol-img {
-      width: 100%;
-      max-width: 200px;
-      filter: invert(1);
-      opacity: 0.5;
-    }
-
-    /* Ringraziamenti */
-    .thanks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 36px 48px;
-      margin-top: 12px;
-    }
-
-    .thanks-item-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 500;
-      font-size: clamp(1rem, 2vw, 1.08rem);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--oro);
+      color: rgba(201,169,110,0.65);
       margin-bottom: 10px;
     }
 
-    .thanks-item-desc {
+    .p2-event-luogo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .p2-event-date {
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
-      font-size: clamp(1rem, 2vw, 1.05rem);
+      font-size: clamp(1rem, 2vw, 1.1rem);
       color: var(--white-low);
-      line-height: 1.75;
+      letter-spacing: 0.05em;
     }
 
-    .thanks-closing {
-      margin-top: 56px;
-      padding-top: 40px;
-      border-top: 1px solid var(--oro-dim);
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
+    /* "La vernissage si apre tra" — leggibile */
+    .p2-cd-label {
+      font-family: 'Barlow Condensed', sans-serif;
       font-weight: 300;
-      font-size: clamp(1.1rem, 2.8vw, 1.5rem);
-      color: var(--white-mid);
-      line-height: 1.65;
-      max-width: 560px;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(201,169,110,0.6);
+      margin-bottom: 18px;
     }
 
-    /* ══ FOOTER ══ */
-    footer {
+    .p2-countdown {
+      display: flex;
+      gap: clamp(18px, 4vw, 48px);
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .p2-cd-unit {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .p2-cd-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      color: var(--oro);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      min-width: 2ch;
+    }
+
+    .p2-cd-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.05rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    .p2-footer {
       position: relative;
       z-index: 1;
-      padding: 28px 44px;
-      border-top: 1px solid var(--oro-dim);
+      padding: 24px 44px;
+      border-top: 1px solid rgba(201,169,110,0.1);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -423,220 +370,163 @@
       gap: 12px;
     }
 
-    .footer-text {
+    /* Footer — leggibile */
+    .p2-footer-text {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 300;
       font-size: clamp(1rem, 2vw, 1.05rem);
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--white-low);
     }
 
-    .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
-    .footer-text a:hover { color: var(--oro-mid); }
+    .p2-footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .p2-footer-text a:hover { color: rgba(201,169,110,0.7); }
 
-    /* ══ RESPONSIVE ══ */
-    @media (max-width: 680px) {
-      .nav { padding: 18px 24px; }
-      .nav-links { display: none; }
-      .nav-links.open {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        inset: 0;
-        background: rgba(14,12,10,0.97);
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        z-index: 200;
-      }
-      .nav-links.open a { font-size: 1.1rem; }
-      .nav-toggle { display: flex; z-index: 300; }
-      .hero-inner { padding: 0 24px 64px; }
-      .section { padding: 64px 24px; }
-      .space-item { grid-template-columns: 1fr; gap: 10px; }
-      .symbol-block { grid-template-columns: 1fr; }
-      .symbol-img { max-width: 130px; }
-      footer { padding: 24px; }
+    @media (max-width: 520px) {
+      .p2-header, .p2-body, .p2-footer { padding-left: 24px; padding-right: 24px; }
+      .p2-title { font-size: clamp(3.5rem, 17vw, 5rem); }
     }
   </style>
 </head>
 <body>
 
-  <nav class="nav">
-    <a class="nav-logo" href="/">
-      <img src="../logo.jpeg" alt="Nodo di Dara" />
-      <span class="nav-logo-text">Nodo di Dara</span>
-    </a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/">Home</a></li>
-      <li><a href="/progetto" class="active">Il Progetto</a></li>
-      <li><a href="/eventi">Eventi</a></li>
-      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
-      <li><a href="/soundscape">Soundscape</a></li>
-    </ul>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+  <!-- ═══ FASE 1: TEASER PURO ═══ -->
+  <div id="phase-1" style="display:none;">
+    <img class="p1-logo" src="./logo.jpeg" alt="Nodo di Dara" />
+    <div class="p1-title">NODO<br>DI DARA</div>
+    <p class="p1-tagline">
+      "Non è un ciclo che si chiude,<br>
+      è una radice che si fortifica"
+    </p>
+    <div class="p1-rule"></div>
+    <p class="p1-cd-label">Qualcosa affiora tra</p>
+    <div class="p1-countdown">
+      <div class="p1-cd-unit">
+        <span class="p1-cd-num" id="p1-days">--</span>
+        <span class="p1-cd-sub">Giorni</span>
+      </div>
+      <div class="p1-cd-unit">
+        <span class="p1-cd-num" id="p1-hours">--</span>
+        <span class="p1-cd-sub">Ore</span>
+      </div>
+      <div class="p1-cd-unit">
+        <span class="p1-cd-num" id="p1-mins">--</span>
+        <span class="p1-cd-sub">Minuti</span>
+      </div>
+      <div class="p1-cd-unit">
+        <span class="p1-cd-num" id="p1-secs">--</span>
+        <span class="p1-cd-sub">Secondi</span>
+      </div>
+    </div>
+    <p class="p1-date-hint">5 · 03 · 2026 &nbsp;—&nbsp; Rimini</p>
+  </div>
 
-  <div class="hero">
-    <div class="hero-inner">
-      <p class="hero-kicker">Rimini · Museo della Città · 7 mar — 10 mag 2026</p>
-      <h1 class="hero-title">NODO<br>DI DARA</h1>
-      <div class="hero-rule"></div>
-      <p class="hero-sub">
-        Il corpo femminile non è oggetto di giudizio,<br>
-        ma territorio di mutamento.<br>
-        Viaggio nella metamorfosi della donna.
+
+  <!-- ═══ FASE 2: RIVELAZIONE ═══ -->
+  <div id="phase-2" style="display:none;">
+
+    <div class="p2-header">
+      <div class="p2-label">
+        Rimini · Museo della Città · 2026
+      </div>
+      <img class="p2-logo" src="./logo.jpeg" alt="Nodo di Dara" />
+    </div>
+
+    <div class="p2-body">
+      <h1 class="p2-title">NODO<br>DI DARA</h1>
+      <div class="p2-rule"></div>
+      <p class="p2-tagline">
+        "Non è un ciclo che si chiude,<br>
+        è una radice che si fortifica"
       </p>
+
+      <div class="p2-fragments">
+        <span class="p2-fragment">Voci che non si dimenticano.</span>
+        <span class="p2-fragment">Volti che resistono al tempo.</span>
+        <span class="p2-fragment">Un suono che attraversa il corpo.</span>
+        <span class="p2-fragment">Un buio che rivela.</span>
+        <span class="p2-fragment">Un nodo che chiedi di annodare.</span>
+        <div class="p2-fragment-rule"></div>
+        <span class="p2-fragment" style="color:rgba(201,169,110,0.55); font-style:italic; font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2vw,1.1rem);">
+          Un'esperienza. Rimini, 2026.
+        </span>
+      </div>
+
+      <div class="p2-event">
+        <p class="p2-event-tipo">Vernissage · 7 marzo 2026</p>
+        <p class="p2-event-luogo">Museo della Città · Rimini</p>
+        <p class="p2-event-date">7 marzo — 10 maggio 2026</p>
+      </div>
+
+      <p class="p2-cd-label">La vernissage si apre tra</p>
+
+      <div class="p2-countdown">
+        <div class="p2-cd-unit">
+          <span class="p2-cd-num" id="p2-days">--</span>
+          <span class="p2-cd-sub">Giorni</span>
+        </div>
+        <div class="p2-cd-unit">
+          <span class="p2-cd-num" id="p2-hours">--</span>
+          <span class="p2-cd-sub">Ore</span>
+        </div>
+        <div class="p2-cd-unit">
+          <span class="p2-cd-num" id="p2-mins">--</span>
+          <span class="p2-cd-sub">Minuti</span>
+        </div>
+        <div class="p2-cd-unit">
+          <span class="p2-cd-num" id="p2-secs">--</span>
+          <span class="p2-cd-sub">Secondi</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="p2-footer">
+      <span class="p2-footer-text">Un progetto di Elisabetta Acquaviva</span>
+      <span class="p2-footer-text">
+        <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
+      </span>
     </div>
   </div>
 
-  <main>
-
-    <section class="section">
-      <p class="section-label">La genesi</p>
-      <h2 class="section-title large">Il Progetto</h2>
-
-      <video controls width="100%" style="margin:48px 0;">
-        <source src="./Nodo di dara - genesi.mp4" type="video/mp4">
-      </video>
-
-      <blockquote class="blockquote">
-        "Ci hanno insegnato a sussurrare la parola menopausa.
-        In questo spazio, quel sussurro diventa un grido,
-        un canto, una risata collettiva."
-      </blockquote>
-
-      <p class="prose">"Ciao, sono Elisabetta, ho 53 anni e sono in menopausa." Ci tengo a dirlo perché <strong>non se ne parla</strong>. La menopausa è considerata un <strong>tabù</strong> e, nel momento in cui una donna entra in menopausa, in automatico è un concetto che viene nascosto.</p>
-      <p class="prose">Per me è stato come un <strong>tornado</strong>. Mi ha cambiato la vita, mi ha fatto fare tanta fatica, mi ha fatto sentire pesantemente in difficoltà. Mi sono sentita vecchia, non utile, non mi sono più ritrovata nel mio corpo. Mi ha fatto sentire <strong>"meno"</strong>. <mark>E noi non ci possiamo sentire "meno".</mark></p>
-      <p class="prose">Oggi mi sento chiamata a <strong>nominarla, a pronunciarla, a dirla</strong>: "sono in menopausa", non è un problema. Come me, tantissime donne non si devono sentire "meno" e voglio che tutto ciò che di bello ha la menopausa venga <strong>detto a voce alta</strong>.</p>
-      <p class="prose">Da qui nasce questo progetto. Un progetto in cui <strong>ti prendi del tempo</strong>, in cui fai i conti con te stessa e capisci che <mark>sei vera, sei radicata e hai tanto da dare.</mark></p>
-      <p class="prose">Ogni donna che arriva in studio da me non sa cosa l'aspetta. Arriva fidandosi, spesso "alla cieca". E io sento la responsabilità di creare uno <strong>spazio sicuro</strong> dove possano sentirsi accolte, dove possano svuotare il barile, piangere, ridere, <mark>dire a voce alta cose che forse non avevano mai confessato nemmeno a se stesse.</mark></p>
-      <p class="prose">Mi sento come un <strong>mignolo</strong>: quel sostegno discreto che serve a un bambino che già sa camminare ma cerca quel contatto per sentirsi stabile. Il mio obiettivo <strong>non è fare una bella fotografia</strong>. <mark>È accompagnare ogni donna in un percorso di trasformazione. La fotografia, qui, diventa cura.</mark></p>
-
-      <blockquote class="blockquote">
-        "Io non fotografo, io accompagno."
-        <cite>— Elisabetta Acquaviva</cite>
-      </blockquote>
-
-      <video controls width="100%" style="margin:48px 0;">
-        <source src="./Il Nodo di dara al TG3.mp4" type="video/mp4">
-      </video>
-    </section>
-
-    <section class="section">
-      <p class="section-label">Il simbolo</p>
-      <h2 class="section-title">Il Nodo di Dara</h2>
-      <div class="symbol-block">
-        <div>
-          <p class="prose">Il Nodo di Dara prende il nome da un antico simbolo celtico che rappresenta le radici della quercia: <em>Doire</em>, in gaelico, significa proprio "quercia".</p>
-          <p class="prose" style="margin-top:20px;">Come le radici di una quercia secolare, intrecciate, profonde e indistruttibili, questo simbolo racconta la forza invisibile che sostiene l'albero attraverso ogni stagione. Radici che non si vedono ma che tengono, che affondano nella terra e ne traggono nutrimento, che si espandono e si fortificano con il tempo.</p>
-          <p class="prose" style="margin-top:20px;">Proprio come noi donne che attraversiamo la menopausa: abbiamo radici profonde fatte di anni vissuti, di esperienze accumulate, di saggezza conquistata. Abbiamo dato tanto e abbiamo ancora tanto da dare. Non siamo "meno". Siamo radicate, forti, vere. E oltre ad avere radici profonde, ancora fiorisce.</p>
-          <p class="prose" style="margin-top:20px;">Il Nodo di Dara non ha inizio né fine: è un intreccio continuo che simboleggia il legame tra tutte le donne che condividono questa trasformazione. Ogni donna è un nodo in questa rete infinita di forza collettiva.</p>
-        </div>
-        <img class="symbol-img" src="../logo.jpeg" alt="Simbolo Nodo di Dara" />
-      </div>
-    </section>
-
-    <section class="section">
-      <p class="section-label">Museo della Città · Rimini</p>
-      <h2 class="section-title large">L'Esperienza<br>in Mostra</h2>
-      <p class="prose" style="margin-bottom:16px;">Questa mostra è un viaggio attraverso più spazi, ognuno pensato per offrirti un'esperienza diversa. Non c'è un percorso obbligato: lasciati guidare dalla curiosità e dall'emozione.</p>
-
-      <div class="spaces-grid">
-        <div class="space-item">
-          <span class="space-name">La Foresta Sospesa</span>
-          <p class="space-desc">Lo spazio principale della mostra, dove i ritratti delle donne sono sospesi come in una foresta di voci. Qui troverai 87 fotografie accompagnate dalle parole dirette di ogni donna. Prenditi il tempo di leggere, di ascoltare il soundscape che ti avvolge, di sentirti parte di questa rete di esperienze condivise.</p>
-        </div>
-        <div class="space-item">
-          <span class="space-name">La Stanza della Trasformazione</span>
-          <p class="space-desc">Un angolo dedicato al prima e al dopo. Qui vedrai ingrandimenti generosi che mostrano il primo scatto e l'ultimo di alcune donne: la prova visiva di come l'accoglienza e l'ascolto possano far sbocciare la verità di ognuna.</p>
-        </div>
-        <div class="space-item">
-          <span class="space-name">La Black Box</span>
-          <p class="space-desc">Una stanza separata dove ascoltare le testimonianze video. Concediti almeno 10 minuti. Qui le voci diventano corpi, sguardi, silenzi. È uno spazio intimo: fermati, ascolta per intero.</p>
-        </div>
-        <div class="space-item">
-          <span class="space-name">La Stanza degli Eventi</span>
-          <p class="space-desc">Durante il periodo della mostra, questo spazio ospiterà incontri, dialoghi e presentazioni con persone e personaggi autorevoli che hanno scelto di dare voce a questo progetto. Consulta il programma all'ingresso per scoprire gli appuntamenti.</p>
-        </div>
-        <div class="space-item">
-          <span class="space-name">Il Tuo Nodo</span>
-          <p class="space-desc">Alla fine del percorso, potrai lasciare la tua testimonianza, legare il tuo nodo, aggiungere la tua voce a questa rete infinita. Puoi farlo in forma anonima o con il tuo nome. Questo è il tuo tempo. Non avere fretta.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <p class="section-label">Fotografa e ideatrice</p>
-      <h2 class="section-title">Elisabetta<br>Acquaviva</h2>
-      <p class="prose">Elisabetta Acquaviva è una fotografa di Rimini con oltre <strong>35 anni di esperienza</strong>. Cresciuta nel laboratorio di stampa in bianco e nero dei genitori, tra l'odore di chimici e le mani sporche d'emulsione, <strong>la fotografia è sempre stata parte della sua identità</strong>.</p>
-      <p class="prose">La sua ricerca artistica si concentra sulle <strong>soglie del femminile</strong>, esplorando quei <strong>passaggi di vita spesso avvolti nel silenzio</strong>. Dopo il progetto <em>La Tenda Rossa</em>, dedicato al tabù delle mestruazioni, nel 2019 entra in menopausa e vive questa trasformazione come un "tornado" che le cambia la vita.</p>
-      <p class="prose">Da questa esperienza personale nasce <em>Il Nodo di Dara</em>, un progetto fotografico e sociale che documenta il vissuto di donne in menopausa attraverso <strong>ritratti intimi e testimonianze video</strong>. Ad oggi, Elisabetta ha fotografato <strong>87 donne</strong> tra i 45 e i 65 anni, creando uno spazio sicuro dove <mark>la fotografia diventa strumento di trasformazione.</mark></p>
-      <p class="prose">Formata anche come <strong>doula</strong>, Elisabetta applica nel suo lavoro fotografico l'<strong>ascolto profondo</strong> e l'accoglienza che caratterizzano questa figura di sostegno. Il suo approccio non mira alla perfezione estetica, ma all'<strong>autenticità emotiva</strong>: <mark>ogni sessione fotografica è un percorso di riconoscimento e rinascita.</mark></p>
-      <p class="prose">Il progetto è stato presentato al TG3 Nazionale nel novembre 2025 e ha ricevuto attenzione mediatica per la sua capacità di rompere il tabù della menopausa attraverso il linguaggio visivo.</p>
-
-      <blockquote class="blockquote" style="margin-top:48px;">
-        "Io non fotografo, io accompagno."
-        <cite>— Elisabetta Acquaviva</cite>
-      </blockquote>
-    </section>
-
-    <section class="section">
-      <p class="section-label">Con il sostegno di</p>
-      <h2 class="section-title">Ringraziamenti</h2>
-      <p class="prose" style="margin-bottom:48px;">Il Nodo di Dara è nato dalla forza collettiva di tante donne e dal sostegno di istituzioni e partner che hanno creduto nell'importanza di questo progetto.</p>
-
-      <div class="thanks-grid">
-        <div>
-          <p class="thanks-item-name">Le 87 donne</p>
-          <p class="thanks-item-desc">Che hanno avuto il coraggio di metterci la faccia, di dire a voce alta "sono in menopausa", di trasformare la fragilità in potenza. Senza di loro, questo progetto non esisterebbe.</p>
-        </div>
-        <div>
-          <p class="thanks-item-name">Museo della Città di Rimini</p>
-          <p class="thanks-item-desc">Per aver accolto questo progetto e avergli dato spazio e dignità.</p>
-        </div>
-        <div>
-          <p class="thanks-item-name">Comune di Rimini</p>
-          <p class="thanks-item-desc">Per il sostegno istituzionale e per aver creduto nell'importanza culturale e sociale di questa narrazione.</p>
-        </div>
-        <div>
-          <p class="thanks-item-name">Casa delle Donne di Rimini</p>
-          <p class="thanks-item-desc">Per la collaborazione preziosa e per il lavoro quotidiano nel dare voce alle donne del territorio.</p>
-        </div>
-        <div>
-          <p class="thanks-item-name">Casali e Associati</p>
-          <p class="thanks-item-desc">Per la strategia di comunicazione e per aver contribuito a portare questa storia oltre i confini locali.</p>
-        </div>
-        <div>
-          <p class="thanks-item-name">TG3 Nazionale</p>
-          <p class="thanks-item-desc">Per aver dato visibilità mediatica al progetto e aver contribuito a rompere il silenzio sulla menopausa.</p>
-        </div>
-      </div>
-
-      <p class="thanks-closing">
-        E infine, un grazie a tutte le persone che visiteranno questa mostra e che, con la loro presenza, contribuiranno a trasformare il sussurro in un coro.
-      </p>
-    </section>
-
-  </main>
-
-  <footer>
-    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
-    <span class="footer-text">
-      <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
-    </span>
-  </footer>
 
   <script>
-    var toggle = document.getElementById('navToggle');
-    var links  = document.getElementById('navLinks');
-    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
-    links.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', function() { links.classList.remove('open'); });
-    });
+    (function () {
+      var PRESS   = new Date('2026-03-05T10:00:00').getTime();
+      var VERNISS = new Date('2026-03-07T18:00:00').getTime();
+
+      function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+      function setCountdown(diff, ids) {
+        if (diff <= 0) {
+          ids.forEach(function(id) { document.getElementById(id).textContent = '00'; });
+          return;
+        }
+        document.getElementById(ids[0]).textContent = pad(Math.floor(diff / 86400000));
+        document.getElementById(ids[1]).textContent = pad(Math.floor((diff % 86400000) / 3600000));
+        document.getElementById(ids[2]).textContent = pad(Math.floor((diff % 3600000) / 60000));
+        document.getElementById(ids[3]).textContent = pad(Math.floor((diff % 60000) / 1000));
+      }
+
+      var now = Date.now();
+
+      if (now < PRESS) {
+        var p1 = document.getElementById('phase-1');
+        p1.style.display = 'flex';
+        (function tick() {
+          setCountdown(PRESS - Date.now(), ['p1-days','p1-hours','p1-mins','p1-secs']);
+          setTimeout(tick, 1000);
+        })();
+      } else {
+        var p2 = document.getElementById('phase-2');
+        p2.style.display = 'flex';
+        p2.style.flexDirection = 'column';
+        (function tick() {
+          setCountdown(VERNISS - Date.now(), ['p2-days','p2-hours','p2-mins','p2-secs']);
+          setTimeout(tick, 1000);
+        })();
+      }
+    })();
   </script>
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
