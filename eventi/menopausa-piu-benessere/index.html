@@ -315,6 +315,36 @@
       line-height: 1.75;
     }
 
+    .relatore-highlights {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .highlight-item {
+      padding-left: 12px;
+      border-left: 1px solid var(--oro-mid);
+    }
+
+    .highlight-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 4px;
+    }
+
+    .highlight-text {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1.7vw, 0.92rem);
+      color: var(--white-low);
+      line-height: 1.65;
+    }
+
     /* CTA prenotazione */
     .cta-box {
       padding: 24px;
@@ -510,17 +540,30 @@
 
     <!-- Colonna sinistra: descrizione -->
     <div>
-      <p class="section-label">L'incontro</p>
-      <!-- EDIT: descrizione estesa evento -->
+      <p class="section-label">Menopausa, più benessere</p>
       <p class="prose">
-        [Descrizione estesa dell'evento. Cosa succederà, di cosa si parlerà, perché è rilevante nel contesto della mostra. Minimo 3-4 paragrafi.]
+        Naturopata esperta in rimedi naturali, Roberta Marcaccio unisce la propria competenza professionale all'esperienza personale di donna per affrontare il tema della menopausa con serenità e pragmatismo.
       </p>
       <p class="prose" style="margin-top:20px;">
-        [Secondo paragrafo.]
+        In un dialogo aperto con la naturopata Grazia Gridelli, condivide soluzioni concrete tratte dalla natura e consigli pratici alla portata di tutte — superando l'ansia e i falsi miti per accogliere il cambiamento con una nuova consapevolezza di sé.
       </p>
-      <p class="prose" style="margin-top:20px;">
-        [Terzo paragrafo, eventuale programma di massima o anticipazione dei temi.]
+      <p class="prose" style="margin-top:32px; padding-top:32px; border-top:1px solid var(--oro-dim);">
+        <span style="font-family:'Barlow Condensed',sans-serif; letter-spacing:0.25em; text-transform:uppercase; font-size:0.85rem; color:var(--oro-mid); display:block; margin-bottom:16px;">I temi dell'incontro</span>
       </p>
+      <div class="relatore-highlights" style="margin-top:0;">
+        <div class="highlight-item">
+          <p class="highlight-label">Il Libro</p>
+          <p class="highlight-text">"Menopausa, più benessere": la storia e le competenze tecniche di Roberta per guidare le donne verso un nuovo equilibrio.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">L'Esperienza</p>
+          <p class="highlight-text">Soluzioni concrete tratte dalla natura e consigli pratici condivisi nel dialogo con Grazia Gridelli.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">La Visione</p>
+          <p class="highlight-text">Superare l'ansia e i falsi miti — "Disfunzione o leggenda metropolitana?" — per accogliere il cambiamento attraverso strumenti naturali.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Colonna destra: relatore + CTA -->
@@ -538,11 +581,23 @@
         <p class="relatore-name">Roberta Marcaccio</p>
         <p class="relatore-ruolo">Scrittrice e Consulente Naturopatico</p>
         <p class="relatore-bio">
-          Roberta Marcaccio integra la narrazione con le scienze naturali per promuovere uno stile di vita armonioso. Specializzata presso la Scuola di Naturopatia Manipura, è esperta in floriterapia di Bach, oli essenziali e cristallo-pratica.
-
-Il 2025 segna un punto di svolta nella sua produzione editoriale con la pubblicazione di un saggio tecnico sulla menopausa e di un'opera biografica romanzata sulla figura di Edward Bach. Con diverse pubblicazioni all'attivo e numerosi riconoscimenti letterari, Roberta si distingue per la capacità di tradurre temi complessi legati al benessere in contenuti accessibili, profondi ed efficaci
-
+          Naturopata e autrice, Roberta Marcaccio integra la narrazione con le scienze naturali per promuovere uno stile di vita armonioso e consapevole, traducendo temi complessi in contenuti accessibili.
         </p>
+
+        <div class="relatore-highlights">
+          <div class="highlight-item">
+            <p class="highlight-label">L'Approccio</p>
+            <p class="highlight-text">Specializzata presso la Scuola Manipura, utilizza strumenti come la floriterapia di Bach, l'aromaterapia e la cristallo-pratica per ritrovare l'equilibrio psicofisico.</p>
+          </div>
+          <div class="highlight-item">
+            <p class="highlight-label">L'Esperienza</p>
+            <p class="highlight-text">Autrice del libro "Meno pausa, più benessere" (2025), un saggio tecnico che unisce le sue competenze di naturopata alla sua storia personale di donna.</p>
+          </div>
+          <div class="highlight-item">
+            <p class="highlight-label">La Visione</p>
+            <p class="highlight-text">Superare l'ansia e i falsi miti legati alla menopausa ("Disfunzione o leggenda?") per accogliere il cambiamento con serenità, attraverso i rimedi offerti dalla natura.</p>
+          </div>
+        </div>
       </div>
 
       <div class="cta-box">
