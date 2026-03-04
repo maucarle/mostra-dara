@@ -315,6 +315,36 @@
       line-height: 1.75;
     }
 
+    .relatore-highlights {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .highlight-item {
+      padding-left: 12px;
+      border-left: 1px solid var(--oro-mid);
+    }
+
+    .highlight-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 4px;
+    }
+
+    .highlight-text {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1.7vw, 0.92rem);
+      color: var(--white-low);
+      line-height: 1.65;
+    }
+
     /* CTA prenotazione */
     .cta-box {
       padding: 24px;
@@ -510,17 +540,40 @@
 
     <!-- Colonna sinistra: descrizione -->
     <div>
-      <p class="section-label">L'incontro</p>
-      <!-- EDIT: descrizione estesa evento -->
+      <p class="section-label">Mi sento una favola</p>
       <p class="prose">
-        [Descrizione estesa dell'evento. Cosa succederà, di cosa si parlerà, perché è rilevante nel contesto della mostra. Minimo 3-4 paragrafi.]
+        Un percorso esperienziale dedicato alla riscoperta di sé attraverso il potere della narrazione e dell'introspezione. "Mi sento una favola" è uno spazio progettato per chi desidera riscrivere la propria storia personale, ritrovando magia e valore nel proprio quotidiano.
       </p>
-      <p class="prose" style="margin-top:20px;">
-        [Secondo paragrafo.]
+      <p class="prose" style="margin-top:32px; padding-top:32px; border-top:1px solid var(--oro-dim);">
+        <span style="font-family:'Barlow Condensed',sans-serif; letter-spacing:0.25em; text-transform:uppercase; font-size:0.85rem; color:var(--oro-mid); display:block; margin-bottom:16px;">Il laboratorio</span>
       </p>
-      <p class="prose" style="margin-top:20px;">
-        [Terzo paragrafo, eventuale programma di massima o anticipazione dei temi.]
+      <div class="relatore-highlights" style="margin-top:0;">
+        <div class="highlight-item">
+          <p class="highlight-label">L'Esperienza</p>
+          <p class="highlight-text">Un laboratorio interattivo dove il linguaggio delle fiabe diventa uno strumento pratico per esplorare potenzialità e desideri profondi.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Il Focus</p>
+          <p class="highlight-text">Superare i momenti di stasi o confusione per ritrovare un senso di meraviglia e autostima, imparando a guardarsi con occhi nuovi.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Cosa Aspettarsi</p>
+          <p class="highlight-text">Un'atmosfera accogliente e creativa, esercizi di consapevolezza e la guida esperta di Chiara per tornare a sentirsi protagoniste della propria vita.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:32px; padding-top:32px; border-top:1px solid var(--oro-dim);">
+        <span style="font-family:'Barlow Condensed',sans-serif; letter-spacing:0.25em; text-transform:uppercase; font-size:0.85rem; color:var(--oro-mid); display:block; margin-bottom:16px;">Informazioni utili</span>
       </p>
+      <div class="relatore-highlights" style="margin-top:0;">
+        <div class="highlight-item">
+          <p class="highlight-label">Iscrizione</p>
+          <p class="highlight-text">È richiesta la prenotazione anticipata. L'incontro è a numero chiuso per garantire la qualità dell'esperienza e la profondità del lavoro di gruppo.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Quota di partecipazione</p>
+          <p class="highlight-text">Gestita tramite piattaforma sicura. Tutte le informazioni su costi, disponibilità e pagamenti sono disponibili al link di prenotazione.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Colonna destra: relatore + CTA -->
@@ -534,19 +587,27 @@
           <span class="relatore-foto-placeholder"></span>
         </div>
 
-        <!-- EDIT: dati relatore -->
         <p class="relatore-name">Chiara Gregori</p>
         <p class="relatore-ruolo">Ginecologa, sessuologa</p>
         <p class="relatore-bio">
           Chiara Gregori è anche autrice di libri che si pongono come obiettivo quello di creare consapevolezza e benessere del proprio corpo, dei propri desideri e delle relazioni.
-          <br> 4 i titoli pubblicati:<br>
-          La sessualità spiegata ai bambini e alle bambine di ieri, oggi e domani<br>
-          Per piacere. Piccola guida per una sessualità consapevole>br>
-          Io sono io<br>
-          Oggi mi sento una favola! Essere cicliche: ormoni, emozioni e consapevolezza<br>
-          in fase di pubblicazione:<br>
-          Il corpo è umano - L’anatomia spiegata alle bambine e ai bambini
         </p>
+
+        <div class="relatore-highlights">
+          <div class="highlight-item">
+            <p class="highlight-label">Pubblicazioni</p>
+            <p class="highlight-text">
+              La sessualità spiegata ai bambini e alle bambine di ieri, oggi e domani<br>
+              Per piacere. Piccola guida per una sessualità consapevole<br>
+              Io sono io<br>
+              Oggi mi sento una favola! Essere cicliche: ormoni, emozioni e consapevolezza
+            </p>
+          </div>
+          <div class="highlight-item">
+            <p class="highlight-label">In uscita</p>
+            <p class="highlight-text">Il corpo è umano — L’anatomia spiegata alle bambine e ai bambini</p>
+          </div>
+        </div>
       </div>
 
       <div class="cta-box">
