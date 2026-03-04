@@ -6,8 +6,8 @@
   <link href="https://api.lu.ma/embed/sdk.css" rel="stylesheet" />
 <script id="luma-checkout" src="https://api.lu.ma/embed/sdk.js" defer></script>
   <!-- EDIT: titolo evento -->
-  <title>[TITOLO EVENTO] — Nodo di Dara</title>
-  <meta name="description" content="[DESCRIZIONE BREVE EVENTO]" />
+  <title>La Tenda Rossa — Nodo di Dara</title>
+  <meta name="description" content="Menopausa, oltre i sintomi. Un incontro di condivisione per attraversare questa soglia con rispetto e uno sguardo nuovo." />
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
 
@@ -315,6 +315,36 @@
       line-height: 1.75;
     }
 
+    .relatore-highlights {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .highlight-item {
+      padding-left: 12px;
+      border-left: 1px solid var(--oro-mid);
+    }
+
+    .highlight-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 4px;
+    }
+
+    .highlight-text {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1.7vw, 0.92rem);
+      color: var(--white-low);
+      line-height: 1.65;
+    }
+
     /* CTA prenotazione */
     .cta-box {
       padding: 24px;
@@ -478,24 +508,20 @@
 
   <!-- Hero evento -->
   <div class="evento-hero">
-    <!-- EDIT: sostituisci badge, titolo e meta -->
-    <span class="evento-badge">[TIPO EVENTO]</span>
-    <h1 class="evento-title">[TITOLO<br>EVENTO]</h1>
+    <span class="evento-badge">Incontro</span>
+    <h1 class="evento-title">La Tenda<br>Rossa</h1>
 
     <div class="evento-meta">
       <div class="meta-item">
         <span class="meta-label">Data</span>
-        <!-- EDIT -->
-        <span class="meta-value">[Giorno] [Mese] 2026</span>
+        <span class="meta-value">11 Marzo 2026</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Orario</span>
-        <!-- EDIT -->
-        <span class="meta-value">16:00 – 18:30</span>
+        <span class="meta-value">10:00 – 13:00</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Location</span>
-        <!-- EDIT -->
         <span class="meta-value">Museo della Città · Rimini</span>
       </div>
       <div class="meta-item">
@@ -510,16 +536,36 @@
 
     <!-- Colonna sinistra: descrizione -->
     <div>
-      <p class="section-label">L'incontro</p>
-      <!-- EDIT: descrizione estesa evento -->
+      <p class="section-label">Menopausa, Oltre i Sintomi</p>
       <p class="prose">
-        [Descrizione estesa dell'evento. Cosa succederà, di cosa si parlerà, perché è rilevante nel contesto della mostra. Minimo 3-4 paragrafi.]
+        Un passaggio d'identità, una stagione di verità. La menopausa non è un problema da risolvere, ma una soglia da attraversare. Spesso ridotta a una lista di sintomi — vampate, insonnia, stanchezza — questa fase è in realtà un momento di profonda trasformazione che merita ascolto e dignità.
       </p>
       <p class="prose" style="margin-top:20px;">
-        [Secondo paragrafo.]
+        Questo incontro nasce per offrire uno spazio di condivisione dove dare forma alle emozioni silenziose e tradurre i messaggi del corpo.
       </p>
-      <p class="prose" style="margin-top:20px;">
-        [Terzo paragrafo, eventuale programma di massima o anticipazione dei temi.]
+      <p class="prose" style="margin-top:32px; padding-top:32px; border-top:1px solid var(--oro-dim);">
+        <span style="font-family:'Barlow Condensed',sans-serif; letter-spacing:0.25em; text-transform:uppercase; font-size:0.85rem; color:var(--oro-mid); display:block; margin-bottom:16px;">Perché partecipare</span>
+      </p>
+      <div class="relatore-highlights" style="margin-top:0;">
+        <div class="highlight-item">
+          <p class="highlight-label">Condivisione</p>
+          <p class="highlight-text">Per sentirsi meno sole e riconoscersi nelle storie delle altre.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Ascolto del corpo</p>
+          <p class="highlight-text">Per guardare ai sintomi non come disturbi, ma come messaggi.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Consapevolezza</p>
+          <p class="highlight-text">Per ritrovare valore e continuità dentro questo cambiamento.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Nuovi Inizi</p>
+          <p class="highlight-text">Per scoprire la menopausa come una stagione di libertà e di ritorno a sé.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:28px; font-style:italic;">
+        Un invito ad attraversare questa soglia insieme, con rispetto e uno sguardo nuovo.
       </p>
     </div>
 
@@ -529,18 +575,29 @@
       <div class="relatore-card">
         <!-- Foto relatore: sostituisci il placeholder con <img> quando hai la foto -->
         <div class="relatore-foto">
-          <!-- EDIT: decommenta e compila quando hai la foto
-          <img src="../../assets/eventi/[nome-file].jpg" alt="[Nome Relatore]" />
-          -->
-          <span class="relatore-foto-placeholder">Foto relatore</span>
+          <img src="../../assets/eventi/Monica_Maddiona.jpg" alt="Monica Maddiona" />
         </div>
 
-        <!-- EDIT: dati relatore -->
-        <p class="relatore-name">[Nome Relatore]</p>
-        <p class="relatore-ruolo">[Ruolo / Qualifica]</p>
+        <p class="relatore-name">Monica Maddiona</p>
+        <p class="relatore-ruolo">Counselor Transpersonale e Insegnante di Meditazione</p>
         <p class="relatore-bio">
-          [Bio breve del relatore. 3-5 righe. Chi è, cosa fa, perché è qui.]
+          Monica Maddiona, 54 anni, ha scelto di fare del proprio corpo un tempio e una guida. Nel suo lavoro accompagna le donne in un viaggio corporeo, emotivo ed energetico, utilizzando strumenti come la bioenergetica, la mindfulness e le meditazioni attive per sciogliere blocchi e vissuti non detti.
         </p>
+
+        <div class="relatore-highlights">
+          <div class="highlight-item">
+            <p class="highlight-label">La Visione</p>
+            <p class="highlight-text">Crede fermamente che il corpo non sia un ostacolo, ma la porta d'accesso alla crescita spirituale.</p>
+          </div>
+          <div class="highlight-item">
+            <p class="highlight-label">L'Esperienza</p>
+            <p class="highlight-text">Conduce da anni le Tende Rosse, percorsi dedicati alla conoscenza del ciclo mestruale come mappa dell'identità femminile.</p>
+          </div>
+          <div class="highlight-item">
+            <p class="highlight-label">La Missione</p>
+            <p class="highlight-text">Trasformare le crisi e le trasformazioni personali in una "lanterna" per le altre, creando spazi sicuri dove ogni fase — dal menarca alla menopausa — venga onorata come un passaggio sacro e naturale.</p>
+          </div>
+        </div>
       </div>
 
       <div class="cta-box">
