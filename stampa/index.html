@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartella Stampa — Nodo di Dara</title>
+  <meta name="description" content="Materiali stampa per la mostra Il Nodo di Dara. Rimini, Museo della Città, 2026." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --oro:       #c9a96e;
+      --oro-dim:   rgba(201,169,110,0.18);
+      --oro-mid:   rgba(201,169,110,0.55);
+      --white:     #f5f5f0;
+      --white-mid: rgba(245,245,240,0.75);
+      --white-low: rgba(245,245,240,0.50);
+      --bg:        #0e0c0a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ══ NAV ══ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 44px;
+      background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 36px;
+      height: auto;
+      filter: invert(1);
+      opacity: 0.75;
+    }
+
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--oro); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white-low);
+    }
+
+    /* ══ HEADER ══ */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      padding: 140px 44px 56px;
+      max-width: 900px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--oro-dim);
+    }
+
+    .page-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      color: var(--oro);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+
+    .page-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      color: var(--white-mid);
+      line-height: 1.65;
+      max-width: 520px;
+    }
+
+    /* ══ CONTENUTO ══ */
+    .press-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 64px 44px 120px;
+    }
+
+    /* Sezione */
+    .press-section {
+      margin-bottom: 72px;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.8rem, 1.8vw, 0.92rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--oro-dim);
+    }
+
+    /* Testo */
+    .prose {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      color: var(--white-mid);
+      line-height: 1.85;
+    }
+
+    .prose + .prose { margin-top: 16px; }
+
+    /* Scheda dati mostra */
+    .scheda-grid {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0;
+      border: 1px solid var(--oro-dim);
+    }
+
+    .scheda-row {
+      display: contents;
+    }
+
+    .scheda-key {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.78rem, 1.6vw, 0.88rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--oro-dim);
+      border-right: 1px solid var(--oro-dim);
+    }
+
+    .scheda-val {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.88rem, 1.8vw, 0.95rem);
+      color: var(--white-mid);
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--oro-dim);
+      line-height: 1.55;
+    }
+
+    .scheda-key:last-of-type,
+    .scheda-val:last-of-type {
+      border-bottom: none;
+    }
+
+    /* Card download */
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .download-card {
+      border: 1px solid var(--oro-dim);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.3s;
+    }
+
+    .download-card:hover {
+      border-color: var(--oro-mid);
+    }
+
+    .download-icon {
+      width: 32px;
+      height: 32px;
+      opacity: 0.4;
+    }
+
+    .download-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .download-meta {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.82rem, 1.6vw, 0.9rem);
+      color: var(--white-low);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.78rem, 1.6vw, 0.88rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--oro);
+      text-decoration: none;
+      margin-top: 4px;
+      transition: color 0.3s;
+    }
+
+    .download-btn:hover { color: var(--white); }
+
+    .download-btn svg {
+      width: 14px; height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    /* Griglia foto */
+    .foto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .foto-card {
+      border: 1px solid var(--oro-dim);
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .foto-card:hover { border-color: var(--oro-mid); }
+
+    .foto-thumb {
+      width: 100%;
+      aspect-ratio: 3/2;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+    }
+
+    .foto-caption {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .foto-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.78rem, 1.5vw, 0.88rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    .foto-dl {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      text-decoration: none;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
+    .foto-dl:hover { color: var(--oro); }
+    .foto-dl svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+    /* Contatto stampa */
+    .contact-box {
+      border: 1px solid var(--oro-dim);
+      padding: 32px;
+      background: rgba(201,169,110,0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .contact-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.78rem, 1.6vw, 0.88rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 8px;
+    }
+
+    .contact-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .contact-info {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.88rem, 1.8vw, 0.95rem);
+      color: var(--white-low);
+    }
+
+    .contact-info a {
+      color: var(--oro-mid);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-info a:hover { color: var(--oro); }
+
+    /* ══ FOOTER ══ */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 28px 44px;
+      border-top: 1px solid var(--oro-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .footer-text a:hover { color: var(--oro-mid); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 680px) {
+      .nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(14,12,10,0.97);
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        z-index: 200;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .nav-toggle { display: flex; z-index: 300; }
+
+      .page-header { padding: 120px 24px 48px; }
+      .press-content { padding: 48px 24px 80px; }
+      .scheda-grid { grid-template-columns: 120px 1fr; }
+      footer { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="/">
+      <img src="../logo.jpeg" alt="Nodo di Dara" />
+      <span class="nav-logo-text">Nodo di Dara</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi">Eventi</a></li>
+      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-label">Uso riservato · Materiali per la stampa</p>
+    <h1 class="page-title">Cartella<br>Stampa</h1>
+    <p class="page-sub">Comunicato, scheda tecnica e fotografie ad alta risoluzione per la mostra <em>Il Nodo di Dara</em>. Rimini, 2026.</p>
+  </div>
+
+  <div class="press-content">
+
+    <!-- ══ SCHEDA MOSTRA ══ -->
+    <div class="press-section">
+      <p class="section-label">Scheda della mostra</p>
+      <div class="scheda-grid">
+        <span class="scheda-key">Titolo</span>
+        <span class="scheda-val">Nodo di Dara</span>
+        <span class="scheda-key">Artista</span>
+        <span class="scheda-val">Elisabetta Acquaviva</span>
+        <span class="scheda-key">Sede</span>
+        <span class="scheda-val">Museo della Città · Via Luigi Tonini 1, 47921 Rimini</span>
+        <span class="scheda-key">Date</span>
+        <span class="scheda-val">7 marzo – 10 maggio 2026</span>
+        <span class="scheda-key">Inaugurazione</span>
+        <span class="scheda-val">7 marzo 2026 · ore 17:30</span>
+        <span class="scheda-key">Orari</span>
+        <span class="scheda-val">Martedì – Domenica · 10:00–13:00 / 16:00–19:00<br>Chiuso il lunedì</span>
+        <span class="scheda-key">Ingresso</span>
+        <span class="scheda-val">Gratuito</span>
+        <span class="scheda-key">Patrocinio</span>
+        <span class="scheda-val">Comune di Rimini</span>
+        <span class="scheda-key">Web</span>
+        <span class="scheda-val"><a href="https://www.ilnododidara.com" target="_blank" rel="noopener" style="color:var(--oro-mid);text-decoration:none;">www.ilnododidara.com</a></span>
+      </div>
+    </div>
+
+    <!-- ══ COMUNICATO STAMPA ══ -->
+    <div class="press-section">
+      <p class="section-label">Comunicato stampa</p>
+
+      <p class="prose" style="color:var(--oro-mid); font-size:clamp(0.82rem,1.6vw,0.9rem); letter-spacing:0.08em; margin-bottom:20px;">
+        Rimini, 5 Marzo 2026
+      </p>
+
+      <p class="prose" style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(1.1rem,2.2vw,1.3rem); font-weight:500; color:var(--white); line-height:1.35; margin-bottom:24px;">
+        "Basta sussurrare": al Museo della Città di Rimini la mostra fotografica che rompe il tabù della menopausa.
+      </p>
+
+      <p class="prose" style="font-style:italic; margin-bottom:24px;">
+        Dal 7 marzo al 10 maggio 2026, il progetto "Nodo di Dara" celebra la forza e la rinascita delle donne attraverso la fotografia come cura.
+      </p>
+
+      <p class="prose">
+        Il corpo femminile come territorio di mutamento, non come oggetto di giudizio estetico. Inaugura il 7 marzo alle 17:30, alla vigilia della Giornata Internazionale della Donna, presso il Museo della Città di Rimini, la mostra fotografica <em>Nodo di Dara</em>, un progetto ideato dalla fotografa Elisabetta Acquaviva per dare voce all'invisibilità sociale delle donne in menopausa.
+      </p>
+
+      <p class="prose">
+        Il progetto si ispira all'antico simbolo celtico legato alle radici della quercia. Proprio come le radici, la forza delle donne è spesso invisibile ma profonda e intrecciata, forgiata dall'esperienza. "Ci hanno insegnato a sussurrare la parola menopausa," spiega l'ideatrice, "ma durante il percorso fotografico quel sussurro diventa un coro".
+      </p>
+
+      <p class="prose">
+        <strong style="color:var(--white-mid);">Prendersi Cura attraverso l'Immagine:</strong> la mostra non è una semplice esposizione di ritratti, ma il racconto di un processo di ascolto profondo. Durante gli shooting, la fotografa agisce come una guida, accompagnando le donne in un viaggio che parte dalla naturale difesa e rigidità iniziale per approdare a un abbandono fiducioso davanti all'obiettivo. Gli scatti finali sono la prova visiva di questa metamorfosi.
+      </p>
+
+      <p class="prose">
+        Le protagoniste degli scatti diventano così "Ambasciatrici" di un messaggio potente: la menopausa non è una fine, ma un tempo nuovo, in cui sentirsi forti, vere e radicate.
+      </p>
+
+      <!-- Download comunicato -->
+      <div style="margin-top: 32px;">
+        <div class="download-grid">
+          <div class="download-card">
+            <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="1" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span class="download-name">Cartella stampa completa</span>
+            <span class="download-meta">Comunicato, scheda evento, biografie e anteprima immagini. Formato PDF.</span>
+            <!-- EDIT: sostituire href con link reale al PDF (es. su assets/ o Google Drive) -->
+            <a class="download-btn" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Scarica PDF
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ BIO ARTISTA ══ -->
+    <div class="press-section">
+      <p class="section-label">Biografia — Elisabetta Acquaviva</p>
+      <p class="prose">
+        Elisabetta Acquaviva è una fotografa di Rimini con oltre 35 anni di esperienza. Cresciuta nel laboratorio di stampa in bianco e nero dei genitori, la fotografia è sempre stata parte della sua identità. La sua ricerca artistica si concentra sulle soglie del femminile, esplorando quei passaggi di vita spesso avvolti nel silenzio.
+      </p>
+      <p class="prose">
+        Dopo il progetto <em>La Tenda Rossa</em>, dedicato al tabù delle mestruazioni, nel 2019 entra in menopausa e vive questa trasformazione come un "tornado" che le cambia la vita. Da questa esperienza personale nasce il <em>Nodo di Dara</em>, un progetto fotografico e sociale che documenta il vissuto di donne in menopausa attraverso ritratti intimi e testimonianze video. Ad oggi, Elisabetta ha fotografato oltre 90 donne tra i 45 e i 67 anni, creando uno spazio sicuro dove la fotografia diventa strumento di trasformazione.
+      </p>
+      <p class="prose">
+        "Io non fotografo, io accompagno." Formata anche come doula, Elisabetta applica nel suo lavoro fotografico l'ascolto profondo e l'accoglienza che caratterizzano questa figura di sostegno. Il suo approccio non mira alla perfezione estetica, ma all'autenticità emotiva: ogni sessione fotografica è un percorso di riconoscimento e rinascita.
+      </p>
+      <p class="prose">
+        Il progetto <em>Nodo di Dara</em> è stato presentato al TG3 Nazionale nel novembre 2025, ottenendo attenzione mediatica a livello nazionale per la sua capacità di rompere il tabù della menopausa attraverso il linguaggio visivo.
+      </p>
+    </div>
+
+    <!-- ══ CITAZIONI ══ -->
+    <div class="press-section">
+      <p class="section-label">Citazioni dell'artista</p>
+      <div style="display:flex; flex-direction:column; gap:24px;">
+        <blockquote style="border-left:1px solid var(--oro-mid); padding-left:24px; margin:0;">
+          <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(1.1rem,2.2vw,1.3rem); color:var(--white); line-height:1.55; margin-bottom:10px;">"Il corpo femminile non è oggetto di giudizio, ma territorio di mutamento."</p>
+          <cite style="font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--oro-mid); font-style:normal;">Elisabetta Acquaviva · Nodo di Dara</cite>
+        </blockquote>
+        <blockquote style="border-left:1px solid var(--oro-mid); padding-left:24px; margin:0;">
+          <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(1.1rem,2.2vw,1.3rem); color:var(--white); line-height:1.55; margin-bottom:10px;">"Non è un ciclo che si chiude, è una radice che si fortifica."</p>
+          <cite style="font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--oro-mid); font-style:normal;">Elisabetta Acquaviva · Nodo di Dara</cite>
+        </blockquote>
+        <blockquote style="border-left:1px solid var(--oro-mid); padding-left:24px; margin:0;">
+          <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(1.1rem,2.2vw,1.3rem); color:var(--white); line-height:1.55; margin-bottom:10px;">"Ci hanno insegnato a sussurrare la parola menopausa. In questo spazio, quel sussurro diventa un grido, un canto, una risata collettiva."</p>
+          <cite style="font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--oro-mid); font-style:normal;">Elisabetta Acquaviva · Nodo di Dara</cite>
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- ══ FOTOGRAFIE ══ -->
+    <div class="press-section">
+      <p class="section-label">Fotografie — Alta risoluzione</p>
+      <p class="prose" style="margin-bottom: 28px;">
+        Immagini libere da diritti per utilizzo editoriale con la mostra <em>Il Nodo di Dara</em>. Citazione richiesta: <strong style="color:var(--white-mid);">© Elisabetta Acquaviva</strong>
+      </p>
+
+      <div class="foto-grid">
+        <!-- EDIT: duplicare questo blocco per ogni foto disponibile -->
+        <!-- Foto 1 -->
+        <div class="foto-card">
+          <!-- EDIT: src thumbnail e href download ad alta risoluzione -->
+          <img class="foto-thumb" src="../assets/eventi/[foto-1-thumb].jpg" alt="Foto 1" />
+          <div class="foto-caption">
+            <span class="foto-name">[Nome foto 1]</span>
+            <a class="foto-dl" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Hi-res
+            </a>
+          </div>
+        </div>
+        <!-- Foto 2 -->
+        <div class="foto-card">
+          <img class="foto-thumb" src="../assets/eventi/[foto-2-thumb].jpg" alt="Foto 2" />
+          <div class="foto-caption">
+            <span class="foto-name">[Nome foto 2]</span>
+            <a class="foto-dl" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Hi-res
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CONTATTO STAMPA ══ -->
+    <div class="press-section">
+      <p class="section-label">Contatto stampa</p>
+      <div class="contact-box">
+        <p class="contact-label">Ufficio stampa</p>
+        <p class="contact-name">Elisabetta Acquaviva</p>
+        <p class="contact-info">
+          <a href="tel:+393336265276">333 6265276</a>
+        </p>
+        <p class="contact-info" style="margin-top:4px;">
+          <a href="mailto:info@elisabettacquaviva.it">info@elisabettacquaviva.it</a>
+        </p>
+        <p class="contact-info" style="margin-top:4px;">
+          <a href="https://www.ilnododidara.com" target="_blank" rel="noopener">www.ilnododidara.com</a>
+        </p>
+        <p class="contact-info" style="margin-top:4px; color:var(--white-low);">
+          Via di Mezzo 87, 47923 Rimini (RN)
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /press-content -->
+
+  <footer>
+    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+    <span class="footer-text">
+      <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
+    </span>
+  </footer>
+
+  <script>
+    var toggle = document.getElementById('navToggle');
+    var links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+  </script>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
+</body>
+</html>
