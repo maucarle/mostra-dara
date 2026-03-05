@@ -479,6 +479,26 @@
           <span class="p2-cd-sub">Secondi</span>
         </div>
       </div>
+
+      <div id="p2-cta" style="display:none; margin-top:40px; opacity:0; animation: arise 1.5s cubic-bezier(0.16,1,0.3,1) forwards;">
+        <a href="/progetto" style="
+          font-family: 'Barlow Condensed', sans-serif;
+          font-weight: 500;
+          font-size: clamp(1rem, 2vw, 1.1rem);
+          letter-spacing: 0.25em;
+          text-transform: uppercase;
+          color: #c9a96e;
+          text-decoration: none;
+          border: 1px solid rgba(201,169,110,0.35);
+          padding: 16px 36px;
+          display: inline-block;
+          transition: all 0.4s;
+        "
+        onmouseover="this.style.borderColor='rgba(201,169,110,0.8)'; this.style.color='#f5f5f0';"
+        onmouseout="this.style.borderColor='rgba(201,169,110,0.35)'; this.style.color='#c9a96e';">
+          Entra nella mostra &rarr;
+        </a>
+      </div>
     </div>
 
     <div class="p2-footer">
@@ -522,7 +542,16 @@
         p2.style.display = 'flex';
         p2.style.flexDirection = 'column';
         (function tick() {
-          setCountdown(VERNISS - Date.now(), ['p2-days','p2-hours','p2-mins','p2-secs']);
+          var diff = VERNISS - Date.now();
+          if (diff <= 0) {
+            ['p2-days','p2-hours','p2-mins','p2-secs'].forEach(function(id) {
+              document.getElementById(id).textContent = '00';
+            });
+            document.getElementById('p2-cd-label') && (document.getElementById('p2-cd-label').style.display = 'none');
+            document.getElementById('p2-cta').style.display = 'block';
+            return;
+          }
+          setCountdown(diff, ['p2-days','p2-hours','p2-mins','p2-secs']);
           setTimeout(tick, 1000);
         })();
       }
