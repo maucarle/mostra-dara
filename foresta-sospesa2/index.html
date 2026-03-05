@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Foresta Sospesa — Nodo di Dara</title>
+  <meta name="description" content="Novanta donne, novanta storie. Un archivio visivo sulla menopausa." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --oro:       #c9a96e;
+      --oro-dim:   rgba(201,169,110,0.18);
+      --oro-mid:   rgba(201,169,110,0.55);
+      --white:     #f5f5f0;
+      --white-mid: rgba(245,245,240,0.75);
+      --white-low: rgba(245,245,240,0.50);
+      --bg:        #0e0c0a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 44px;
+      background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 36px;
+      height: auto;
+      filter: invert(1);
+      opacity: 0.75;
+    }
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--oro); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white-low);
+    }
+
+    /* HEADER */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      padding: 110px 44px 0;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .page-header h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      color: var(--oro);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--white-low);
+    }
+
+    /* SEARCH + COUNT BAR */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(14,12,10,0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--oro-dim);
+      padding: 14px 44px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 320px;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      stroke: var(--oro-mid);
+      fill: none;
+      stroke-width: 1.5;
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--oro-dim);
+      border: 1px solid var(--oro-dim);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 8px 12px 8px 34px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .search-input::placeholder {
+      color: var(--white-low);
+    }
+    .search-input:focus {
+      border-color: var(--oro-mid);
+    }
+    .count-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      white-space: nowrap;
+    }
+    .count-label span {
+      color: var(--oro);
+      font-weight: 500;
+    }
+
+    /* GRID */
+    .forest-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 3px;
+      padding: 3px 3px 80px;
+    }
+    .card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+      background: rgba(255,255,255,0.03);
+    }
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.5s ease;
+      filter: grayscale(20%);
+    }
+    .card:hover img {
+      transform: scale(1.06);
+      filter: grayscale(0%);
+    }
+    /* number badge */
+    .card-num {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--oro-mid);
+      background: rgba(14,12,10,0.7);
+      padding: 2px 6px;
+      line-height: 1.4;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .card:hover .card-num { opacity: 1; }
+    /* name overlay on hover */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(14,12,10,0.88) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px;
+    }
+    .card:hover .card-overlay { opacity: 1; }
+    .card-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .card-short {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.2vw, 0.88rem);
+      color: var(--oro-mid);
+      margin-top: 3px;
+      line-height: 1.3;
+    }
+    /* placeholder when no photo */
+    .card-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid var(--oro-dim);
+    }
+    .card-placeholder .ph-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: 1.8rem;
+      color: var(--oro-dim);
+      letter-spacing: 0.1em;
+    }
+    .card-placeholder .ph-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+    /* hidden card */
+    .card.hidden {
+      display: none;
+    }
+
+    /* MODAL */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(14,12,10,0.92);
+      z-index: 200;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-bg.open { display: flex; }
+    .modal {
+      position: relative;
+      max-width: 780px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 0;
+      border: 1px solid var(--oro-dim);
+      background: rgba(14,12,10,0.98);
+    }
+    .modal-img-wrap {
+      position: sticky;
+      top: 0;
+      height: min(90vh, 500px);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .modal-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .modal-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.02);
+      border-right: 1px solid var(--oro-dim);
+    }
+    .modal-img-placeholder span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: 3rem;
+      color: var(--oro-dim);
+    }
+    .modal-content {
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .modal-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+    }
+    .modal-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+    }
+    .modal-age {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--oro-mid);
+    }
+    .modal-short {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--white-mid);
+      border-left: 2px solid var(--oro-mid);
+      padding-left: 14px;
+      line-height: 1.5;
+    }
+    .modal-divider {
+      height: 1px;
+      background: var(--oro-dim);
+    }
+    .modal-text {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
+      color: var(--white-mid);
+      line-height: 1.85;
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: none;
+      border: 1px solid var(--oro-dim);
+      color: var(--white-low);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: border-color 0.3s, color 0.3s;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+    .modal-close:hover { border-color: var(--oro-mid); color: var(--oro); }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 28px 44px;
+      border-top: 1px solid var(--oro-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+    .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .footer-text a:hover { color: var(--oro-mid); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .forest-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+    @media (max-width: 860px) {
+      .forest-grid { grid-template-columns: repeat(4, 1fr); }
+      .modal { grid-template-columns: 1fr; }
+      .modal-img-wrap { height: 280px; position: relative; }
+    }
+    @media (max-width: 680px) {
+      .nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(14,12,10,0.97);
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        z-index: 200;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .nav-toggle { display: flex; z-index: 300; }
+      .page-header { padding: 100px 24px 0; }
+      .toolbar { padding: 12px 24px; }
+      .forest-grid { grid-template-columns: repeat(3, 1fr); }
+      footer { padding: 24px; }
+    }
+    @media (max-width: 420px) {
+      .forest-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="/">
+      <img src="../logo.jpeg" alt="Nodo di Dara" />
+      <span class="nav-logo-text">Nodo di Dara</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi">Eventi</a></li>
+      <li><a href="/foresta-sospesa" class="active">La Foresta Sospesa</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-header">
+    <h1>La Foresta<br>Sospesa</h1>
+    <p>Novanta donne, novanta storie.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Cerca per nome…" autocomplete="off" />
+    </div>
+    <span class="count-label"><span id="countVisible">11</span> donne</span>
+  </div>
+
+  <div class="forest-grid" id="forest"></div>
+
+  <!-- MODAL -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-img-wrap" id="modalImg"></div>
+      <div class="modal-content">
+        <div class="modal-num" id="modalNum"></div>
+        <div class="modal-name" id="modalName"></div>
+        <div class="modal-age" id="modalAge"></div>
+        <div class="modal-short" id="modalShort"></div>
+        <div class="modal-divider"></div>
+        <div class="modal-text" id="modalText"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+    <span class="footer-text">
+      <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
+    </span>
+  </footer>
+
+  <script>
+    const women = [
+      {
+        id: "06", name: "Silvia", age: "51 anni",
+        short: "Il ventaglio davanti a tutti",
+        photo: "/assets/foresta-sospesa/silvia_MG_0818.jpg",
+        text: "Silvia è in menopausa conclamata da un anno e mezzo, ma i sintomi erano già lì da cinque o sei anni — vampate, nebbia mentale, ansia, attacchi di panico, una depressione affrontata da sola. Cinque anni in cui ha girato medici che non sapevano darle un nome a quello che stava vivendo. A un certo punto si ferma, si scusa per le lacrime. \"Io non piango mai.\" Ed è forse il momento più vero di tutto il pomeriggio. Ne è uscita da sola, in silenzio, con scelte fatte in completa autonomia. Al lavoro, quando arriva la vampata, tira fuori il ventaglio davanti a tutti e dichiara ad alta voce di essere in menopausa. Vede l'imbarazzo negli occhi delle donne intorno a lei — e questo la spinge a dirlo ancora di più."
+      },
+      {
+        id: "26", name: "Manuela", age: "55 anni",
+        short: "\"Non ce l'ho una risorsa\"",
+        photo: "/assets/foresta-sospesa/manuela_MG_7867.jpg",
+        text: "La testimonianza di Manuela è un atto di coraggio puro nella sua onestà brutale. Di fronte alla domanda sulle risorse, lei risponde senza fingere: \"Non ce l'ho una risorsa\". Confessa la fatica più grande: \"Non riuscire più a riconoscermi, io non sono più quella che ero\". La sua voce rappresenta tutte le donne che sono ancora nel mezzo della tempesta, che cercano il buco della serratura al buio. È un promemoria fondamentale: a volte la risorsa è proprio ammettere di non averla ancora trovata, e darsi il tempo di cercarla."
+      },
+      {
+        id: "65", name: "Stefania", age: "55 anni",
+        short: "\"Non me la faccio pesare\"",
+        photo: "/assets/foresta-sospesa/stefania_MG_9571.jpg",
+        text: "Stefania è entrata in menopausa a 40 anni e da allora conta i minuti. Ogni dieci, una caldana. Quindici anni così, dalla mattina alla sera, estate compresa — \"l'estate è un delirio\". La terapia ormonale le ha attenuato i demoni, non li ha tolti. A questo ci si aggiunge la fibromialgia: dolori con cui convive ogni giorno. Se le chiedi cosa c'è di bello, risponde secca: \"Non c'è.\" Poi si ferma un secondo e aggiunge: \"Ho di bello che non me la faccio pesare.\" È la frase più onesta del pomeriggio. Non è una risoluzione, non è un lieto fine: è la descrizione precisa di una donna che porta un peso reale e ha scelto di non farne il centro della propria identità. \"Ci sto convivendo.\" Basta così."
+      },
+      {
+        id: "56", name: "Roberta", age: "55 anni",
+        short: "Lavorare sull'interno",
+        photo: "/assets/foresta-sospesa/roberta_MG_8942.jpg",
+        text: "Roberta è arrivata in menopausa di punto in bianco, senza preavviso, come una porta che sbatte. Ha fatto i test di gravidanza prima di capire cosa stava succedendo. Poi è arrivato tutto insieme: i chili, la depressione già sua, la famiglia che non capiva, il ginocchio che ha ceduto. Non ha trovato vie brevi. Ha trovato invece una direzione: \"non potendo lavorare sulla parte esteriore, ho lavorato sulla parte interiore.\" Adesso va a teatro da sola, compra libri, guarda i tramonti, investe in ricordi — non in borse. L'unica cosa che le manca ancora, quella su cui sta lavorando: riuscire a guardarsi allo specchio. \"Ci provo.\""
+      },
+      {
+        id: "43", name: "Eleonora", age: "38 anni",
+        short: "La cicatrice di una battaglia vinta",
+        photo: "/assets/foresta-sospesa/eleonora.jpg",
+        text: "Eleonora ha una storia diversa, segnata dalla urgenza della sopravvivenza. La sua menopausa non è arrivata con l'età, ma a 38 anni, indotta per proteggerla dopo la lotta contro due tumori. Parla di \"sfide estremamente personali\" e di crisi da cui nascono opportunità. Non c'è spazio per il lamento superficiale: la sua menopausa è la cicatrice di una battaglia vinta, il prezzo da pagare per la sua \"rinascita\". È la gratitudine pura di chi sa che essere qui a raccontarlo è l'unica cosa che conta."
+      },
+      {
+        id: "73", name: "Lorella", age: "64 anni",
+        short: "Una menopausa inghiottita",
+        photo: "/assets/foresta-sospesa/lorella.jpg",
+        text: "La menopausa di Lorella è arrivata a 45 anni mentre lei stava facendo la chemioterapia. Non c'era spazio per pensarci: la malattia occupava tutto il campo visivo, ogni energia era concentrata sulle cure. Quando il percorso si è concluso, ha scoperto di essere già dall'altra parte — senza vampate, senza i segnali classici, perché era già tutto spianato da quello che aveva attraversato. Una menopausa quasi silenziosa, inghiottita da una battaglia più grande. La sua testimonianza ci ricorda che a volte il corpo affronta più trasformazioni contemporaneamente, e che sopravvivere a tutte è già una forma di forza."
+      },
+      {
+        id: "04", name: "Chiara", age: "43 anni",
+        short: "\"Si sono spente le luci\"",
+        photo: "/assets/foresta-sospesa/chiara.jpg",
+        text: "Chiara la menopausa non l'ha voluta. È arrivata dopo una mammografia di routine che ha trovato qualcosa che lei, in fondo, già sentiva. \"Si sono spente le luci.\" Poi ha capito di essere stata fortunata. Non ha avuto paura di morire né di operarsi: \"Fate quello che volete, basta che poi sto bene.\" I sintomi non la spaventano, dice. La fanno incazzare. Ma la sua conclusione è disarmante nella sua semplicità: \"Ringrazio chi mi ha trovato questa cosa, ringrazio di non avere più il ciclo, ringrazio le caldane.\" Essere qui a raccontarlo è già tutto."
+      },
+      {
+        id: "57", name: "Lucia", age: "54 anni",
+        short: "\"Felicemente\"",
+        photo: "/assets/foresta-sospesa/lucia.jpg",
+        text: "Lucia usa una parola rivoluzionaria: \"Felicemente\". Non vuole tornare indietro, perché a 54 anni ha scoperto il lusso di scegliere solo ciò che la fa stare bene. Ha smesso di investire in vestiti per investire in esperienze: \"Mi piace guardare i tramonti, mi piace vedere i colori\". La sua menopausa è una pulizia del superfluo che ha lasciato spazio solo alla meraviglia e alla voglia di vedere il mondo con occhi nuovi."
+      },
+      {
+        id: "88", name: "Monica", age: "54 anni",
+        short: "Un paradigma, non un destino",
+        photo: "/assets/foresta-sospesa/monica.jpg",
+        text: "Monica è entrata in menopausa a 46 anni e non ha quasi sofferto. La sua spiegazione non è genetica: è culturale. Ha lavorato per anni sul ciclo mestruale come linguaggio del corpo, ha imparato ad ascoltare le proprie energie fase per fase, e quando la menopausa è arrivata l'ha accolta come un passaggio, non come una patologia. Porta un'idea radicata in culture lontane: dove la menopausa non è vissuta come declino, le donne non la soffrono allo stesso modo. Non è il corpo che decide — è il paradigma in cui si vive. La fine della ciclicità non è la fine della femminilità. È l'inizio della sorgente."
+      },
+      {
+        id: "87", name: "Eugenia", age: "67 anni",
+        short: "Il portamento",
+        photo: "/assets/foresta-sospesa/eugenia.jpg",
+        text: "Eugenia ha avuto la fortuna di incontrare presto una ginecologa illuminata che, tredici anni fa, le ha prescritto una terapia ormonale bioidentica quando quasi nessuno ne parlava ancora. Quella scelta le ha cambiato la qualità di vita: pelle, capelli, umore, energia. Sale e scende la scalinata di Trinità dei Monti ogni mattina cercando di non guardare i gradini mentre scende. Perché è convinta di una cosa: quello che invecchia una persona non è la ruga, ma la camminata. Il portamento, la sicurezza, il modo di muoversi nel mondo. Ha imparato a dire i no che prima non riusciva a dire. La sua risposta al tempo che passa non è la resa: è il portamento."
+      },
+      {
+        id: "55", name: "Elena", age: "",
+        short: "\"Io sto d'incanto\"",
+        photo: "/assets/foresta-sospesa/elena.jpg",
+        text: "Elena lavora in un centro commerciale, sempre a contatto con il pubblico. Quando arriva la caldana, non può sparire: diventa rossa \"come un peperone\" davanti a tutti e deve gestirla lì, in tempo reale. Poi c'è la memoria che va e viene, e gli sbalzi d'umore che la rendono irriconoscibile anche a se stessa — lei che era \"sempre equilibrata, sorridente\". Ma Elena trova il ribaltamento nel freddo: d'inverno gira in t-shirt e pantaloncini mentre gli altri si imbacuccano, e le persone la guardano con curiosità. \"Io sto d'incanto\", dice. E in quella frase c'è tutta la sua filosofia: il fuoco che ti brucia può anche scaldarti in modo nuovo. Basta trovare la stagione giusta."
+      }
+    ];
+
+    const grid = document.getElementById('forest');
+    const modalBg = document.getElementById('modalBg');
+    const modalClose = document.getElementById('modalClose');
+    const searchInput = document.getElementById('searchInput');
+    const countEl = document.getElementById('countVisible');
+
+    // Build cards
+    women.forEach(w => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.name = w.name.toLowerCase();
+
+      const imgSrc = w.photo;
+      card.innerHTML = `
+        <img src="${imgSrc}" alt="${w.name}"
+          onerror="this.outerHTML='<div class=\\'card-placeholder\\'><span class=\\'ph-num\\'>${w.id}</span><span class=\\'ph-name\\'>${w.name}</span></div>'"
+        />
+        <span class="card-num">${w.id}</span>
+        <div class="card-overlay">
+          <div class="card-name">${w.name}</div>
+          ${w.short ? `<div class="card-short">${w.short}</div>` : ''}
+        </div>
+      `;
+
+      card.addEventListener('click', () => openModal(w));
+      grid.appendChild(card);
+    });
+
+    // Search
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      let visible = 0;
+      grid.querySelectorAll('.card').forEach(card => {
+        const match = !q || card.dataset.name.includes(q);
+        card.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      countEl.textContent = visible;
+    });
+
+    // Modal
+    function openModal(w) {
+      document.getElementById('modalNum').textContent = `Cartella ${w.id}`;
+      document.getElementById('modalName').textContent = w.name;
+      document.getElementById('modalAge').textContent = w.age;
+      document.getElementById('modalShort').textContent = w.short;
+      document.getElementById('modalText').textContent = w.text;
+      const imgWrap = document.getElementById('modalImg');
+      imgWrap.innerHTML = `<img src="${w.photo}" alt="${w.name}" onerror="this.outerHTML='<div class=\\'modal-img-placeholder\\'><span>${w.id}</span></div>'" />`;
+      modalBg.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalBg.addEventListener('click', e => { if (e.target === modalBg) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    function closeModal() {
+      modalBg.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Nav toggle
+    var toggle = document.getElementById('navToggle');
+    var links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+  </script>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
+</body>
+</html>
