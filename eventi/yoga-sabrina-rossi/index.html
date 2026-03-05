@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- EDIT: titolo evento -->
-  <title>[TITOLO EVENTO] — Nodo di Dara</title>
-  <meta name="description" content="[DESCRIZIONE BREVE EVENTO]" />
-
+  <link href="https://api.lu.ma/embed/sdk.css" rel="stylesheet" />
+  <script id="luma-checkout" src="https://api.lu.ma/embed/sdk.js" defer></script>
+  <title>Menopausa e Yoga — Nodo di Dara</title>
+  <meta name="description" content="Un workshop per esplorare come lo yoga possa accompagnare la menopausa attraverso il respiro, il movimento e la consapevolezza." />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --oro:       #c9a96e;
@@ -19,10 +18,8 @@
       --white-low: rgba(245,245,240,0.50);
       --bg:        #0e0c0a;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--white);
@@ -30,7 +27,6 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-
     body::before {
       content: '';
       position: fixed;
@@ -40,8 +36,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
-    /* ══ NAV ══ */
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -54,21 +48,18 @@
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
     }
-
     .nav-logo {
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
     }
-
     .nav-logo img {
       width: 36px;
       height: auto;
       filter: invert(1);
       opacity: 0.75;
     }
-
     .nav-logo-text {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 600;
@@ -77,14 +68,12 @@
       text-transform: uppercase;
       color: var(--oro);
     }
-
     .nav-links {
       display: flex;
       align-items: center;
       gap: 28px;
       list-style: none;
     }
-
     .nav-links a {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 400;
@@ -95,9 +84,7 @@
       text-decoration: none;
       transition: color 0.3s;
     }
-
     .nav-links a:hover, .nav-links a.active { color: var(--oro); }
-
     .nav-toggle {
       display: none;
       flex-direction: column;
@@ -107,15 +94,12 @@
       border: none;
       padding: 4px;
     }
-
     .nav-toggle span {
       display: block;
       width: 24px;
       height: 1px;
       background: var(--white-low);
     }
-
-    /* ══ BREADCRUMB ══ */
     .breadcrumb {
       position: relative;
       z-index: 1;
@@ -123,7 +107,6 @@
       max-width: 900px;
       margin: 0 auto;
     }
-
     .breadcrumb a {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 400;
@@ -137,17 +120,13 @@
       gap: 6px;
       transition: color 0.3s;
     }
-
     .breadcrumb a:hover { color: var(--oro); }
-
     .breadcrumb a svg {
       width: 14px; height: 14px;
       stroke: currentColor;
       fill: none;
       stroke-width: 1.5;
     }
-
-    /* ══ HERO EVENTO ══ */
     .evento-hero {
       position: relative;
       z-index: 1;
@@ -155,8 +134,6 @@
       margin: 0 auto;
       padding: 40px 44px 64px;
     }
-
-    /* EDIT: badge tipo evento */
     .evento-badge {
       display: inline-block;
       font-family: 'Barlow Condensed', sans-serif;
@@ -169,7 +146,6 @@
       color: var(--oro-mid);
       margin-bottom: 20px;
     }
-
     .evento-title {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 600;
@@ -180,7 +156,6 @@
       line-height: 0.95;
       margin-bottom: 32px;
     }
-
     .evento-meta {
       display: flex;
       flex-wrap: wrap;
@@ -189,13 +164,11 @@
       padding-bottom: 40px;
       border-bottom: 1px solid var(--oro-dim);
     }
-
     .meta-item {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-
     .meta-label {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 400;
@@ -204,15 +177,12 @@
       text-transform: uppercase;
       color: var(--oro-mid);
     }
-
     .meta-value {
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
       font-size: clamp(0.95rem, 2vw, 1.08rem);
       color: var(--white-mid);
     }
-
-    /* ══ CORPO ══ */
     .evento-body {
       position: relative;
       z-index: 1;
@@ -224,8 +194,6 @@
       gap: 64px;
       align-items: start;
     }
-
-    /* Colonna sinistra: descrizione */
     .section-label {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 400;
@@ -235,7 +203,6 @@
       color: var(--oro-mid);
       margin-bottom: 16px;
     }
-
     .prose {
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
@@ -244,19 +211,12 @@
       line-height: 1.85;
       max-width: 560px;
     }
-
     .prose + .prose { margin-top: 20px; }
-
-    /* Colonna destra: relatore + CTA */
-    .sidebar {}
-
     .relatore-card {
       border: 1px solid var(--oro-dim);
       padding: 28px;
       margin-bottom: 28px;
     }
-
-    /* Placeholder foto relatore */
     .relatore-foto {
       width: 100%;
       aspect-ratio: 3/4;
@@ -269,23 +229,12 @@
       position: relative;
       overflow: hidden;
     }
-
     .relatore-foto img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-
-    .relatore-foto-placeholder {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 300;
-      font-size: clamp(0.78rem, 1.6vw, 0.88rem);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--white-low);
-    }
-
     .relatore-name {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 600;
@@ -295,7 +244,6 @@
       color: var(--white);
       margin-bottom: 8px;
     }
-
     .relatore-ruolo {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -304,7 +252,6 @@
       color: var(--oro-mid);
       margin-bottom: 16px;
     }
-
     .relatore-bio {
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
@@ -312,14 +259,37 @@
       color: var(--white-low);
       line-height: 1.75;
     }
-
-    /* CTA prenotazione */
+    .relatore-highlights {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .highlight-item {
+      padding-left: 12px;
+      border-left: 1px solid var(--oro-mid);
+    }
+    .highlight-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 4px;
+    }
+    .highlight-text {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1.7vw, 0.92rem);
+      color: var(--white-low);
+      line-height: 1.65;
+    }
     .cta-box {
       padding: 24px;
       border: 1px solid var(--oro-dim);
       background: rgba(201,169,110,0.03);
     }
-
     .cta-label {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 400;
@@ -329,7 +299,6 @@
       color: var(--oro-mid);
       margin-bottom: 8px;
     }
-
     .cta-info {
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
@@ -338,7 +307,6 @@
       line-height: 1.6;
       margin-bottom: 20px;
     }
-
     .btn-luma {
       display: block;
       width: 100%;
@@ -354,10 +322,7 @@
       text-decoration: none;
       transition: opacity 0.3s;
     }
-
     .btn-luma:hover { opacity: 0.85; }
-
-    /* ══ BACK LINK ══ */
     .back-section {
       position: relative;
       z-index: 1;
@@ -366,7 +331,6 @@
       padding: 40px 44px 80px;
       border-top: 1px solid var(--oro-dim);
     }
-
     .back-link {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 400;
@@ -380,17 +344,13 @@
       gap: 8px;
       transition: color 0.3s;
     }
-
     .back-link:hover { color: var(--oro); }
-
     .back-link svg {
       width: 14px; height: 14px;
       stroke: currentColor;
       fill: none;
       stroke-width: 1.5;
     }
-
-    /* ══ FOOTER ══ */
     footer {
       position: relative;
       z-index: 1;
@@ -402,7 +362,6 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-
     .footer-text {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 300;
@@ -411,17 +370,13 @@
       text-transform: uppercase;
       color: var(--white-low);
     }
-
     .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
     .footer-text a:hover { color: var(--oro-mid); }
-
-    /* ══ RESPONSIVE ══ */
     @media (max-width: 768px) {
       .evento-body { grid-template-columns: 1fr; gap: 48px; }
       .sidebar { order: -1; }
       .relatore-foto { aspect-ratio: 1/1; max-width: 200px; }
     }
-
     @media (max-width: 680px) {
       .nav { padding: 18px 24px; }
       .nav-links { display: none; }
@@ -438,7 +393,6 @@
       }
       .nav-links.open a { font-size: 1.1rem; }
       .nav-toggle { display: flex; z-index: 300; }
-
       .breadcrumb { padding: 100px 24px 0; }
       .evento-hero { padding: 32px 24px 48px; }
       .evento-body { padding: 0 24px; }
@@ -448,7 +402,6 @@
   </style>
 </head>
 <body>
-
   <nav class="nav">
     <a class="nav-logo" href="/">
       <img src="../../logo.jpeg" alt="Nodo di Dara" />
@@ -465,35 +418,26 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
-
-  <!-- Breadcrumb -->
   <div class="breadcrumb">
     <a href="/eventi">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       Tutti gli eventi
     </a>
   </div>
-
-  <!-- Hero evento -->
   <div class="evento-hero">
-    <!-- EDIT: sostituisci badge, titolo e meta -->
-    <span class="evento-badge">workshop</span>
-    <h1 class="evento-title">Menopausa e<br>Yoga</h1>
-
+    <span class="evento-badge">Workshop</span>
+    <h1 class="evento-title">Menopausa<br>e Yoga</h1>
     <div class="evento-meta">
       <div class="meta-item">
         <span class="meta-label">Data</span>
-        <!-- EDIT -->
         <span class="meta-value">21 Marzo 2026</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Orario</span>
-        <!-- EDIT -->
         <span class="meta-value">16:30 – 17:30</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Location</span>
-        <!-- EDIT -->
         <span class="meta-value">Museo della Città · Rimini</span>
       </div>
       <div class="meta-item">
@@ -502,82 +446,81 @@
       </div>
     </div>
   </div>
-
-  <!-- Corpo: descrizione + sidebar relatore -->
   <div class="evento-body">
-
-    <!-- Colonna sinistra: descrizione -->
     <div>
-      <p class="section-label">L'incontro</p>
-      <!-- EDIT: descrizione estesa evento -->
+      <p class="section-label">Fiorire nel Cambiamento</p>
       <p class="prose">
-La menopausa è una trasformazione profonda che può diventare un tempo di consapevolezza e libertà.
-In questo incontro esploreremo come lo yoga possa accompagnare le donne attraverso strumenti concreti di respirazione, movimento e rilassamento, per sostenere corpo, mente ed energia.
+        La menopausa è una trasformazione profonda che può diventare un tempo di consapevolezza e libertà. In questo incontro esploreremo come lo yoga possa accompagnare le donne attraverso strumenti concreti di respirazione, movimento e rilassamento.
       </p>
-      <p class="prose" style="margin-top:20px;">
-Una parte teorica introduttiva sarà seguita da una pratica di 30 minuti rigenerante, dolce e accessibile, focalizzata su respiro, mobilità, stabilità e rilassamento profondo.
-Uno spazio per ascoltarsi, rafforzarsi e riscoprire il proprio potere femminile.
-Pratica adatta a tutte, principianti e non.
-L’incontro si terrà il 21 marzo, nel tempo dell’equinozio di primavera, un momento simbolico di passaggio, in cui la luce ritorna a crescere e la natura si risveglia.
+      <p class="prose">
+        L'incontro si terrà nel tempo dell'equinozio di primavera, un momento simbolico di passaggio. Come la terra che rinasce, anche la menopausa può essere vissuta non come una fine, ma come un nuovo inizio: una stagione di maturità fertile in cui lasciare andare il superfluo e fare spazio a una forza più autentica e luminosa.
       </p>
-      <p class="prose" style="margin-top:20px;">
-Come la terra che rinasce dopo l’inverno, anche la menopausa può essere vissuta non come una fine, ma come un nuovo inizio. Una stagione di maturità fertile, in cui lasciare andare ciò che non serve più e fare spazio a una forza più autentica, radicata e luminosa.
-La primavera ci ricorda che ogni trasformazione porta con sé nuova energia,  un invito a fiorire in una forma diversa, più consapevole, più libera, profondamente nostra.
-
-INFO - esempio: Porta tappetino, un cuscino e abiti comodi. Una pratica guidata per respirare meglio, sciogliere tensioni e rigenerare corpo e mente. 
+      <p class="prose" style="margin-top:32px; padding-top:32px; border-top:1px solid var(--oro-dim);">
+        <span style="font-family:'Barlow Condensed',sans-serif; letter-spacing:0.25em; text-transform:uppercase; font-size:0.85rem; color:var(--oro-mid); display:block; margin-bottom:16px;">Il Laboratorio</span>
       </p>
-    </div>
-
-    <!-- Colonna destra: relatore + CTA -->
-    <div class="sidebar">
-
-      <div class="relatore-card">
-        <!-- Foto relatore: sostituisci il placeholder con <img> quando hai la foto -->
-        <div class="relatore-foto">
-          <!-- EDIT: decommenta e compila quando hai la foto --->
-          <img src="../../assets/eventi/Sabrina rossi 4.jpg" alt="Sabrina Rossi" />
-          <span class="relatore-foto-placeholder"></span>
+      <div class="relatore-highlights" style="margin-top:0;">
+        <div class="highlight-item">
+          <p class="highlight-label">La Pratica</p>
+          <p class="highlight-text">30 minuti di sessione rigenerante e dolce, accessibile a tutte (principianti e non), focalizzata su mobilità e stabilità.</p>
         </div>
-
-        <!-- EDIT: dati relatore -->
-        <p class="relatore-name">Sabrina Rossi</p>
-        <p class="relatore-ruolo">Mandala~Insegnante di Yoga</p>
-        <p class="relatore-bio">
-          Sabrina Rossi accompagna le donne in percorsi di ascolto, consapevolezza e benessere attraverso uno yoga dolce, profondo e rispettoso dei cambiamenti del corpo femminile. Da oltre 4 anni guida ogni mattina “Yoga in Pigiama”, un collegamento live online che riunisce donne in tutta Italia e oltre, creando uno spazio quotidiano di respiro, energia e cura di sé.
-Accanto alle pratiche online, conduce anche gruppi di donne in presenza.
-Dedica particolare attenzione alla fase della menopausa, sostenendo ogni donna  sia principiante sia già praticante  nel ritrovare stabilità, forza interiore e una nuova armonia con il proprio corpo.
-www.yogainsieme.net
-        </p>
+        <div class="highlight-item">
+          <p class="highlight-label">Il Focus</p>
+          <p class="highlight-text">Riscoprire il proprio potere femminile attraverso il respiro e il rilassamento profondo.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Cosa portare</p>
+          <p class="highlight-text">Si consiglia di portare un tappetino, un cuscino e di indossare abiti comodi per favorire il movimento.</p>
+        </div>
       </div>
-
+    </div>
+    <div class="sidebar">
+      <div class="relatore-card">
+        <div class="relatore-foto">
+          <img src="../../assets/eventi/Sabrina rossi 4.jpg" alt="Sabrina Rossi" />
+        </div>
+        <p class="relatore-name">Sabrina Rossi</p>
+        <p class="relatore-ruolo">Insegnante di Yoga (Mandala~Yoga)</p>
+        <p class="relatore-bio">
+          Sabrina Rossi accompagna le donne in percorsi di ascolto e benessere attraverso uno yoga rispettoso dei cambiamenti del corpo femminile.
+        </p>
+        <div class="relatore-highlights">
+          <div class="highlight-item">
+            <p class="highlight-label">Yoga in Pigiama</p>
+            <p class="highlight-text">Da oltre 4 anni guida una community online live che riunisce donne in tutta Italia per un rito quotidiano di cura di sé.</p>
+          </div>
+          <div class="highlight-item">
+            <p class="highlight-label">Specializzazione</p>
+            <p class="highlight-text">Dedica particolare attenzione alla fase della menopausa, aiutando a ritrovare forza interiore e armonia.</p>
+          </div>
+          <div class="highlight-item">
+            <p class="highlight-label">Visione</p>
+            <p class="highlight-text">Un approccio dolce e profondo per sostenere ogni donna nel proprio cammino di fioritura personale.</p>
+          </div>
+        </div>
+      </div>
       <div class="cta-box">
         <p class="cta-label">Partecipa</p>
         <p class="cta-info">Ingresso gratuito. Posto riservato con prenotazione su Luma.</p>
-        <!-- EDIT: sostituisci href con link Luma reale quando disponibile -->
         <a class="btn-luma" href="https://luma.com/event/evt-M3t7fFDf9tcCFW4"
-  data-luma-action="checkout"
-  data-luma-event-id="evt-M3t7fFDf9tcCFW4" target="_blank" rel="noopener">
+          data-luma-action="checkout"
+          data-luma-event-id="evt-M3t7fFDf9tcCFW4" target="_blank" rel="noopener">
           Prenota il tuo posto
         </a>
       </div>
-
     </div>
   </div>
-
   <div class="back-section">
     <a class="back-link" href="/eventi">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       Tutti gli eventi
     </a>
   </div>
-
   <footer>
     <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
     <span class="footer-text">
       <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
     </span>
   </footer>
-
   <script>
     var toggle = document.getElementById('navToggle');
     var links  = document.getElementById('navLinks');
@@ -586,7 +529,6 @@ www.yogainsieme.net
       a.addEventListener('click', function() { links.classList.remove('open'); });
     });
   </script>
-
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
 </body>
 </html>
