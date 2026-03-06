@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rassegna Stampa — Nodo di Dara</title>
+  <meta name="description" content="La copertura mediatica della mostra fotografica Il Nodo di Dara di Elisabetta Acquaviva." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --oro:       #c9a96e;
+      --oro-dim:   rgba(201,169,110,0.18);
+      --oro-mid:   rgba(201,169,110,0.55);
+      --white:     #f5f5f0;
+      --white-mid: rgba(245,245,240,0.75);
+      --white-low: rgba(245,245,240,0.50);
+      --bg:        #0e0c0a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 44px;
+      background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 36px;
+      height: auto;
+      filter: invert(1);
+      opacity: 0.75;
+    }
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--oro); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white-low);
+    }
+
+    /* HEADER */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 120px 44px 56px;
+    }
+    .page-header h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.4rem, 7vw, 5rem);
+      color: var(--oro);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 16px;
+    }
+    .page-header p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--white-low);
+      max-width: 500px;
+      line-height: 1.6;
+    }
+    .count-badge {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 0.82rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      border: 1px solid var(--oro-dim);
+      padding: 4px 10px;
+      margin-bottom: 20px;
+    }
+
+    /* GRID */
+    .media-grid {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 44px 100px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+
+    /* CARD */
+    .media-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--oro-dim);
+      padding: 28px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.3s, background 0.3s;
+      background: rgba(201,169,110,0.02);
+    }
+    .media-card:hover {
+      border-color: var(--oro-mid);
+      background: rgba(201,169,110,0.05);
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .testata {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+    .data {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+    .card-titolo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .card-occhiello {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1.7vw, 0.95rem);
+      color: var(--white-low);
+      line-height: 1.75;
+      flex: 1;
+    }
+    .card-footer {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--oro-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-tipo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+    }
+    .card-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s;
+    }
+    .media-card:hover .card-link { color: var(--oro); }
+    .card-link svg {
+      width: 12px; height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 28px 44px;
+      border-top: 1px solid var(--oro-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+    .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .footer-text a:hover { color: var(--oro-mid); }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      .nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(14,12,10,0.97);
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        z-index: 200;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .nav-toggle { display: flex; z-index: 300; }
+      .page-header { padding: 100px 24px 40px; }
+      .media-grid { grid-template-columns: 1fr; padding: 0 24px 80px; }
+      footer { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="/">
+      <img src="../logo.jpeg" alt="Nodo di Dara" />
+      <span class="nav-logo-text">Nodo di Dara</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi">Eventi</a></li>
+      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+      <li><a href="/rassegna-stampa" class="active">Stampa</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-header">
+    <span class="count-badge">2 articoli</span>
+    <h1>Rassegna<br>Stampa</h1>
+    <p>La copertura mediatica della mostra fotografica di Elisabetta Acquaviva.</p>
+  </div>
+
+  <div class="media-grid">
+
+    <!-- ARTICOLO 1 -->
+    <a class="media-card" href="https://www.chiamamicitta.it/rimini-al-museo-della-citta-la-mostra-fotografica-nodo-di-dara/" target="_blank" rel="noopener">
+      <div class="card-top">
+        <span class="testata">Chiama mi Città</span>
+        <span class="data">Marzo 2026</span>
+      </div>
+      <p class="card-titolo">Al Museo della Città la mostra fotografica Nodo di Dara</p>
+      <p class="card-occhiello">— inserire occhiello —</p>
+      <div class="card-footer">
+        <span class="card-tipo">Web · Locale</span>
+        <span class="card-link">
+          Leggi
+          <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- ARTICOLO 2 -->
+    <a class="media-card" href="https://www.comune.rimini.it/novita/notizie/il-progetto-nodo-di-dara-celebra-la-forza-e-la-rinascita-delle-donne-attraverso-la" target="_blank" rel="noopener">
+      <div class="card-top">
+        <span class="testata">Comune di Rimini</span>
+        <span class="data">Marzo 2026</span>
+      </div>
+      <p class="card-titolo">Il progetto Nodo di Dara celebra la forza e la rinascita delle donne attraverso la fotografia</p>
+      <p class="card-occhiello">— inserire occhiello —</p>
+      <div class="card-footer">
+        <span class="card-tipo">Istituzionale</span>
+        <span class="card-link">
+          Leggi
+          <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </div>
+    </a>
+
+  </div>
+
+  <footer>
+    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+    <span class="footer-text">
+      <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
+    </span>
+  </footer>
+
+  <script>
+    var toggle = document.getElementById('navToggle');
+    var links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+  </script>
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
+</body>
+</html>
