@@ -383,6 +383,114 @@
     .p2-footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
     .p2-footer-text a:hover { color: rgba(201,169,110,0.7); }
 
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 44px;
+      background: linear-gradient(to bottom, rgba(14,12,10,0.95), transparent);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--oro); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white-low);
+    }
+
+    /* CTA mostra aperta */
+    .cta-aperta {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      opacity: 0;
+      animation: arise 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .cta-aperta-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(201,169,110,0.6);
+    }
+    .cta-aperta-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #0e0c0a;
+      background: var(--oro);
+      padding: 18px 44px;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.3s;
+    }
+    .cta-aperta-btn:hover { opacity: 0.85; }
+
+    @media (max-width: 680px) {
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(14,12,10,0.97);
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        z-index: 200;
+        overflow-y: auto;
+        padding: 80px 24px 40px;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .nav-toggle { display: flex; z-index: 300; }
+    }
+
     @media (max-width: 520px) {
       .p2-header, .p2-body, .p2-footer { padding-left: 24px; padding-right: 24px; }
       .p2-title { font-size: clamp(3.5rem, 17vw, 5rem); }
@@ -390,6 +498,21 @@
   </style>
 </head>
 <body>
+
+  <nav class="nav">
+    <a class="nav-logo-text" href="/">Nodo di Dara</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi">Eventi</a></li>
+      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+      <li><a href="/rassegna-stampa">Stampa</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
   <!-- ═══ FASE 1: TEASER PURO ═══ -->
   <div id="phase-1" style="display:none;">
@@ -459,45 +582,35 @@
         <p class="p2-event-date">7 marzo — 10 maggio 2026</p>
       </div>
 
-      <p class="p2-cd-label">La vernissage si apre tra</p>
-
-      <div class="p2-countdown">
-        <div class="p2-cd-unit">
-          <span class="p2-cd-num" id="p2-days">--</span>
-          <span class="p2-cd-sub">Giorni</span>
-        </div>
-        <div class="p2-cd-unit">
-          <span class="p2-cd-num" id="p2-hours">--</span>
-          <span class="p2-cd-sub">Ore</span>
-        </div>
-        <div class="p2-cd-unit">
-          <span class="p2-cd-num" id="p2-mins">--</span>
-          <span class="p2-cd-sub">Minuti</span>
-        </div>
-        <div class="p2-cd-unit">
-          <span class="p2-cd-num" id="p2-secs">--</span>
-          <span class="p2-cd-sub">Secondi</span>
+      <!-- Countdown (nascosto quando mostra è aperta) -->
+      <div id="p2-countdown-block">
+        <p class="p2-cd-label" id="p2-cd-label">La vernissage si apre tra</p>
+        <div class="p2-countdown">
+          <div class="p2-cd-unit">
+            <span class="p2-cd-num" id="p2-days">--</span>
+            <span class="p2-cd-sub">Giorni</span>
+          </div>
+          <div class="p2-cd-unit">
+            <span class="p2-cd-num" id="p2-hours">--</span>
+            <span class="p2-cd-sub">Ore</span>
+          </div>
+          <div class="p2-cd-unit">
+            <span class="p2-cd-num" id="p2-mins">--</span>
+            <span class="p2-cd-sub">Minuti</span>
+          </div>
+          <div class="p2-cd-unit">
+            <span class="p2-cd-num" id="p2-secs">--</span>
+            <span class="p2-cd-sub">Secondi</span>
+          </div>
         </div>
       </div>
 
-      <div id="p2-cta" style="display:none; margin-top:40px; opacity:0; animation: arise 1.5s cubic-bezier(0.16,1,0.3,1) forwards;">
-        <a href="/progetto" style="
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 500;
-          font-size: clamp(1rem, 2vw, 1.1rem);
-          letter-spacing: 0.25em;
-          text-transform: uppercase;
-          color: #c9a96e;
-          text-decoration: none;
-          border: 1px solid rgba(201,169,110,0.35);
-          padding: 16px 36px;
-          display: inline-block;
-          transition: all 0.4s;
-        "
-        onmouseover="this.style.borderColor='rgba(201,169,110,0.8)'; this.style.color='#f5f5f0';"
-        onmouseout="this.style.borderColor='rgba(201,169,110,0.35)'; this.style.color='#c9a96e';">
-          Entra nella mostra &rarr;
-        </a>
+      <!-- CTA mostra aperta (mostrato subito se countdown = 0) -->
+      <div id="p2-cta" style="display:none;">
+        <div class="cta-aperta">
+          <span class="cta-aperta-label">La mostra è aperta</span>
+          <a class="cta-aperta-btn" href="/progetto">Entra nella mostra &rarr;</a>
+        </div>
       </div>
     </div>
 
@@ -541,19 +654,33 @@
         var p2 = document.getElementById('phase-2');
         p2.style.display = 'flex';
         p2.style.flexDirection = 'column';
-        (function tick() {
-          var diff = VERNISS - Date.now();
-          if (diff <= 0) {
-            ['p2-days','p2-hours','p2-mins','p2-secs'].forEach(function(id) {
-              document.getElementById(id).textContent = '00';
-            });
-            document.getElementById('p2-cd-label') && (document.getElementById('p2-cd-label').style.display = 'none');
-            document.getElementById('p2-cta').style.display = 'block';
-            return;
-          }
-          setCountdown(diff, ['p2-days','p2-hours','p2-mins','p2-secs']);
-          setTimeout(tick, 1000);
-        })();
+
+        // Se la vernissage è già passata, mostra subito CTA senza countdown
+        if (now >= VERNISS) {
+          document.getElementById('p2-countdown-block').style.display = 'none';
+          document.getElementById('p2-cta').style.display = 'block';
+        } else {
+          (function tick() {
+            var diff = VERNISS - Date.now();
+            if (diff <= 0) {
+              document.getElementById('p2-countdown-block').style.display = 'none';
+              document.getElementById('p2-cta').style.display = 'block';
+              return;
+            }
+            setCountdown(diff, ['p2-days','p2-hours','p2-mins','p2-secs']);
+            setTimeout(tick, 1000);
+          })();
+        }
+      }
+
+      // Nav toggle
+      var toggle = document.getElementById('navToggle');
+      var links  = document.getElementById('navLinks');
+      if (toggle) {
+        toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+        links.querySelectorAll('a').forEach(function(a) {
+          a.addEventListener('click', function() { links.classList.remove('open'); });
+        });
       }
     })();
   </script>
