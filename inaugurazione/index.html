@@ -424,9 +424,9 @@
   <!-- VIDEO -->
   <div class="section">
     <p class="section-label">Video</p>
-    <div class="video-grid" id="videoGrid">
-      <!-- I video vengono generati da JS — aggiungi gli ID YouTube nell'array sotto -->
-    </div>
+    <video controls width="100%" style="margin-top:8px; border:1px solid var(--oro-dim);">
+      <source src="https://f002.backblazeb2.com/file/SoundScape/inaugurazione.mov" type="video/mp4">
+    </video>
   </div>
 
   <!-- FOTO -->
@@ -463,16 +463,8 @@
 
   <script>
     // ═══════════════════════════════════════════════
-    // CONFIGURAZIONE — modifica questi due array
+    // CONFIGURAZIONE — aggiungi i nomi file foto
     // ═══════════════════════════════════════════════
-
-    // ID YouTube dei video (la parte dopo watch?v=)
-    // Esempio: 'dQw4w9WgXcQ'
-    // Lascia vuoto [] se non hai ancora video
-    var VIDEO_IDS = [
-      // 'ID_VIDEO_1',
-      // 'ID_VIDEO_2',
-    ];
 
     // Nomi dei file foto in assets/inaugurazione/
     // Esempio: 'inaugurazione_01.jpg'
@@ -484,25 +476,6 @@
     // ═══════════════════════════════════════════════
 
     var BASE_FOTO = '/assets/inaugurazione/';
-
-    // Build video
-    var vg = document.getElementById('videoGrid');
-    if (VIDEO_IDS.length === 0) {
-      vg.innerHTML = '<div class="video-wrap"><div class="video-placeholder"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><span>Video in arrivo</span></div></div>';
-      vg.style.gridTemplateColumns = '1fr';
-      vg.style.maxWidth = '480px';
-    } else {
-      VIDEO_IDS.forEach(function(id) {
-        var wrap = document.createElement('div');
-        wrap.className = 'video-wrap';
-        wrap.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '" allowfullscreen loading="lazy" title="Inaugurazione Nodo di Dara"></iframe>';
-        vg.appendChild(wrap);
-      });
-      if (VIDEO_IDS.length === 1) {
-        vg.style.gridTemplateColumns = '1fr';
-        vg.style.maxWidth = '640px';
-      }
-    }
 
     // Build foto
     var fg = document.getElementById('fotoGrid');
