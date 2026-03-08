@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inaugurazione — Nodo di Dara</title>
+  <meta name="description" content="Foto e video dell'inaugurazione della mostra Il Nodo di Dara. 7 marzo 2026, Museo della Città di Rimini." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --oro:       #c9a96e;
+      --oro-dim:   rgba(201,169,110,0.18);
+      --oro-mid:   rgba(201,169,110,0.55);
+      --white:     #f5f5f0;
+      --white-mid: rgba(245,245,240,0.75);
+      --white-low: rgba(245,245,240,0.50);
+      --bg:        #0e0c0a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 44px;
+      background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 36px;
+      height: auto;
+      filter: invert(1);
+      opacity: 0.75;
+    }
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--oro); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white-low);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 120px 44px 56px;
+      border-bottom: 1px solid var(--oro-dim);
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      border: 1px solid var(--oro-dim);
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.6rem, 8vw, 5.5rem);
+      color: var(--oro);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 0.92;
+      margin-bottom: 20px;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .hero-meta span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.88rem, 1.8vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    /* SEZIONE COMUNE */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 44px;
+    }
+    .section + .section {
+      border-top: 1px solid var(--oro-dim);
+    }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.8rem, 1.8vw, 0.92rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 28px;
+    }
+
+    /* VIDEO */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+    }
+    .video-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--oro-dim);
+      overflow: hidden;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    /* Placeholder per video non ancora caricato */
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .video-placeholder svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--oro-dim);
+      fill: none;
+      stroke-width: 1;
+    }
+    .video-placeholder span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.82rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    /* FOTO GRID */
+    .foto-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+    }
+    .foto-item {
+      position: relative;
+      aspect-ratio: 2/3;
+      overflow: hidden;
+      cursor: pointer;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--oro-dim);
+    }
+    .foto-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.4s ease;
+      filter: grayscale(15%);
+    }
+    .foto-item:hover img {
+      transform: scale(1.06);
+      filter: grayscale(0%);
+    }
+    .foto-item-num {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--oro-mid);
+      background: rgba(14,12,10,0.7);
+      padding: 2px 6px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .foto-item:hover .foto-item-num { opacity: 1; }
+    /* Foto placeholder */
+    .foto-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .foto-placeholder span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: 1.4rem;
+      color: var(--oro-dim);
+      letter-spacing: 0.1em;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(14,12,10,0.96);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .lightbox.open { display: flex; }
+    .lb-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .lb-img {
+      max-width: 80vw;
+      max-height: 88vh;
+      object-fit: contain;
+      display: block;
+    }
+    .lb-btn {
+      background: none;
+      border: 1px solid var(--oro-dim);
+      color: var(--white-low);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .lb-btn:hover { border-color: var(--oro-mid); color: var(--oro); }
+    .lb-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .lb-close {
+      position: absolute;
+      top: -52px;
+      right: 0;
+    }
+    .lb-counter {
+      position: absolute;
+      bottom: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 0.82rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 28px 44px;
+      border-top: 1px solid var(--oro-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+    .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .footer-text a:hover { color: var(--oro-mid); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .video-grid { grid-template-columns: 1fr; }
+      .foto-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(14,12,10,0.97);
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        z-index: 200;
+        overflow-y: auto;
+        padding: 80px 24px 40px;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .nav-toggle { display: flex; z-index: 300; }
+      .hero { padding: 100px 24px 40px; }
+      .section { padding: 40px 24px; }
+      .foto-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="/">
+      <img src="../logo.jpeg" alt="Nodo di Dara" />
+      <span class="nav-logo-text">Nodo di Dara</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi" class="active">Eventi</a></li>
+      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+      <li><a href="/rassegna-stampa">Stampa</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-badge">Inaugurazione</span>
+    <h1>7 Marzo<br>2026</h1>
+    <div class="hero-meta">
+      <span>Museo della Città · Rimini</span>
+      <span>ore 17:30</span>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="section">
+    <p class="section-label">Video</p>
+    <div class="video-grid" id="videoGrid">
+      <!-- I video vengono generati da JS — aggiungi gli ID YouTube nell'array sotto -->
+    </div>
+  </div>
+
+  <!-- FOTO -->
+  <div class="section">
+    <p class="section-label">Fotografie</p>
+    <div class="foto-grid" id="fotoGrid">
+      <!-- Le foto vengono generate da JS — aggiungi i nomi file nell'array sotto -->
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lb-inner">
+      <button class="lb-btn lb-close" id="lbClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <button class="lb-btn" id="lbPrev">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <img class="lb-img" id="lbImg" src="" alt="" />
+      <button class="lb-btn" id="lbNext">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <span class="lb-counter" id="lbCounter"></span>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+    <span class="footer-text">
+      <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
+    </span>
+  </footer>
+
+  <script>
+    // ═══════════════════════════════════════════════
+    // CONFIGURAZIONE — modifica questi due array
+    // ═══════════════════════════════════════════════
+
+    // ID YouTube dei video (la parte dopo watch?v=)
+    // Esempio: 'dQw4w9WgXcQ'
+    // Lascia vuoto [] se non hai ancora video
+    var VIDEO_IDS = [
+      // 'ID_VIDEO_1',
+      // 'ID_VIDEO_2',
+    ];
+
+    // Nomi dei file foto in assets/inaugurazione/
+    // Esempio: 'inaugurazione_01.jpg'
+    var FOTO = [
+      // 'inaugurazione_01.jpg',
+      // 'inaugurazione_02.jpg',
+    ];
+
+    // ═══════════════════════════════════════════════
+
+    var BASE_FOTO = '/assets/inaugurazione/';
+
+    // Build video
+    var vg = document.getElementById('videoGrid');
+    if (VIDEO_IDS.length === 0) {
+      vg.innerHTML = '<div class="video-wrap"><div class="video-placeholder"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><span>Video in arrivo</span></div></div>';
+      vg.style.gridTemplateColumns = '1fr';
+      vg.style.maxWidth = '480px';
+    } else {
+      VIDEO_IDS.forEach(function(id) {
+        var wrap = document.createElement('div');
+        wrap.className = 'video-wrap';
+        wrap.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '" allowfullscreen loading="lazy" title="Inaugurazione Nodo di Dara"></iframe>';
+        vg.appendChild(wrap);
+      });
+      if (VIDEO_IDS.length === 1) {
+        vg.style.gridTemplateColumns = '1fr';
+        vg.style.maxWidth = '640px';
+      }
+    }
+
+    // Build foto
+    var fg = document.getElementById('fotoGrid');
+    var lightbox = document.getElementById('lightbox');
+    var lbImg    = document.getElementById('lbImg');
+    var lbCounter = document.getElementById('lbCounter');
+    var current = 0;
+
+    if (FOTO.length === 0) {
+      fg.innerHTML = '<div class="foto-item" style="grid-column:span 4; aspect-ratio:auto; padding:40px; border:1px solid var(--oro-dim);"><div class="foto-placeholder"><span>—</span><span style="font-family:\'Barlow Condensed\',sans-serif;font-weight:300;font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white-low);">Foto in arrivo</span></div></div>';
+    } else {
+      FOTO.forEach(function(file, i) {
+        var item = document.createElement('div');
+        item.className = 'foto-item';
+        item.innerHTML =
+          '<img src="' + BASE_FOTO + file + '" alt="Inaugurazione ' + (i+1) + '" loading="lazy" onerror="this.outerHTML=\'<div class=\\\'foto-placeholder\\\'><span>' + (i+1) + '</span></div>\'" />' +
+          '<span class="foto-item-num">' + (i+1) + ' / ' + FOTO.length + '</span>';
+        item.addEventListener('click', function() { openLightbox(i); });
+        fg.appendChild(item);
+      });
+    }
+
+    function openLightbox(i) {
+      if (FOTO.length === 0) return;
+      current = i;
+      lbImg.src = BASE_FOTO + FOTO[current];
+      lbImg.alt = 'Inaugurazione ' + (current + 1);
+      lbCounter.textContent = (current + 1) + ' / ' + FOTO.length;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function prevPhoto() {
+      current = (current - 1 + FOTO.length) % FOTO.length;
+      lbImg.src = BASE_FOTO + FOTO[current];
+      lbCounter.textContent = (current + 1) + ' / ' + FOTO.length;
+    }
+
+    function nextPhoto() {
+      current = (current + 1) % FOTO.length;
+      lbImg.src = BASE_FOTO + FOTO[current];
+      lbCounter.textContent = (current + 1) + ' / ' + FOTO.length;
+    }
+
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbPrev').addEventListener('click', prevPhoto);
+    document.getElementById('lbNext').addEventListener('click', nextPhoto);
+    lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', function(e) {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevPhoto();
+      if (e.key === 'ArrowRight') nextPhoto();
+    });
+
+    // Nav toggle
+    var toggle = document.getElementById('navToggle');
+    var links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+  </script>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
+</body>
+</html>
