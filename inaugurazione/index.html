@@ -167,50 +167,18 @@
       margin-bottom: 28px;
     }
 
-    /* VIDEO */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 3px;
-    }
-    .video-wrap {
-      position: relative;
-      aspect-ratio: 16/9;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--oro-dim);
-      overflow: hidden;
-    }
-    .video-wrap iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    /* Placeholder per video non ancora caricato */
-    .video-placeholder {
-      position: absolute;
-      inset: 0;
+    /* VIDEO PORTRAIT (9:16 da iPhone) */
+    .video-portrait-wrap {
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      gap: 12px;
+      margin-top: 8px;
     }
-    .video-placeholder svg {
-      width: 40px;
-      height: 40px;
-      stroke: var(--oro-dim);
-      fill: none;
-      stroke-width: 1;
-    }
-    .video-placeholder span {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 300;
-      font-size: 0.82rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--white-low);
+    .video-portrait {
+      width: 100%;
+      max-width: 380px;
+      border: 1px solid var(--oro-dim);
+      display: block;
+      background: #000;
     }
 
     /* FOTO GRID */
@@ -363,7 +331,6 @@
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      .video-grid { grid-template-columns: 1fr; }
       .foto-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 680px) {
@@ -388,6 +355,16 @@
       .section { padding: 40px 24px; }
       .foto-grid { grid-template-columns: repeat(2, 1fr); }
       footer { padding: 24px; }
+      /* Video portrait: edge-to-edge su mobile */
+      .video-portrait-wrap {
+        margin-left: -24px;
+        margin-right: -24px;
+      }
+      .video-portrait {
+        max-width: 100%;
+        border-left: none;
+        border-right: none;
+      }
     }
   </style>
 </head>
@@ -424,9 +401,11 @@
   <!-- VIDEO -->
   <div class="section">
     <p class="section-label">Video</p>
-    <video controls width="100%" style="margin-top:8px; border:1px solid var(--oro-dim);">
-      <source src="https://f002.backblazeb2.com/file/SoundScape/inaugurazione.mov" type="video/mp4">
-    </video>
+    <div class="video-portrait-wrap">
+      <video class="video-portrait" controls playsinline>
+        <source src="https://f002.backblazeb2.com/file/SoundScape/inaugurazione.mov" type="video/mp4">
+      </video>
+    </div>
   </div>
 
   <!-- FOTO -->

@@ -1,1 +1,5 @@
 .DS_Store
+
+# Video grandi — serviti da Backblaze B2, non da GitHub
+*.mov
+*.MOV
