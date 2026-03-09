@@ -364,48 +364,38 @@
     /* ══ BIO RELATORI ══ */
     .relatore-card + .relatore-card { margin-top: 16px; }
 
-    .bio-intro {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: clamp(0.95rem, 2vw, 1.05rem);
-      color: var(--white-mid);
-      line-height: 1.7;
-      margin-bottom: 20px;
+    .relatore-highlights {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
-
-    .bio-row {
-      padding: 12px 0;
-      border-top: 1px solid var(--oro-dim);
+    .highlight-item {
+      padding-left: 12px;
+      border-left: 1px solid var(--oro-mid);
     }
-
-    .bio-row:last-child { padding-bottom: 0; }
-
-    .bio-label {
+    .highlight-label {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 500;
-      font-size: clamp(0.72rem, 1.5vw, 0.82rem);
-      letter-spacing: 0.25em;
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--oro-mid);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
-
-    .bio-text {
+    .highlight-text {
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
       font-size: clamp(0.85rem, 1.7vw, 0.92rem);
       color: var(--white-low);
-      line-height: 1.7;
+      line-height: 1.65;
     }
-
-    .bio-text a {
+    .highlight-text a {
       color: var(--oro-mid);
       text-decoration: none;
       transition: color 0.3s;
     }
-
-    .bio-text a:hover { color: var(--oro); }
+    .highlight-text a:hover { color: var(--oro); }
 
     /* ══ PERCHÉ PARTECIPARE ══ */
     .perche-grid {
@@ -645,18 +635,20 @@
         </div>
         <p class=”relatore-name”>Daniela Nascetti</p>
         <p class=”relatore-ruolo”>Medico Chirurgo · Ginecologa e Ostetrica</p>
-        <p class=”bio-intro”>Unisce il rigore clinico a un’attenzione olistica per l’armonia della donna. Da anni si dedica allo studio e al trattamento della menopausa, trasformando la cura medica in un impegno ampio e condiviso per la salute femminile a 360 gradi.</p>
-        <div class=”bio-row”>
-          <p class=”bio-label”>Aree di cura</p>
-          <p class=”bio-text”>Gestione clinica della pre e post menopausa, con focus specifico sulla salute e la prevenzione del pavimento pelvico.</p>
-        </div>
-        <div class=”bio-row”>
-          <p class=”bio-label”>Approccio</p>
-          <p class=”bio-text”>Medicina integrata e ascolto attivo, per accompagnare la paziente rispettando la sua interezza fisica ed emotiva.</p>
-        </div>
-        <div class=”bio-row”>
-          <p class=”bio-label”>Studio e riferimenti</p>
-          <p class=”bio-text”>Responsabile dello “Spazio Menopausa” presso la Casa di Cura Madre Fortunata Toniolo (Bologna). <a href=”https://www.nascettidaniela.it” target=”_blank” rel=”noopener”>nascettidaniela.it</a></p>
+        <p class=”relatore-bio”>Unisce il rigore clinico a un’attenzione olistica per l’armonia della donna. Da anni si dedica allo studio e al trattamento della menopausa, trasformando la cura medica in un impegno ampio e condiviso per la salute femminile a 360 gradi.</p>
+        <div class=”relatore-highlights”>
+          <div class=”highlight-item”>
+            <p class=”highlight-label”>Aree di Cura</p>
+            <p class=”highlight-text”>Gestione clinica della pre e post menopausa, con focus specifico sulla salute e la prevenzione del pavimento pelvico.</p>
+          </div>
+          <div class=”highlight-item”>
+            <p class=”highlight-label”>Approccio</p>
+            <p class=”highlight-text”>Medicina integrata e ascolto attivo, per accompagnare la paziente rispettando la sua interezza fisica ed emotiva.</p>
+          </div>
+          <div class=”highlight-item”>
+            <p class=”highlight-label”>Studio</p>
+            <p class=”highlight-text”>Responsabile dello “Spazio Menopausa” presso la Casa di Cura Madre Fortunata Toniolo (Bologna). <a href=”https://www.nascettidaniela.it” target=”_blank” rel=”noopener”>nascettidaniela.it</a></p>
+          </div>
         </div>
       </div>
 
@@ -667,18 +659,20 @@
         </div>
         <p class=”relatore-name”>Irene Scarascia</p>
         <p class=”relatore-ruolo”>Istruttrice di Yoga Parinama</p>
-        <p class=”bio-intro”>Coniuga una profonda formazione umanistica e storico-religiosa con la pratica corporea. Applica la disciplina dello yoga alla salute femminile, trasformando la consapevolezza fisica in uno strumento di centratura profonda.</p>
-        <div class=”bio-row”>
-          <p class=”bio-label”>Aree di cura</p>
-          <p class=”bio-text”>Benessere in menopausa, consapevolezza della zona perineale e riattivazione funzionale del pavimento pelvico.</p>
-        </div>
-        <div class=”bio-row”>
-          <p class=”bio-label”>Approccio</p>
-          <p class=”bio-text”>Pratica Yoga Parinama mirata. Lavora sulla singola parte (il bacino) per riportare in sintonia l’intero organismo.</p>
-        </div>
-        <div class=”bio-row”>
-          <p class=”bio-label”>Studio e riferimenti</p>
-          <p class=”bio-text”>Conduce corsi e incontri dedicati alla salute della donna in diverse sedi a Bologna. <a href=”https://irene-yoga.wixsite.com/parinamayoga” target=”_blank” rel=”noopener”>irene-yoga.wixsite.com/parinamayoga</a></p>
+        <p class=”relatore-bio”>Coniuga una profonda formazione umanistica e storico-religiosa con la pratica corporea. Applica la disciplina dello yoga alla salute femminile, trasformando la consapevolezza fisica in uno strumento di centratura profonda.</p>
+        <div class=”relatore-highlights”>
+          <div class=”highlight-item”>
+            <p class=”highlight-label”>Aree di Cura</p>
+            <p class=”highlight-text”>Benessere in menopausa, consapevolezza della zona perineale e riattivazione funzionale del pavimento pelvico.</p>
+          </div>
+          <div class=”highlight-item”>
+            <p class=”highlight-label”>Approccio</p>
+            <p class=”highlight-text”>Pratica Yoga Parinama mirata. Lavora sulla singola parte (il bacino) per riportare in sintonia l’intero organismo.</p>
+          </div>
+          <div class=”highlight-item”>
+            <p class=”highlight-label”>Studio</p>
+            <p class=”highlight-text”>Conduce corsi e incontri dedicati alla salute della donna in diverse sedi a Bologna. <a href=”https://irene-yoga.wixsite.com/parinamayoga” target=”_blank” rel=”noopener”>irene-yoga.wixsite.com/parinamayoga</a></p>
+          </div>
         </div>
       </div>
 
