@@ -361,6 +361,52 @@
 
     .btn-luma:hover { opacity: 0.85; }
 
+    /* ══ BIO RELATORI ══ */
+    .relatore-card + .relatore-card { margin-top: 16px; }
+
+    .bio-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      color: var(--white-mid);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .bio-row {
+      padding: 12px 0;
+      border-top: 1px solid var(--oro-dim);
+    }
+
+    .bio-row:last-child { padding-bottom: 0; }
+
+    .bio-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: clamp(0.72rem, 1.5vw, 0.82rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 5px;
+    }
+
+    .bio-text {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1.7vw, 0.92rem);
+      color: var(--white-low);
+      line-height: 1.7;
+    }
+
+    .bio-text a {
+      color: var(--oro-mid);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .bio-text a:hover { color: var(--oro); }
+
     /* ══ PERCHÉ PARTECIPARE ══ */
     .perche-grid {
       display: grid;
@@ -593,29 +639,48 @@
     <!-- Colonna destra: relatore + CTA -->
     <div class="sidebar">
 
-      <div class="relatore-card">
-        <!-- Foto relatore: sostituisci il placeholder con <img> quando hai la foto -->
-        <div class="relatore-foto">
-          <!-- EDIT: decommenta e compila quando hai la foto
-          <img src="../../assets/eventi/[nome-file].jpg" alt="[Nome Relatore]" />
-          -->
-          <span class="relatore-foto-placeholder">Foto relatore</span>
+      <!-- Daniela Nascetti -->
+      <div class=”relatore-card”>
+        <div class=”relatore-foto”>
+          <span class=”relatore-foto-placeholder”>Foto relatore</span>
         </div>
+        <p class=”relatore-name”>Daniela Nascetti</p>
+        <p class=”relatore-ruolo”>Medico Chirurgo · Ginecologa e Ostetrica</p>
+        <p class=”bio-intro”>Unisce il rigore clinico a un’attenzione olistica per l’armonia della donna. Da anni si dedica allo studio e al trattamento della menopausa, trasformando la cura medica in un impegno ampio e condiviso per la salute femminile a 360 gradi.</p>
+        <div class=”bio-row”>
+          <p class=”bio-label”>Aree di cura</p>
+          <p class=”bio-text”>Gestione clinica della pre e post menopausa, per supportare la donna in tutti gli aspetti fisici e ormonali del cambiamento.</p>
+        </div>
+        <div class=”bio-row”>
+          <p class=”bio-label”>Approccio</p>
+          <p class=”bio-text”>Medicina integrata e ascolto attivo, per accompagnare la paziente rispettando la sua interezza fisica ed emotiva.</p>
+        </div>
+        <div class=”bio-row”>
+          <p class=”bio-label”>Studio e riferimenti</p>
+          <p class=”bio-text”>Responsabile dello “Spazio Menopausa” presso la Casa di Cura Madre Fortunata Toniolo (Bologna). <a href=”https://www.nascettidaniela.it” target=”_blank” rel=”noopener”>nascettidaniela.it</a></p>
+        </div>
+      </div>
 
-        <!-- EDIT: dati relatore -->
-        <p class="relatore-name">DANIELA NASCETTI - NICOLETTA GOSIO</p>
-        <p class="relatore-ruolo">Medico Chirurgo - Medico specialista in Psichiatra e Psicoterapeuta</p>
-        <p class="relatore-bio">
-         DANIELA NASCETTI - Laureata in Medicina e Chirurgia presso l’Università di Bologna e specializzata in Ostetricia e Ginecologia presso la stessa Università, esercita la professione con una particolare attenzione agli aspetti olistici e all’armonia generale della donna.
-Da anni si occupa di Menopausa, sia dal punto di vista clinico che nell’ambito di un impegno più ampio rispetto alla salute della Donna, tenendo incontri e dibattiti presso gruppi e associazioni di Donne. 
-Dal 2011 è responsabile dello Spazio Menopausa presso la Casa di Cura Madre Fortunata Toniolo di Bologna, insieme alla dottoressa Gosio, psichiatra e psicoterapeuta. 
-Con la dottoressa Irene Scarascia tiene incontri e corsi per la salute del pavimento pelvico, rivolti al benessere e alla salute della donna in pre e post menopausa.
-https://www.nascettidaniela.it/<br>
-          NICOLETTA GOSIO
-          Medico specialista in Psichiatra e Psicoterapeuta, ha lavorato per oltre vent’anni nel Dipartimento di Salute Mentale della ASL-Città di Bologna, dove ha rivestito l’incarico di “Responsabile del Day-hospital- settore terapia intensiva dell’Area Ovest”. Esercita l’attività in libera professione e presso la Casa di Cura Madre Fortunata Toniolo di Bologna, dove dal 2011 è responsabile con la dottoressa Nascetti dello Spazio Menopausa. Si occupa prevalentemente di disturbi affettivi, disturbi di personalità e integrazione tra psicoterapia e farmacoterapia, con un particolare interesse per la psicopatologia del genere femminile e i rapporti fra trasformazioni socio-culturali e salute mentale. E’ autrice di pubblicazioni scientifiche, relazioni a Convegni e testi di saggistica.
-
-
-        </p>
+      <!-- Nicoletta Gosio -->
+      <div class=”relatore-card”>
+        <div class=”relatore-foto”>
+          <span class=”relatore-foto-placeholder”>Foto relatore</span>
+        </div>
+        <p class=”relatore-name”>Nicoletta Gosio</p>
+        <p class=”relatore-ruolo”>Medico Specialista in Psichiatria · Psicoterapeuta</p>
+        <p class=”bio-intro”>Con una solida esperienza clinica e istituzionale, esplora il profondo legame tra salute mentale, trasformazioni del corpo e contesto socio-culturale. Dedica una particolare attenzione alla specificità della psicologia femminile nelle diverse stagioni della vita.</p>
+        <div class=”bio-row”>
+          <p class=”bio-label”>Aree di cura</p>
+          <p class=”bio-text”>Disturbi affettivi e dinamiche psicologiche legate ai cambiamenti d’identità, con un focus specifico sulla salute mentale durante la menopausa.</p>
+        </div>
+        <div class=”bio-row”>
+          <p class=”bio-label”>Approccio</p>
+          <p class=”bio-text”>Integrazione sinergica tra psicoterapia e farmacoterapia. Offre uno spazio di cura dove l’impatto emotivo del cambiamento viene accolto, compreso e trasformato in consapevolezza.</p>
+        </div>
+        <div class=”bio-row”>
+          <p class=”bio-label”>Studio e riferimenti</p>
+          <p class=”bio-text”>Co-responsabile dello “Spazio Menopausa” presso la Casa di Cura Madre Fortunata Toniolo (Bologna). Autrice di saggistica e numerose pubblicazioni scientifiche.</p>
+        </div>
       </div>
 
       <div class="cta-box">
