@@ -299,7 +299,7 @@
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--oro-mid);
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
     .cta-info {
       font-family: 'Barlow', sans-serif;
@@ -308,6 +308,36 @@
       color: var(--white-low);
       line-height: 1.6;
       margin-bottom: 20px;
+    }
+    .session-slot {
+      padding-top: 16px;
+      margin-top: 16px;
+      border-top: 1px solid var(--oro-dim);
+    }
+    .session-slot:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: none;
+    }
+    .session-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .session-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.5vw, 0.82rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+    }
+    .session-time {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.88rem, 1.8vw, 0.95rem);
+      color: var(--white-mid);
     }
     .btn-luma {
       display: block;
@@ -439,7 +469,7 @@
       </div>
       <div class="meta-item">
         <span class="meta-label">Orario</span>
-        <span class="meta-value">16:30 – 17:30</span>
+        <span class="meta-value">16:00 · 17:30</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Location</span>
@@ -504,13 +534,32 @@
         </div>
       </div>
       <div class="cta-box">
-        <p class="cta-label">Partecipa</p>
-        <p class="cta-info">Ingresso gratuito. Posto riservato con prenotazione su Luma.</p>
-        <a class="btn-luma" href="https://luma.com/event/evt-M3t7fFDf9tcCFW4"
-          data-luma-action="checkout"
-          data-luma-event-id="evt-M3t7fFDf9tcCFW4" target="_blank" rel="noopener">
-          Prenota il tuo posto
-        </a>
+        <p class="cta-label">Due sessioni disponibili</p>
+
+        <div class="session-slot">
+          <div class="session-row">
+            <span class="session-num">Sessione 1</span>
+            <span class="session-time">16:00 – 17:20</span>
+          </div>
+          <a class="btn-luma" href="https://luma.com/event/evt-M3t7fFDf9tcCFW4"
+            data-luma-action="checkout"
+            data-luma-event-id="evt-M3t7fFDf9tcCFW4" target="_blank" rel="noopener">
+            Prenota il tuo posto
+          </a>
+        </div>
+
+        <div class="session-slot">
+          <div class="session-row">
+            <span class="session-num">Sessione 2</span>
+            <span class="session-time">17:30 – 18:50</span>
+          </div>
+          <a class="btn-luma" href="https://luma.com/event/evt-JA2Ep1YlsB9oIee"
+            data-luma-action="checkout"
+            data-luma-event-id="evt-JA2Ep1YlsB9oIee" target="_blank" rel="noopener">
+            Prenota il tuo posto
+          </a>
+        </div>
+
       </div>
     </div>
   </div>
