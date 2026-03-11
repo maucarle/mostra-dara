@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://api.lu.ma/embed/sdk.css" rel="stylesheet" />
+<script id="luma-checkout" src="https://api.lu.ma/embed/sdk.js" defer></script>
+  <title>Focus &amp; Core: Il Pilates per l'equilibrio in menopausa — Nodo di Dara</title>
+  <meta name="description" content="Una sessione di Pilates consapevole dedicata alle donne in menopausa, per ritrovare forza, stabilità e connessione con il proprio sé." />
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --oro:       #c9a96e;
+      --oro-dim:   rgba(201,169,110,0.18);
+      --oro-mid:   rgba(201,169,110,0.55);
+      --white:     #f5f5f0;
+      --white-mid: rgba(245,245,240,0.75);
+      --white-low: rgba(245,245,240,0.50);
+      --bg:        #0e0c0a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ══ NAV ══ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 44px;
+      background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 36px;
+      height: auto;
+      filter: invert(1);
+      opacity: 0.75;
+    }
+
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--oro); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white-low);
+    }
+
+    /* ══ BREADCRUMB ══ */
+    .breadcrumb {
+      position: relative;
+      z-index: 1;
+      padding: 110px 44px 0;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s;
+    }
+
+    .breadcrumb a:hover { color: var(--oro); }
+
+    .breadcrumb a svg {
+      width: 14px; height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    /* ══ HERO EVENTO ══ */
+    .evento-hero {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 44px 64px;
+    }
+
+    .evento-badge {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.8rem, 1.8vw, 0.92rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid var(--oro-dim);
+      color: var(--oro-mid);
+      margin-bottom: 20px;
+    }
+
+    .evento-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.4rem, 7vw, 5.5rem);
+      color: var(--oro);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 32px;
+    }
+
+    .evento-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--oro-dim);
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .meta-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.6vw, 0.88rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+    }
+
+    .meta-value {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.95rem, 2vw, 1.08rem);
+      color: var(--white-mid);
+    }
+
+    /* ══ CORPO ══ */
+    .evento-body {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 44px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* Colonna sinistra: descrizione */
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.8rem, 1.8vw, 0.92rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 16px;
+    }
+
+    .prose {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.95rem, 2vw, 1.08rem);
+      color: var(--white-mid);
+      line-height: 1.85;
+      max-width: 560px;
+    }
+
+    .prose + .prose { margin-top: 20px; }
+
+    /* Colonna destra: relatore + CTA */
+    .sidebar {}
+
+    .relatore-card {
+      border: 1px solid var(--oro-dim);
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+
+    .relatore-foto {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--oro-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .relatore-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .relatore-foto-placeholder {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.6vw, 0.88rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    .relatore-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .relatore-ruolo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      color: var(--oro-mid);
+      margin-bottom: 16px;
+    }
+
+    .relatore-bio {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.88rem, 1.8vw, 0.95rem);
+      color: var(--white-low);
+      line-height: 1.75;
+    }
+
+    .relatore-highlights {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .highlight-item {
+      padding-left: 12px;
+      border-left: 1px solid var(--oro-mid);
+    }
+
+    .highlight-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 4px;
+    }
+
+    .highlight-text {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1.7vw, 0.92rem);
+      color: var(--white-low);
+      line-height: 1.65;
+    }
+
+    /* CTA prenotazione */
+    .cta-box {
+      padding: 24px;
+      border: 1px solid var(--oro-dim);
+      background: rgba(201,169,110,0.03);
+    }
+
+    .cta-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.8rem, 1.8vw, 0.92rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 8px;
+    }
+
+    .cta-info {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.88rem, 1.8vw, 0.95rem);
+      color: var(--white-low);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .btn-luma {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--oro);
+      padding: 14px 20px;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .btn-luma:hover { opacity: 0.85; }
+
+    /* ══ BACK LINK ══ */
+    .back-section {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 64px auto 0;
+      padding: 40px 44px 80px;
+      border-top: 1px solid var(--oro-dim);
+    }
+
+    .back-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover { color: var(--oro); }
+
+    .back-link svg {
+      width: 14px; height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 28px 44px;
+      border-top: 1px solid var(--oro-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.6vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .footer-text a:hover { color: var(--oro-mid); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 768px) {
+      .evento-body { grid-template-columns: 1fr; gap: 48px; }
+      .sidebar { order: -1; }
+      .relatore-foto { aspect-ratio: 1/1; max-width: 200px; }
+    }
+
+    @media (max-width: 680px) {
+      .nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(14,12,10,0.97);
+        justify-content: center;
+        overflow-y: auto;
+        padding: 80px 24px 40px;
+        align-items: center;
+        gap: 20px;
+        z-index: 200;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .nav-toggle { display: flex; z-index: 300; }
+
+      .breadcrumb { padding: 100px 24px 0; }
+      .evento-hero { padding: 32px 24px 48px; }
+      .evento-body { padding: 0 24px; }
+      .back-section { padding: 40px 24px 60px; }
+      footer { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="/">
+      <img src="../../logo.jpeg" alt="Nodo di Dara" />
+      <span class="nav-logo-text">Nodo di Dara</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi" class="active">Eventi</a></li>
+      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+      <li><a href="/rassegna-stampa">Stampa</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="/eventi">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Tutti gli eventi
+    </a>
+  </div>
+
+  <!-- Hero evento -->
+  <div class="evento-hero">
+    <span class="evento-badge">LABORATORIO</span>
+    <h1 class="evento-title">Focus &amp; Core:<br>Il Pilates per<br>l'equilibrio in<br>menopausa</h1>
+
+    <div class="evento-meta">
+      <div class="meta-item">
+        <span class="meta-label">Data</span>
+        <!-- EDIT: aggiorna con data confermata -->
+        <span class="meta-value">12 Aprile 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Orario</span>
+        <span class="meta-value">10:00 – 12:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Location</span>
+        <span class="meta-value">Museo della Città · Rimini</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Ingresso</span>
+        <span class="meta-value">A Pagamento · Su prenotazione</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Corpo: descrizione + sidebar relatore -->
+  <div class="evento-body">
+
+    <!-- Colonna sinistra: descrizione -->
+    <div>
+      <p class="section-label">L'esperienza di movimento</p>
+      <p class="prose">
+        La menopausa rappresenta una transizione intensa, un momento in cui l'ascolto del proprio corpo diventa una priorità assoluta. Questa sessione di Pilates è progettata specificamente per rispondere alle esigenze della donna in questa fase di cambiamento, focalizzandosi sul Core: il nostro centro vitale dove risiedono forza addominale e salute del pavimento pelvico.
+      </p>
+      <p class="prose">
+        Attraverso una guida attenta, trasformeremo l'allenamento in "calore" capace di riallineare l'equilibrio interiore. La lezione è aperta a ogni livello di esperienza.
+      </p>
+
+      <p class="prose" style="margin-top:32px; padding-top:32px; border-top:1px solid var(--oro-dim);">
+        <span style="font-family:'Barlow Condensed',sans-serif; letter-spacing:0.25em; text-transform:uppercase; font-size:0.85rem; color:var(--oro-mid); display:block; margin-bottom:16px;">Il centro della donna</span>
+      </p>
+      <div class="relatore-highlights" style="margin-top:0;">
+        <div class="highlight-item">
+          <p class="highlight-label">Per chi inizia</p>
+          <p class="highlight-text">Un approccio propedeutico per scoprire i benefici del metodo Pilates, senza esperienza pregressa richiesta.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Per le praticanti esperte</p>
+          <p class="highlight-text">Un'occasione per approfondire l'ascolto del corpo e affinare la tecnica, con un focus specifico sulla fase della menopausa.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Il risultato</p>
+          <p class="highlight-text">Un'ora dedicata a ritrovare stabilità, forza e connessione con il proprio sé.</p>
+        </div>
+      </div>
+
+      <p class="prose" style="margin-top:32px; padding-top:32px; border-top:1px solid var(--oro-dim);">
+        <span style="font-family:'Barlow Condensed',sans-serif; letter-spacing:0.25em; text-transform:uppercase; font-size:0.85rem; color:var(--oro-mid); display:block; margin-bottom:16px;">Note pratiche</span>
+      </p>
+      <div class="relatore-highlights" style="margin-top:0;">
+        <div class="highlight-item">
+          <p class="highlight-label">Cosa portare</p>
+          <p class="highlight-text">Abbigliamento comodo che permetta libertà di movimento. Tappetino disponibile in sede.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">A chi è rivolto</p>
+          <p class="highlight-text">A ogni donna che desidera ritrovare equilibrio fisico e interiore attraverso il movimento consapevole, indipendentemente dall'esperienza con il Pilates.</p>
+        </div>
+        <div class="highlight-item">
+          <p class="highlight-label">Contesto</p>
+          <p class="highlight-text">L'evento si inserisce nella cornice evocativa della mostra Il Nodo di Dara, un luogo dove i legami e le trame del femminile trovano voce e rappresentazione.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonna destra: relatore + CTA -->
+    <div class="sidebar">
+
+      <div class="relatore-card">
+        <div class="relatore-foto">
+          <!-- EDIT: decommenta quando hai la foto -->
+          <!-- <img src="../../assets/eventi/daniela-cavalli.jpg" alt="Daniela Cavalli" /> -->
+          <span class="relatore-foto-placeholder">Foto in arrivo</span>
+        </div>
+
+        <p class="relatore-name">Daniela Cavalli</p>
+        <p class="relatore-ruolo">Specialista in Pilates e Benessere Femminile</p>
+        <p class="relatore-bio">
+          Daniela Cavalli, 55 anni, ha trasformato la sua passione e il suo percorso personale in una missione professionale dedicata alle donne. Insegnante certificata dal 2015 presso la palestra Motus di Rimini, concentra la sua ricerca didattica sulle pratiche rivolte all'universo femminile.
+        </p>
+
+        <div class="relatore-highlights">
+          <div class="highlight-item">
+            <p class="highlight-label">Approccio</p>
+            <p class="highlight-text">La profonda comprensione delle fasi biologiche della donna — dalle mestruazioni alla gravidanza, fino alla menopausa — le permette di offrire un Pilates che non è solo esercizio fisico, ma uno strumento di consapevolezza e gestione del cambiamento.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <p class="cta-label">Partecipa</p>
+        <p class="cta-info">Ingresso a pagamento. Posto riservato con prenotazione su Luma.</p>
+        <!-- EDIT: sostituisci evt-PLACEHOLDER con il Luma event ID reale -->
+        <a class="btn-luma" href="https://luma.com/event/evt-ScU7K0L5RBC8huy"
+  data-luma-action="checkout"
+  data-luma-event-id="evt-ScU7K0L5RBC8huy" target="_blank" rel="noopener">
+          Prenota il tuo posto
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="back-section">
+    <a class="back-link" href="/eventi">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Tutti gli eventi
+    </a>
+  </div>
+
+  <footer>
+    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+    <span class="footer-text">
+      <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
+    </span>
+  </footer>
+
+  <script>
+    var toggle = document.getElementById('navToggle');
+    var links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+  </script>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
+</body>
+</html>
