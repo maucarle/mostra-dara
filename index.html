@@ -214,10 +214,29 @@
 
     .p2-body {
       flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      padding: 40px 44px 20px;
+      align-items: start;
+    }
+
+    .p2-content {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 40px 44px 20px;
+    }
+
+    .p2-visual {
+      position: sticky;
+      top: 80px;
+    }
+
+    .p2-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.88;
     }
 
     .p2-title {
@@ -491,6 +510,11 @@
       .nav-toggle { display: flex; z-index: 300; }
     }
 
+    @media (max-width: 860px) {
+      .p2-body { grid-template-columns: 1fr; }
+      .p2-visual { display: none; }
+    }
+
     @media (max-width: 520px) {
       .p2-header, .p2-body, .p2-footer { padding-left: 24px; padding-right: 24px; }
       .p2-title { font-size: clamp(3.5rem, 17vw, 5rem); }
@@ -557,6 +581,7 @@
     </div>
 
     <div class="p2-body">
+      <div class="p2-content">
       <h1 class="p2-title">NODO<br>DI DARA</h1>
       <div class="p2-rule"></div>
       <p class="p2-tagline">
@@ -611,6 +636,11 @@
           <span class="cta-aperta-label">La mostra è aperta</span>
           <a class="cta-aperta-btn" href="/progetto">Entra nella mostra &rarr;</a>
         </div>
+      </div>
+      </div><!-- /p2-content -->
+
+      <div class="p2-visual">
+        <img src="./locandina.jpg" alt="Il Nodo di Dara — locandina" />
       </div>
     </div>
 
