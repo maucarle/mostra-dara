@@ -233,12 +233,19 @@
       overflow: hidden;
     }
 
-    .p2-visual img {
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center center;
       display: block;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .carousel-slide.active {
       opacity: 0.9;
     }
 
@@ -643,8 +650,23 @@
       </div>
       </div><!-- /p2-content -->
 
-      <div class="p2-visual">
-        <img src="./locandina.jpg" alt="Il Nodo di Dara — locandina" />
+      <div class="p2-visual" id="p2-carousel">
+        <img src="./locandina.jpg"   class="carousel-slide active" alt="Il Nodo di Dara" />
+        <img src="./locandina1.jpg"  class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina2.jpg"  class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina3.jpg"  class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina4.jpg"  class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina5.jpg"  class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina6.jpg"  class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina7.jpg"  class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina8.jpg"  class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina9.jpg"  class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina10.jpg" class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina11.jpg" class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina12.jpg" class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina13.jpg" class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina14.jpg" class="carousel-slide" alt="Il Nodo di Dara" />
+        <img src="./locandina15.jpg" class="carousel-slide" alt="Il Nodo di Dara" />
       </div>
     </div>
 
@@ -705,6 +727,17 @@
             setTimeout(tick, 1000);
           })();
         }
+      }
+
+      // Carousel
+      var slides = document.querySelectorAll('.carousel-slide');
+      if (slides.length > 1) {
+        var current = 0;
+        setInterval(function() {
+          slides[current].classList.remove('active');
+          current = (current + 1) % slides.length;
+          slides[current].classList.add('active');
+        }, 3000);
       }
 
       // Nav toggle
