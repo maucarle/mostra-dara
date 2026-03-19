@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Le tue foto — Il Nodo di Dara</title>
+  <meta name="description" content="Stampe e file digitali delle fotografie del Nodo di Dara." />
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --oro:       #c9a96e;
+      --oro-dim:   rgba(201,169,110,0.18);
+      --oro-mid:   rgba(201,169,110,0.55);
+      --white:     #f5f5f0;
+      --white-mid: rgba(245,245,240,0.75);
+      --white-low: rgba(245,245,240,0.50);
+      --bg:        #0e0c0a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ══ LAYOUT ══ */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 44px 96px;
+    }
+
+    /* ══ HEADER ══ */
+    .site-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 64px;
+      text-decoration: none;
+    }
+
+    .site-mark img {
+      width: 28px;
+      height: auto;
+      filter: invert(1);
+      opacity: 0.6;
+    }
+
+    .site-mark-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+    }
+
+    /* ══ HERO ══ */
+    .hero {
+      margin-bottom: 72px;
+    }
+
+    .hero-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 0.82rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      color: var(--oro);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 32px;
+    }
+
+    .hero-rule {
+      width: 48px;
+      height: 1px;
+      background: var(--oro-dim);
+      margin-bottom: 32px;
+    }
+
+    .hero-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.1rem, 2.8vw, 1.35rem);
+      color: var(--white-mid);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    .hero-sub {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.92rem, 2vw, 1rem);
+      color: var(--white-low);
+      line-height: 1.8;
+      max-width: 540px;
+      margin-top: 20px;
+    }
+
+    /* ══ SEZIONI ══ */
+    .section {
+      margin-bottom: 72px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .section-desc {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.9rem, 2vw, 0.98rem);
+      color: var(--white-low);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 560px;
+    }
+
+    .section-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--oro-dim);
+      margin-bottom: 36px;
+    }
+
+    /* ══ GRIGLIA STAMPE ══ */
+    .formati-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .formato-card {
+      border: 1px solid var(--oro-dim);
+      padding: 24px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .formato-card:hover {
+      border-color: var(--oro-mid);
+    }
+
+    /* Visualizzatore proporzioni */
+    .formato-visual {
+      display: flex;
+      align-items: flex-end;
+      height: 52px;
+    }
+
+    .formato-rect {
+      background: var(--oro-dim);
+      border: 1px solid var(--oro-mid);
+      flex-shrink: 0;
+    }
+
+    .formato-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .formato-dim {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+
+    .formato-carta {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+
+    .formato-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--oro);
+      margin-top: auto;
+    }
+
+    /* ══ DIGITALE ══ */
+    .digitale-card {
+      border: 1px solid var(--oro-dim);
+      padding: 32px 28px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .digitale-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .digitale-desc {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: var(--white-low);
+      line-height: 1.7;
+    }
+
+    .digitale-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 2.2rem;
+      letter-spacing: 0.04em;
+      color: var(--oro);
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .digitale-price span {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-top: 2px;
+    }
+
+    /* ══ COME ORDINARE ══ */
+    .ordine-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .ordine-step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--oro-dim);
+    }
+
+    .ordine-step:last-child {
+      border-bottom: none;
+    }
+
+    .step-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: 1.6rem;
+      color: var(--oro-mid);
+      line-height: 1;
+      padding-top: 2px;
+    }
+
+    .step-body {}
+
+    .step-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .step-text {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: 0.92rem;
+      color: var(--white-low);
+      line-height: 1.7;
+    }
+
+    .step-text a {
+      color: var(--oro-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--oro-dim);
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .step-text a:hover {
+      color: var(--oro);
+      border-color: var(--oro-mid);
+    }
+
+    /* ══ NOTA FINALE ══ */
+    .nota {
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--oro-dim);
+    }
+
+    .nota-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.4vw, 1.2rem);
+      color: var(--white-low);
+      line-height: 1.8;
+    }
+
+    .nota-firma {
+      margin-top: 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 0.82rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+    }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 600px) {
+      .page { padding: 48px 24px 72px; }
+      .formati-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .digitale-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .digitale-price { text-align: left; }
+    }
+
+    @media (max-width: 360px) {
+      .formati-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- Marchio -->
+    <a class="site-mark" href="/">
+      <img src="../logo.jpeg" alt="Nodo di Dara" />
+      <span class="site-mark-text">Il Nodo di Dara</span>
+    </a>
+
+    <!-- Hero -->
+    <div class="hero">
+      <p class="hero-label">Riservato alle protagoniste della mostra</p>
+      <h1 class="hero-title">Le tue<br>fotografie</h1>
+      <div class="hero-rule"></div>
+      <p class="hero-text">
+        Hai prestato il tuo volto, la tua storia, il tuo corpo alla luce.<br>
+        Queste immagini appartengono a te.
+      </p>
+      <p class="hero-sub">
+        Puoi portarle a casa come stampa su carta, da appendere, regalare, tenere. Oppure come file digitale ad alta risoluzione, tuo per sempre. Di seguito trovi i formati disponibili e come ordinare — tutto è pensato per essere semplice.
+      </p>
+    </div>
+
+    <!-- STAMPE -->
+    <div class="section">
+      <div class="section-header">
+        <h2 class="section-title">Stampe su carta</h2>
+      </div>
+      <p class="section-desc">
+        Stampa fine art su carta matt, resa con la stessa cura con cui le fotografie sono state scattate. Cinque formati, dal più intimo al più prezioso.
+      </p>
+      <div class="section-rule"></div>
+
+      <div class="formati-grid">
+
+        <!-- 13×19,5 -->
+        <div class="formato-card">
+          <div class="formato-visual">
+            <!-- proporzione 13:19.5 = 1:1.5 — rect 28×42px (scala ÷0.46) -->
+            <div class="formato-rect" style="width:28px; height:42px;"></div>
+          </div>
+          <div class="formato-info">
+            <span class="formato-dim">13 × 19,5 cm</span>
+            <span class="formato-carta">Carta matt</span>
+          </div>
+          <span class="formato-price">4 €</span>
+        </div>
+
+        <!-- 15×22,5 -->
+        <div class="formato-card">
+          <div class="formato-visual">
+            <!-- proporzione 15:22.5 = 1:1.5 — rect 32×48px -->
+            <div class="formato-rect" style="width:32px; height:48px;"></div>
+          </div>
+          <div class="formato-info">
+            <span class="formato-dim">15 × 22,5 cm</span>
+            <span class="formato-carta">Carta matt</span>
+          </div>
+          <span class="formato-price">7 €</span>
+        </div>
+
+        <!-- 20×30 -->
+        <div class="formato-card">
+          <div class="formato-visual">
+            <!-- proporzione 20:30 = 1:1.5 — rect 36×54px -->
+            <div class="formato-rect" style="width:36px; height:54px;"></div>
+          </div>
+          <div class="formato-info">
+            <span class="formato-dim">20 × 30 cm</span>
+            <span class="formato-carta">Carta matt</span>
+          </div>
+          <span class="formato-price">14 €</span>
+        </div>
+
+        <!-- 30×45 -->
+        <div class="formato-card">
+          <div class="formato-visual">
+            <!-- proporzione 30:45 = 1:1.5 — rect 40×60px — capped a 52px, scala width -->
+            <div class="formato-rect" style="width:35px; height:52px;"></div>
+          </div>
+          <div class="formato-info">
+            <span class="formato-dim">30 × 45 cm</span>
+            <span class="formato-carta">Carta matt</span>
+          </div>
+          <span class="formato-price">35 €</span>
+        </div>
+
+        <!-- 40×60 -->
+        <div class="formato-card">
+          <div class="formato-visual">
+            <!-- stesso aspect ratio, rect più largo per suggerire grandezza -->
+            <div class="formato-rect" style="width:35px; height:52px; opacity:0.85; border-color: var(--oro);"></div>
+          </div>
+          <div class="formato-info">
+            <span class="formato-dim">40 × 60 cm</span>
+            <span class="formato-carta">Carta matt</span>
+          </div>
+          <span class="formato-price">45 €</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FILE DIGITALE -->
+    <div class="section">
+      <div class="section-header">
+        <h2 class="section-title">File digitale</h2>
+      </div>
+      <p class="section-desc">
+        Un file ad alta risoluzione, pronto per la stampa professionale o per restare nel tuo archivio personale. Senza limitazioni d'uso.
+      </p>
+      <div class="section-rule"></div>
+
+      <div class="digitale-card">
+        <div>
+          <p class="digitale-title">Alta risoluzione · Uso personale</p>
+          <p class="digitale-desc">
+            Ricevi il file JPG della tua fotografia preferita in massima qualità. Puoi stamparlo dove vuoi, in qualsiasi momento, regalarlo o conservarlo.
+          </p>
+        </div>
+        <div class="digitale-price">
+          10 €
+          <span>a file</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COME ORDINARE -->
+    <div class="section">
+      <h2 class="section-title" style="margin-bottom:8px;">Come ordinare</h2>
+      <p class="section-desc">Basta un messaggio. Nessun modulo, nessuna complicazione.</p>
+      <div class="section-rule"></div>
+
+      <div class="ordine-steps">
+
+        <div class="ordine-step">
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <p class="step-title">Scegli la tua fotografia</p>
+            <p class="step-text">
+              Ogni donna della mostra ha una cartella numerata. Indica il numero della tua cartella e, se ricordi, una descrizione dello scatto che vuoi.
+            </p>
+          </div>
+        </div>
+
+        <div class="ordine-step">
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <p class="step-title">Scegli formato o file</p>
+            <p class="step-text">
+              Indica il formato di stampa oppure se preferisci il file digitale. Puoi ordinare più stampe o più file nella stessa richiesta.
+            </p>
+          </div>
+        </div>
+
+        <div class="ordine-step">
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <p class="step-title">Scrivici</p>
+            <p class="step-text">
+              Manda un messaggio WhatsApp o una email a
+              <!-- EDIT: inserisci numero WhatsApp e indirizzo email -->
+              <a href="mailto:info@elisabettacquaviva.it">info@elisabettacquaviva.it</a>.
+              Ti risponderemo entro 24 ore con le istruzioni per il pagamento e la consegna.
+            </p>
+          </div>
+        </div>
+
+        <div class="ordine-step">
+          <span class="step-num">4</span>
+          <div class="step-body">
+            <p class="step-title">Consegna</p>
+            <p class="step-text">
+              I file digitali vengono inviati via email entro pochi giorni. Le stampe vengono spedite o ritirate direttamente in mostra — lo decidiamo insieme.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Nota finale -->
+    <div class="nota">
+      <p class="nota-text">
+        "Ogni immagine che porti a casa porta con sé un frammento di quello che hai avuto il coraggio di mostrare. Non è solo carta — è memoria di chi sei stata in questo momento."
+      </p>
+      <p class="nota-firma">Elisabetta Acquaviva · Il Nodo di Dara · Rimini 2026</p>
+    </div>
+
+  </div>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
+</body>
+</html>
