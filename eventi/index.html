@@ -349,6 +349,20 @@
       pointer-events: none;
     }
 
+    /* ══ EVENTI PASSATI ══ */
+    .evento.past {
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: filter 0.4s, opacity 0.4s;
+    }
+
+    .evento.past .btn-detail {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .evento.past .btn-detail:hover { color: var(--white-low); }
+
     /* ══ FOOTER ══ */
     footer {
       position: relative;
@@ -451,7 +465,7 @@
     <div class="month-label">Marzo 2026</div>
 
     <!-- 14 mar – Shooting Eli -->
-    <div class="evento">
+    <div class="evento past">
       <div class="evento-date">
         <span class="evento-day">14</span>
         <span class="evento-dow">Sab</span>
@@ -467,12 +481,10 @@
         </p>
       </div>
       <div class="evento-actions">
-        <a class="btn-detail" href="./shooting-elisabetta">Scopri
+        <span class="btn-detail">Scopri
           <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        </a>
-        <a class="btn-luma" href="https://luma.com/event/evt-HvPWzw8jxyZdm3F"
-  data-luma-action="checkout"
-  data-luma-event-id="evt-HvPWzw8jxyZdm3F" target="_blank" rel="noopener">Prenota</a>
+        </span>
+        <span class="btn-luma disabled">Concluso</span>
       </div>
     </div>
     
