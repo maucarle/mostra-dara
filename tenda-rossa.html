@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Tenda Rossa — Nodo di Dara</title>
+  <meta name="description" content="Mestruazioni: il tabù della normalità. Mostra fotografica di Elisabetta Acquaviva. Museo della Città, Rimini." />
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --oro:       #c9a96e;
+      --oro-dim:   rgba(201,169,110,0.18);
+      --oro-mid:   rgba(201,169,110,0.45);
+      --white:     #f5f5f0;
+      --white-mid: rgba(245,245,240,0.75);
+      --white-low: rgba(245,245,240,0.50);
+      --bg:        #0e0c0a;
+      --surface:   rgba(255,255,255,0.035);
+      --surface-hover: rgba(255,255,255,0.06);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      font-family: 'Barlow', sans-serif;
+      color: var(--white);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Noise texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Vignette */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, transparent 30%, rgba(0,0,0,0.6) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes arise {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══ NAV ══ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 44px;
+      background: linear-gradient(to bottom, rgba(14,12,10,0.95), transparent);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.9rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--oro); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white-low);
+    }
+
+    /* ══ MAIN ══ */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 120px 44px 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 96px;
+      animation: arise 1.8s cubic-bezier(0.16,1,0.3,1) forwards 0.2s;
+      opacity: 0;
+    }
+
+    /* ══ HERO ══ */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+      padding-top: 40px;
+    }
+    .hero-badge {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.78rem, 1.6vw, 0.88rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      border: 1px solid var(--oro-dim);
+      padding: 7px 18px;
+      display: inline-block;
+    }
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      color: var(--oro);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 0.92;
+    }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.2rem, 2.8vw, 1.7rem);
+      color: var(--white-mid);
+      line-height: 1.6;
+      max-width: 520px;
+    }
+    .hero-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--oro-dim);
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .hero-meta-item {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.88rem, 1.8vw, 0.98rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+    .hero-meta-item span {
+      color: var(--oro-mid);
+      margin-right: 8px;
+    }
+
+    /* ══ SECTION HEADERS ══ */
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.75rem, 1.5vw, 0.82rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--white);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .section-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--oro-dim);
+      margin-bottom: 32px;
+    }
+    .section-desc {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.95rem, 2vw, 1.08rem);
+      color: var(--white-low);
+      line-height: 1.75;
+      max-width: 680px;
+      margin-bottom: 48px;
+    }
+
+    /* ══ TENDA REVEAL ══ */
+    .tent-block {
+      border: 1px solid var(--oro-dim);
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .tent-block::before {
+      content: '⛺';
+      position: absolute;
+      right: -20px;
+      top: -30px;
+      font-size: 180px;
+      opacity: 0.03;
+      pointer-events: none;
+      filter: grayscale(1);
+    }
+    .tent-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+      color: var(--white-mid);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+    .tent-question {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+    .btn-gold {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.88rem, 1.8vw, 1rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--oro);
+      border: none;
+      padding: 16px 40px;
+      cursor: pointer;
+      transition: opacity 0.3s;
+      display: inline-block;
+    }
+    .btn-gold:hover { opacity: 0.82; }
+    .btn-ghost {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.88rem, 1.8vw, 1rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+      background: transparent;
+      border: 1px solid var(--oro-dim);
+      padding: 16px 40px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    .btn-ghost:hover {
+      color: var(--oro);
+      border-color: var(--oro-mid);
+    }
+
+    /* Reveal content */
+    .tent-reveal {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease;
+      width: 100%;
+    }
+    .tent-reveal.open {
+      max-height: 600px;
+      opacity: 1;
+    }
+    .tent-reveal-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 24px;
+      text-align: left;
+    }
+    .tent-reveal-col {
+      background: var(--surface);
+      padding: 32px 28px;
+      border-top: 1px solid var(--oro-dim);
+    }
+    .tent-reveal-col h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--oro);
+      margin-bottom: 16px;
+    }
+    .tent-reveal-col p {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
+      color: var(--white-low);
+      line-height: 1.75;
+    }
+
+    /* ══ DATI / TAMPON TAX ══ */
+    .data-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .stat-card {
+      background: var(--surface);
+      padding: 32px 28px;
+      border-top: 2px solid var(--oro-dim);
+      transition: background 0.3s;
+    }
+    .stat-card:hover { background: var(--surface-hover); }
+    .stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.72rem, 1.5vw, 0.8rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      margin-bottom: 12px;
+    }
+    .stat-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      color: var(--oro);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .stat-unit {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--oro-mid);
+      letter-spacing: 0.1em;
+      margin-left: 6px;
+    }
+    .stat-quote {
+      background: var(--surface);
+      padding: 32px 28px;
+      border-top: 2px solid var(--oro-dim);
+      display: flex;
+      align-items: center;
+      grid-column: span 2;
+    }
+    .stat-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.2vw, 1.3rem);
+      color: var(--white-mid);
+      line-height: 1.65;
+    }
+
+    .data-chart-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 2px;
+    }
+    .chart-wrap {
+      background: var(--surface);
+      padding: 40px 32px;
+      border-top: 2px solid var(--oro-dim);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .chart-wrap-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 1.8vw, 1rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--white-mid);
+    }
+    .chart-wrap-sub {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      color: var(--white-low);
+      text-align: center;
+      line-height: 1.5;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      height: 220px;
+    }
+    .chart-info {
+      background: var(--surface);
+      padding: 40px 32px;
+      border-top: 2px solid var(--oro-dim);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
+    .chart-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .chart-info-dot {
+      width: 2px;
+      height: 48px;
+      background: var(--oro-dim);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .chart-info-dot.active { background: var(--oro); }
+    .chart-info-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      margin-bottom: 4px;
+    }
+    .chart-info-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 200;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      color: var(--oro);
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    .chart-info-note {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: 0.82rem;
+      color: var(--white-low);
+      line-height: 1.5;
+    }
+
+    /* ══ TABS ══ */
+    .tabs-nav {
+      display: flex;
+      border-bottom: 1px solid var(--oro-dim);
+      margin-bottom: 0;
+    }
+    .tab-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.8vw, 0.92rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-low);
+      background: none;
+      border: none;
+      padding: 18px 32px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .tab-btn:hover { color: var(--white-mid); }
+    .tab-btn.active {
+      color: var(--oro);
+      border-bottom-color: var(--oro);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: grid; }
+
+    .tab-mostra-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 2px;
+    }
+    .tab-col {
+      background: var(--surface);
+      padding: 40px 36px;
+    }
+    .tab-col h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .tab-col p {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
+      color: var(--white-low);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .tab-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .tab-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.88rem, 1.8vw, 0.98rem);
+      color: var(--white-low);
+      line-height: 1.6;
+    }
+    .tab-list-rule {
+      width: 20px;
+      height: 1px;
+      background: var(--oro-mid);
+      flex-shrink: 0;
+      margin-top: 11px;
+    }
+    .tab-col-dark {
+      background: rgba(201,169,110,0.05);
+      padding: 40px 36px;
+      border-left: 1px solid var(--oro-dim);
+    }
+    .tab-col-dark h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--oro);
+      margin-bottom: 16px;
+    }
+    .tab-col-dark p {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--white-mid);
+      line-height: 1.7;
+    }
+
+    /* Autrice tab */
+    .tab-autrice-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 2px;
+    }
+    .autrice-portrait {
+      background: var(--surface);
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 16px;
+    }
+    .autrice-icon {
+      font-size: 56px;
+      opacity: 0.4;
+      filter: grayscale(1);
+      margin-bottom: 8px;
+    }
+    .autrice-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .autrice-years {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.5vw, 0.88rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--oro-mid);
+    }
+    .autrice-rule {
+      width: 32px;
+      height: 1px;
+      background: var(--oro-dim);
+    }
+    .autrice-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+      color: var(--white-low);
+      line-height: 1.6;
+    }
+    .autrice-bio {
+      background: var(--surface);
+      padding: 48px 36px;
+      border-left: 1px solid var(--oro-dim);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* ══ FOOTER ══ */
+    .footer {
+      position: relative;
+      z-index: 1;
+      padding: 24px 44px;
+      border-top: 1px solid rgba(201,169,110,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.78rem, 1.6vw, 0.88rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white-low);
+    }
+    .footer-text a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-text a:hover { color: var(--oro-mid); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 760px) {
+      main { padding: 100px 24px 80px; gap: 72px; }
+      .tent-block { padding: 40px 28px; }
+      .tent-reveal-inner { grid-template-columns: 1fr; }
+      .data-grid { grid-template-columns: 1fr; }
+      .stat-quote { grid-column: span 1; }
+      .data-chart-row { grid-template-columns: 1fr; }
+      .tab-mostra-grid { grid-template-columns: 1fr; }
+      .tab-autrice-grid { grid-template-columns: 1fr; }
+      .tab-col-dark { border-left: none; border-top: 1px solid var(--oro-dim); }
+      .autrice-bio { border-left: none; border-top: 1px solid var(--oro-dim); }
+      .footer { padding: 20px 24px; }
+    }
+
+    @media (max-width: 680px) {
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(14,12,10,0.97);
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        z-index: 200;
+        overflow-y: auto;
+        padding: 80px 24px 40px;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .nav-toggle { display: flex; z-index: 300; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a class="nav-logo-text" href="/">Nodo di Dara</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi">Eventi</a></li>
+      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+      <li><a href="/rassegna-stampa">Stampa</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+
+    <!-- ══ HERO ══ -->
+    <section class="hero">
+      <span class="hero-badge">Mostra Fotografica</span>
+      <h1 class="hero-title">La Tenda<br>Rossa</h1>
+      <p class="hero-subtitle">
+        Mestruazioni: il tabù della normalità.<br>
+        Un'esplorazione visiva, sociale e politica del ciclo mestruale e dei corpi in mutamento.
+      </p>
+      <div class="hero-rule"></div>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><span>—</span> 25 Settembre · 25 Ottobre</span>
+        <span class="hero-meta-item"><span>—</span> Ala Nuova · Museo della Città · Rimini</span>
+      </div>
+    </section>
+
+    <!-- ══ IL TABÙ ══ -->
+    <section id="il-tabu">
+      <p class="section-label">Il Concept</p>
+      <h2 class="section-title">Oltre la Tenda</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">
+        La metafora della "Tenda Rossa" ispirata all'omonimo romanzo: un luogo storicamente associato all'impurità, rovesciato in spazio di condivisione e liberazione dai dettami patriarcali.
+      </p>
+
+      <div class="tent-block">
+        <p class="tent-question">Cosa si nasconde nella Tenda Rossa?</p>
+        <p class="tent-quote">
+          "Ci sentiamo liberi, ma non lo siamo veramente<br>
+          finché continuiamo ad avere paura delle parole."
+        </p>
+        <button class="btn-gold" id="btnReveal">Svela il significato</button>
+
+        <div class="tent-reveal" id="tentReveal">
+          <div class="tent-reveal-inner">
+            <div class="tent-reveal-col">
+              <h4>L'Origine</h4>
+              <p>
+                Nell'omonimo romanzo di Anita Diamant (1997), la tenda rossa rimanda alla tenda in cui le donne dell'antica stirpe di Giacobbe, secondo i dettami dell'Antico Testamento, dovevano recarsi durante le mestruazioni perché ritenute impure.
+              </p>
+            </div>
+            <div class="tent-reveal-col">
+              <h4>La Sovversione</h4>
+              <p>
+                In maniera sovversiva, la mostra rielabora la tenda rossa come un luogo di riscatto e condivisione. Qui le donne trovano consiglio, conforto, e la libertà che fuori — in una società tradizionalista e patriarcale — non possono avere.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TAMPON TAX ══ -->
+    <section id="i-dati">
+      <p class="section-label">Il Corpo come Questione Politica</p>
+      <h2 class="section-title">Tampon Tax</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">
+        L'ingiustizia economica in numeri. L'impatto reale dell'IVA al 22% — quella dei beni di lusso — applicata a prodotti di prima necessità.
+      </p>
+
+      <div class="data-grid">
+        <div class="stat-card">
+          <p class="stat-label">Donne in età fertile · Italia</p>
+          <div>
+            <span class="stat-number">15</span>
+            <span class="stat-unit">Milioni</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Assorbenti venduti · Anno</p>
+          <div>
+            <span class="stat-number">2.6</span>
+            <span class="stat-unit">Miliardi</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Spesa media per donna · Anno</p>
+          <div>
+            <span class="stat-number">126</span>
+            <span class="stat-unit">€</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">IVA applicata · Bene di lusso</p>
+          <div>
+            <span class="stat-number">22</span>
+            <span class="stat-unit">%</span>
+          </div>
+        </div>
+        <div class="stat-quote">
+          <p>"Abolire la Tampon Tax è un messaggio per contrastare le disuguaglianze — un passo necessario verso la parità di genere."</p>
+        </div>
+      </div>
+
+      <div class="data-chart-row">
+        <div class="chart-wrap">
+          <p class="chart-wrap-title">Il Peso dell'IVA</p>
+          <p class="chart-wrap-sub">Distribuzione della spesa: tassa sul "lusso" vs valore reale del prodotto</p>
+          <div class="chart-container">
+            <canvas id="tamponTaxChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-info">
+          <div class="chart-info-item">
+            <div class="chart-info-dot active"></div>
+            <div>
+              <p class="chart-info-label">IVA · Bene di lusso</p>
+              <p class="chart-info-value">22%</p>
+              <p class="chart-info-note">Applicata come se fosse un articolo voluttuario, non di prima necessità.</p>
+            </div>
+          </div>
+          <div class="chart-info-item">
+            <div class="chart-info-dot"></div>
+            <div>
+              <p class="chart-info-label">Valore reale del prodotto</p>
+              <p class="chart-info-value">78%</p>
+              <p class="chart-info-note">La parte effettiva del costo — quella che rimane dopo aver pagato la tassa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ LA MOSTRA E L'AUTRICE ══ -->
+    <section id="la-mostra">
+      <p class="section-label">Dietro l'Obiettivo</p>
+      <h2 class="section-title">La Mostra · L'Autrice</h2>
+      <div class="section-rule"></div>
+
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="mostra">72 Scatti</button>
+        <button class="tab-btn" data-tab="autrice">Elisabetta Acquaviva</button>
+      </div>
+
+      <!-- Tab: La Mostra -->
+      <div class="tab-content tab-mostra-grid active" id="tab-mostra">
+        <div class="tab-col">
+          <h3>Un viaggio attraverso i corpi</h3>
+          <p>Una panoramica del ciclo mestruale e delle sue implicazioni umane, sociali, culturali, economiche e politiche.</p>
+          <ul class="tab-list">
+            <li>
+              <div class="tab-list-rule"></div>
+              <span>Dalla <strong style="color:var(--white-mid)">pubertà</strong> alla <strong style="color:var(--white-mid)">menopausa</strong>: il rapporto dei corpi con le mestruazioni, o con la loro assenza.</span>
+            </li>
+            <li>
+              <div class="tab-list-rule"></div>
+              <span>Corpi che gioiscono, soffrono, maturano — in 72 scatti.</span>
+            </li>
+            <li>
+              <div class="tab-list-rule"></div>
+              <span>Uno sguardo delicato, inedito e spesso sarcastico per avviare una conversazione consapevole.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-col-dark">
+          <h4>L'importanza degli alleati</h4>
+          <p>
+            Trovare alleati negli uomini è imprescindibile. Per questo la mostra insiste sull'importanza della sensibilizzazione tra le giovani generazioni, in particolare tra i ragazzi. Rompere il tabù e discutere liberamente di mestruazioni e di corpi è un fondamentale esercizio di parità.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tab: Autrice -->
+      <div class="tab-content tab-autrice-grid" id="tab-autrice">
+        <div class="autrice-portrait">
+          <div class="autrice-icon">📸</div>
+          <p class="autrice-name">Elisabetta Acquaviva</p>
+          <p class="autrice-years">Rimini · 1972</p>
+          <div class="autrice-rule"></div>
+          <p class="autrice-tag">30 anni di fotografia.<br>Matrimoni, maternità, famiglie.</p>
+        </div>
+        <div class="autrice-bio">
+          <p class="section-label" style="margin-bottom:0">La Fotografa</p>
+          <p class="tab-col" style="background:none;padding:0;color:var(--white-low);font-family:'Barlow',sans-serif;font-weight:300;font-size:clamp(0.9rem,1.8vw,1rem);line-height:1.75">
+            All'alba dei cinquant'anni, dopo tre figli e un principio di menopausa turbolento, si ritrova in quarantena a riflettere sui mutamenti del suo corpo.
+          </p>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(1rem,2.2vw,1.25rem);color:var(--white-mid);line-height:1.65;border-left:2px solid var(--oro-dim);padding-left:20px">
+            Ne emerge una relazione da sempre conflittuale con il ciclo mestruale, con cui cerca di riappacificarsi iniziando a parlarne con familiari, amici, conoscenti e clienti.
+          </p>
+          <p style="font-family:'Barlow',sans-serif;font-weight:300;font-size:clamp(0.85rem,1.6vw,0.95rem);color:var(--white-low);line-height:1.7">
+            Il desiderio di tradurre in immagini l'esito di queste lunghe ore di confronto si è concretizzato nella mostra "La Tenda Rossa".
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+    <span class="footer-text">Museo della Città · Rimini · 2026</span>
+    <span class="footer-text">
+      <a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a>
+    </span>
+  </footer>
+
+  <script>
+    // Nav toggle
+    var toggle = document.getElementById('navToggle');
+    var links  = document.getElementById('navLinks');
+    if (toggle) {
+      toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+      links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { links.classList.remove('open'); });
+      });
+    }
+
+    // Tent reveal
+    var btnReveal  = document.getElementById('btnReveal');
+    var tentReveal = document.getElementById('tentReveal');
+    var revealed   = false;
+    btnReveal.addEventListener('click', function() {
+      revealed = !revealed;
+      if (revealed) {
+        tentReveal.classList.add('open');
+        btnReveal.textContent = 'Chiudi la Tenda';
+        btnReveal.classList.remove('btn-gold');
+        btnReveal.classList.add('btn-ghost');
+      } else {
+        tentReveal.classList.remove('open');
+        btnReveal.textContent = 'Svela il significato';
+        btnReveal.classList.remove('btn-ghost');
+        btnReveal.classList.add('btn-gold');
+      }
+    });
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    // Chart.js — doughnut
+    var ctx = document.getElementById('tamponTaxChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['IVA (Lusso)', 'Valore Prodotto'],
+        datasets: [{
+          data: [22, 78],
+          backgroundColor: ['#c9a96e', 'rgba(245,245,240,0.08)'],
+          hoverBackgroundColor: ['#d4b882', 'rgba(245,245,240,0.12)'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '72%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              padding: 18,
+              font: { family: "'Barlow Condensed', sans-serif", size: 12, weight: '400' },
+              color: 'rgba(245,245,240,0.5)',
+              boxWidth: 12,
+              boxHeight: 2
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) { return '  ' + ctx.label + ': ' + ctx.parsed + '%'; }
+            },
+            backgroundColor: '#1a1714',
+            borderColor: 'rgba(201,169,110,0.2)',
+            borderWidth: 1,
+            padding: 12,
+            bodyFont: { family: "'Barlow Condensed', sans-serif", size: 13 },
+            bodyColor: 'rgba(245,245,240,0.75)'
+          }
+        },
+        animation: { animateScale: true, animateRotate: true }
+      }
+    });
+  </script>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
+</body>
+</html>
