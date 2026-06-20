@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elisabetta Acquaviva — Fotografa, Rimini</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- GTM-5TX4TQJ — decommentare quando pronto
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5TX4TQJ');</script>
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Mulish:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#1F1715;
+    --ground-2:#2A201C;
+    --ivory:#ECE3D5;
+    --ivory-dim:rgba(236,227,213,0.60);
+    --ivory-faint:rgba(236,227,213,0.16);
+    --thread:rgba(236,227,213,0.30);
+    --accent:#BC5D50;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--ground);
+    color:var(--ivory);
+    font-family:"Mulish",system-ui,sans-serif;
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    justify-content:center;
+    padding:clamp(28px,7vw,56px) 22px;
+    line-height:1.5;
+    background-image:radial-gradient(120% 70% at 50% -8%, rgba(188,93,80,0.10), transparent 60%);
+  }
+  .wrap{width:100%;max-width:440px;display:flex;flex-direction:column}
+
+  /* ---- header ---- */
+  .eyebrow{
+    font-size:0.72rem;letter-spacing:0.32em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;
+    text-align:center;margin-bottom:18px;
+  }
+  .name{
+    font-family:"Fraunces",serif;
+    font-weight:400;
+    font-size:clamp(2.1rem,9vw,2.7rem);
+    line-height:1.04;
+    text-align:center;
+    letter-spacing:-0.01em;
+  }
+  .essence{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:1.02rem;
+    color:var(--ivory-dim);
+    text-align:center;
+    margin-top:14px;
+    max-width:31ch;
+    align-self:center;
+    line-height:1.45;
+  }
+
+  /* ---- the thread + knots ---- */
+  .links{position:relative;margin-top:clamp(34px,9vw,48px)}
+  .thread{
+    position:absolute;top:6px;bottom:6px;left:50%;
+    width:1px;background:var(--thread);transform:translateX(-50%);
+    z-index:0;
+  }
+  .node{
+    position:relative;z-index:1;
+    display:block;text-decoration:none;color:inherit;
+    background:var(--ground-2);
+    border:1px solid var(--ivory-faint);
+    border-radius:var(--radius);
+    padding:22px 24px 20px;
+    margin:30px 0;
+    transition:transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .node:first-child{margin-top:0}
+  .node:last-child{margin-bottom:0}
+  .node::before{
+    content:"";position:absolute;top:-30px;left:50%;
+    width:9px;height:9px;border-radius:50%;
+    transform:translateX(-50%);
+    background:var(--ground);
+    border:1.5px solid var(--ivory-dim);
+    transition:background .25s ease, border-color .25s ease, transform .25s ease;
+  }
+  .node:first-child::before{top:-6px}
+  .node-label{
+    font-family:"Fraunces",serif;font-weight:500;
+    font-size:1.28rem;line-height:1.15;letter-spacing:-0.01em;
+    display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+  }
+  .node-sub{
+    font-size:0.92rem;color:var(--ivory-dim);margin-top:7px;max-width:34ch;
+  }
+  .arrow{
+    font-family:"Mulish",sans-serif;font-weight:400;
+    color:var(--ivory-dim);flex:0 0 auto;
+    transition:transform .25s ease, color .25s ease;
+  }
+
+  .node:hover, .node:focus-visible{
+    transform:translateY(-3px);
+    border-color:rgba(188,93,80,0.55);
+    background:#31251F;
+    outline:none;
+  }
+  .node:hover::before, .node:focus-visible::before{
+    background:var(--accent);border-color:var(--accent);
+    transform:translateX(-50%) scale(1.25);
+  }
+  .node:hover .arrow, .node:focus-visible .arrow{transform:translateX(4px);color:var(--ivory)}
+  .node:focus-visible{box-shadow:0 0 0 2px var(--ground), 0 0 0 4px var(--accent)}
+
+  /* ---- footer ---- */
+  .foot{
+    margin-top:clamp(36px,9vw,48px);text-align:center;
+    font-size:0.82rem;color:var(--ivory-dim);line-height:1.7;
+  }
+  .foot a{color:var(--ivory-dim);text-decoration:none;border-bottom:1px solid var(--ivory-faint)}
+  .foot a:hover{color:var(--ivory)}
+
+  /* ---- entrance (respects reduced motion) ---- */
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(10px);animation:rise .7s ease forwards}
+    .reveal.d1{animation-delay:.05s}
+    .reveal.d2{animation-delay:.15s}
+    .reveal.d3{animation-delay:.30s}
+    .reveal.d4{animation-delay:.42s}
+    .reveal.d5{animation-delay:.54s}
+    .reveal.d6{animation-delay:.66s}
+    @keyframes rise{to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+
+<!-- GTM noscript — decommentare insieme al tag head
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5TX4TQJ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+-->
+
+  <main class="wrap">
+    <p class="eyebrow reveal d1">Rimini</p>
+    <h1 class="name reveal d2">Elisabetta Acquaviva</h1>
+    <p class="essence reveal d3">Fotografa e doula. Accompagno le donne e le famiglie attraverso i passaggi della vita.</p>
+
+    <nav class="links" aria-label="Dove andare">
+      <span class="thread" aria-hidden="true"></span>
+
+      <a class="node reveal d4" href="https://ilnododidara.com/?utm_source=ig&utm_medium=social&utm_content=hub_dara">
+        <span class="node-label">Il Nodo di Dara <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="node-sub">Il mio progetto d&rsquo;autrice, esposto al Museo della Citt&agrave; di Rimini.</span>
+      </a>
+
+      <a class="node reveal d5" href="https://www.elisabettacquaviva.it/richiesta-informazioni/?utm_source=ig&utm_medium=social&utm_content=hub_contatti">
+        <span class="node-label">Parliamo del tuo percorso <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="node-sub">Informazioni, disponibilit&agrave; e prenotazioni. Ti rispondo io.</span>
+      </a>
+
+      <a class="node reveal d6" href="https://www.elisabettacquaviva.it/regala-un-servizio-fotografico/?utm_source=ig&utm_medium=social&utm_content=hub_regalo">
+        <span class="node-label">Regala un servizio <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="node-sub">Un dono che si prepara a mano, da ritirare in studio.</span>
+      </a>
+    </nav>
+
+    <footer class="foot reveal d6">
+      Via di Mezzo 87, Rimini
+      <br>
+      <a href="https://www.elisabettacquaviva.it/">elisabettacquaviva.it</a>
+    </footer>
+  </main>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
+</body>
+</html>
