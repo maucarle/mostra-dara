@@ -5,13 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elisabetta Acquaviva — Fotografa, Rimini</title>
 <meta name="robots" content="noindex, nofollow">
-
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5TX4TQJ');</script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Mulish:wght@400;500;600&display=swap" rel="stylesheet">
@@ -38,6 +31,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     justify-content:center;
     padding:clamp(28px,7vw,56px) 22px;
     line-height:1.5;
+    /* warmth: a faint glow, like a safelight, off-center top */
     background-image:radial-gradient(120% 70% at 50% -8%, rgba(188,93,80,0.10), transparent 60%);
   }
   .wrap{width:100%;max-width:440px;display:flex;flex-direction:column}
@@ -88,6 +82,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .node:first-child{margin-top:0}
   .node:last-child{margin-bottom:0}
+  /* the knot: a bead sitting on the thread at the top of each card */
   .node::before{
     content:"";position:absolute;top:-30px;left:50%;
     width:9px;height:9px;border-radius:50%;
@@ -111,6 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transition:transform .25s ease, color .25s ease;
   }
 
+  /* interaction: the knot ties (fills + tightens), card lifts */
   .node:hover, .node:focus-visible{
     transform:translateY(-3px);
     border-color:rgba(188,93,80,0.55);
@@ -131,6 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .foot a{color:var(--ivory-dim);text-decoration:none;border-bottom:1px solid var(--ivory-faint)}
   .foot a:hover{color:var(--ivory)}
+  .foot .sep{opacity:0.4;margin:0 8px}
 
   /* ---- entrance (respects reduced motion) ---- */
   @media (prefers-reduced-motion:no-preference){
@@ -146,29 +143,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 </head>
 <body>
-
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5TX4TQJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
   <main class="wrap">
     <p class="eyebrow reveal d1">Rimini</p>
     <h1 class="name reveal d2">Elisabetta Acquaviva</h1>
-    <p class="essence reveal d3">Fotografa e doula. Accompagno le donne e le famiglie attraverso i passaggi della vita.</p>
+    <p class="essence reveal d3">Fotografa. Ritratto d'autrice, maternità, famiglia. La mia esperienza di doula rende più profondo lo sguardo.</p>
 
     <nav class="links" aria-label="Dove andare">
       <span class="thread" aria-hidden="true"></span>
 
-      <a class="node reveal d4" href="https://ilnododidara.com/?utm_source=ig&utm_medium=social&utm_content=hub_dara" target="_blank" rel="noopener noreferrer">
+      <a class="node reveal d4" href="https://ilnododidara.com/?utm_source=ig&utm_medium=social&utm_content=hub_dara">
         <span class="node-label">Il Nodo di Dara <span class="arrow" aria-hidden="true">&rarr;</span></span>
         <span class="node-sub">Il mio progetto d&rsquo;autrice, esposto al Museo della Citt&agrave; di Rimini.</span>
       </a>
 
-      <a class="node reveal d5" href="https://www.elisabettacquaviva.it/richiesta-informazioni/?utm_source=ig&utm_medium=social&utm_content=hub_contatti" target="_blank" rel="noopener noreferrer">
+      <a class="node reveal d5" href="https://www.elisabettacquaviva.it/richiesta-informazioni/?utm_source=ig&utm_medium=social&utm_content=hub_contatti">
         <span class="node-label">Parliamo del tuo percorso <span class="arrow" aria-hidden="true">&rarr;</span></span>
         <span class="node-sub">Informazioni, disponibilit&agrave; e prenotazioni. Ti rispondo io.</span>
       </a>
 
-      <a class="node reveal d6" href="https://www.elisabettacquaviva.it/regala-un-servizio-fotografico/?utm_source=ig&utm_medium=social&utm_content=hub_regalo" target="_blank" rel="noopener noreferrer">
+      <a class="node reveal d6" href="https://www.elisabettacquaviva.it/regala-un-servizio-fotografico/?utm_source=ig&utm_medium=social&utm_content=hub_regalo">
         <span class="node-label">Regala un servizio <span class="arrow" aria-hidden="true">&rarr;</span></span>
         <span class="node-sub">Un dono che si prepara a mano, da ritirare in studio.</span>
       </a>
@@ -177,11 +170,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer class="foot reveal d6">
       Via di Mezzo 87, Rimini
       <br>
-      <a href="https://www.elisabettacquaviva.it/" target="_blank" rel="noopener noreferrer">elisabettacquaviva.it</a>
+      <a href="https://www.elisabettacquaviva.it/">elisabettacquaviva.it</a>
     </footer>
   </main>
-
-<!-- Cloudflare Web Analytics -->
-<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
 </body>
 </html>
