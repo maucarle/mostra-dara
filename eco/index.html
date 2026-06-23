@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'eco della mostra — Il Nodo di Dara</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --oro:       #c9a96e;
+    --oro-dim:   rgba(201,169,110,0.18);
+    --oro-mid:   rgba(201,169,110,0.55);
+    --white:     #f5f5f0;
+    --white-mid: rgba(245,245,240,0.75);
+    --white-low: rgba(245,245,240,0.50);
+    --bg:        #0e0c0a;
+    --bark:      #2c241c;
+    --moss:      #3d3328;
+    --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg);
+    font-family: 'Barlow', sans-serif; font-weight: 300;
+    color: var(--white); min-height: 100vh; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; opacity: 0.4;
+  }
+
+  /* ══ NAV ══ */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between; padding: 20px 44px;
+    background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo img { width: 36px; height: auto; filter: invert(1); opacity: 0.75; }
+  .nav-logo-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: clamp(1rem,2vw,1.05rem); letter-spacing: 0.18em; text-transform: uppercase; color: var(--oro); }
+  .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+  .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: clamp(1rem,2vw,1.05rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--oro); }
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .nav-toggle span { display: block; width: 24px; height: 1px; background: var(--white-low); transition: all 0.3s; }
+  @media (max-width: 980px) {
+    .nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 0; background: rgba(14,12,10,0.97); justify-content: center; align-items: center; overflow-y: auto; padding: 80px 24px 40px; gap: 20px; z-index: 200; }
+    .nav-links.open a { font-size: 1.1rem; }
+    .nav-toggle { display: flex; z-index: 300; }
+  }
+
+  /* ══ HERO (Direzione A) ══ */
+  .hero {
+    position: relative; z-index: 5; min-height: 92vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 24px 60px; overflow: hidden;
+  }
+  .hero-knots {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 24 24'%3E%3Cpath d='M12 12 C 4 5 4 19 12 12 C 20 5 20 19 12 12' fill='none' stroke='%23c9a96e' stroke-width='1' opacity='0.6'/%3E%3C/svg%3E");
+    background-size: 34px 34px;
+  }
+  .hero-vignette { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at 50% 45%, transparent 16%, rgba(14,12,10,0.93) 84%); }
+  .hero-inner { position: relative; z-index: 2; opacity: 0; animation: arise 1.8s var(--ease) 0.2s forwards; }
+  .hero-kicker { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 13px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 8px; }
+  .hero-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 200; font-size: clamp(5rem, 16vw, 11rem); line-height: 0.9; color: var(--oro); letter-spacing: 0.01em; }
+  .hero-sub { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: clamp(0.9rem,2.5vw,1rem); letter-spacing: 0.3em; text-transform: uppercase; color: var(--white-mid); margin-top: 12px; }
+  .hero-line { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(1.1rem,3vw,1.4rem); color: var(--white-low); margin-top: 18px; }
+
+  @keyframes arise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ══ STAT BAND (Direzione C) ══ */
+  .stats { position: relative; z-index: 5; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--oro-dim); border-bottom: 1px solid var(--oro-dim); max-width: 1280px; margin: 0 auto; }
+  .stat { padding: 34px 20px; text-align: center; border-right: 1px solid rgba(201,169,110,0.12); }
+  .stat:last-child { border-right: none; }
+  .stat-n { font-family: 'Barlow Condensed', sans-serif; font-weight: 200; font-size: clamp(2.4rem,5vw,3.4rem); line-height: 1; color: var(--white); }
+  .stat-n.oro { color: var(--oro); }
+  .stat-l { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--white-mid); margin-top: 10px; }
+  @media (max-width: 720px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid rgba(201,169,110,0.12); }
+  }
+
+  /* ══ SECTIONS ══ */
+  .section { position: relative; z-index: 5; max-width: 1280px; margin: 0 auto; padding: 80px 44px 0; }
+  .section-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 26px; }
+
+  /* griglia voci */
+  .voci-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 720px) { .voci-grid { grid-template-columns: 1fr; } }
+
+  .voce { position: relative; border: 1px solid var(--oro-dim); padding: 26px 28px; }
+  .voce-dedica { background: var(--bark); }
+  .voce-tag { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .voce-tag .date { color: var(--white-low); letter-spacing: 0.2em; }
+  .voce-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(1.2rem,2.4vw,1.45rem); line-height: 1.5; color: var(--white); margin: 0; }
+  .voce-msg { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 14px; line-height: 1.8; color: var(--white-mid); margin: 0; }
+  .voce-who { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-low); margin-top: 16px; }
+
+  /* video tile */
+  .voce-video { padding: 0; overflow: hidden; cursor: pointer; min-height: 220px; }
+  .voce-video img { width: 100%; height: 100%; min-height: 220px; object-fit: cover; filter: grayscale(100%) brightness(0.5); display: block; transition: filter 0.4s, transform 0.6s var(--ease); }
+  .voce-video:hover img { filter: grayscale(100%) brightness(0.62); transform: scale(1.03); }
+  .voce-video-ov { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+  .play-circle { width: 56px; height: 56px; border: 1px solid rgba(245,245,240,0.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+  .voce-video:hover .play-circle { background: rgba(201,169,110,0.25); }
+  .play-circle::before { content: ''; width: 0; height: 0; border-left: 15px solid var(--white); border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px; }
+  .voce-video-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--white); }
+
+  /* placeholder */
+  .voce-ph { border: 1px dashed rgba(201,169,110,0.3); display: flex; align-items: center; justify-content: center; text-align: center; min-height: 130px; }
+  .voce-ph span { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 17px; color: var(--white-low); }
+
+  /* ══ ITINERARIO ══ */
+  .tappa { display: flex; align-items: baseline; gap: 20px; padding: 18px 0; border-top: 1px solid rgba(201,169,110,0.14); }
+  .tappa:last-child { border-bottom: 1px solid rgba(201,169,110,0.14); }
+  .tappa-city { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: clamp(1.1rem,2.4vw,1.35rem); letter-spacing: 0.06em; text-transform: uppercase; color: var(--white); width: 150px; flex-shrink: 0; }
+  .tappa-desc { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 14px; line-height: 1.5; color: var(--white-mid); }
+  .tappa-status { margin-left: auto; font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); white-space: nowrap; padding-left: 14px; }
+  .tappa-status.next { color: var(--oro); }
+  @media (max-width: 600px) {
+    .tappa { flex-wrap: wrap; gap: 4px 16px; }
+    .tappa-city { width: auto; }
+    .tappa-status { margin-left: 0; width: 100%; padding-left: 0; }
+  }
+
+  /* CTA contatti */
+  .eco-cta { max-width: 1280px; margin: 80px auto 0; padding: 0 44px; }
+  .eco-cta-box { border: 1px solid var(--oro-dim); padding: 44px; text-align: center; }
+  .eco-cta-box h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: clamp(1.5rem,3.5vw,2rem); letter-spacing: 0.03em; text-transform: uppercase; color: var(--oro); }
+  .eco-cta-box p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 1.15rem; color: var(--white-mid); margin: 12px auto 24px; max-width: 520px; }
+  .eco-cta-box a { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--oro); text-decoration: none; border: 1px solid var(--oro-mid); padding: 13px 30px; display: inline-block; transition: all 0.3s; }
+  .eco-cta-box a:hover { background: var(--oro); color: var(--bg); }
+
+  /* ══ VIDEO MODAL ══ */
+  .modal-bg { position: fixed; inset: 0; z-index: 150; background: rgba(8,6,4,0.94); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+  .modal-bg.open { opacity: 1; pointer-events: all; }
+  .modal-frame { position: relative; width: 100%; max-width: 960px; aspect-ratio: 16/9; background: #000; border: 1px solid var(--oro-dim); }
+  .modal-frame iframe { width: 100%; height: 100%; border: 0; }
+  .modal-close { position: absolute; top: -42px; right: 0; background: none; border: none; color: var(--white); font-size: 26px; cursor: pointer; font-family: 'Cormorant Garamond', serif; line-height: 1; }
+  .modal-close:hover { color: var(--oro); }
+
+  /* ══ FOOTER ══ */
+  footer { position: relative; z-index: 5; margin-top: 90px; padding: 28px 44px; border-top: 1px solid var(--oro-dim); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .footer-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: clamp(1rem,2vw,1.05rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); }
+  .footer-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
+  .footer-text a:hover { color: var(--oro-mid); }
+
+  @media (max-width: 980px) { .section, .eco-cta { padding-left: 24px; padding-right: 24px; } }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="/">
+      <img src="../logo.jpeg" alt="Nodo di Dara" />
+      <span class="nav-logo-text">Nodo di Dara</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi">Eventi</a></li>
+      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+      <li><a href="/eco" class="active">L'Eco</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+      <li><a href="/rassegna-stampa">Stampa</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- ════ HERO — I nodi che restano ════ -->
+  <header class="hero">
+    <div class="hero-knots"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-inner">
+      <p class="hero-kicker">L'albero delle storie</p>
+      <div class="hero-num" data-count="1247">0</div>
+      <p class="hero-sub">nodi annodati dai visitatori</p>
+      <p class="hero-line">Ogni visitatore ha legato un filo. La foresta è cresciuta.</p>
+    </div>
+  </header>
+
+  <!-- ════ STAT BAND ════ -->
+  <section class="stats">
+    <div class="stat"><div class="stat-n oro" data-count="1247">0</div><div class="stat-l">nodi annodati</div></div>
+    <div class="stat"><div class="stat-n" data-count="8400">0</div><div class="stat-l">visitatori</div></div>
+    <div class="stat"><div class="stat-n" data-count="12">0</div><div class="stat-l">eventi e incontri</div></div>
+    <div class="stat"><div class="stat-n" data-count="3">0</div><div class="stat-l">città in arrivo</div></div>
+  </section>
+
+  <!-- ════ LE VOCI TORNATE INDIETRO ════ -->
+  <section class="section">
+    <p class="section-label">Le voci tornate indietro</p>
+    <div class="voci-grid" id="vociGrid"></div>
+  </section>
+
+  <!-- ════ LA FORESTA CONTINUA ════ -->
+  <section class="section">
+    <p class="section-label">La foresta continua</p>
+    <div id="itinerario"></div>
+  </section>
+
+  <!-- ════ CTA istituzioni ════ -->
+  <div class="eco-cta">
+    <div class="eco-cta-box">
+      <h3>Porta la mostra nella tua città</h3>
+      <p>«Il Nodo di Dara» è pronto a essere installato in nuovi spazi. Per portare la foresta sospesa nella tua città, scrivici.</p>
+      <a href="mailto:info@elisabettacquaviva.it?subject=Il%20Nodo%20di%20Dara%20—%20nuova%20tappa">Scrivi a Elisabetta →</a>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-text">Un progetto di Elisabetta Acquaviva</span>
+    <span class="footer-text"><a href="https://elisabettacquaviva.it" target="_blank" rel="noopener">elisabettacquaviva.it</a></span>
+  </footer>
+
+  <!-- video modal -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal-frame">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div id="modalSlot"></div>
+    </div>
+  </div>
+
+<script>
+/* ════ DATI — content-driven, scalabile ════
+   ⚠︎ SEGNAPOSTO: numeri (hero/stat) e citazioni qui sotto provengono dal mockup
+   di design e vanno sostituiti con i materiali REALI prima di pubblicare. */
+const voci = [
+  { type:"dedica",   text:"Sono entrata che avevo paura di invecchiare. Sono uscita che avevo voglia di vivere. Grazie.", who:"una visitatrice" },
+  { type:"whatsapp", date:"14 marzo", text:"Sono ancora seduta in macchina nel parcheggio, non riesco a guidare. Le voci nella stanza del soundscape mi hanno spaccato il cuore — nel senso più bello che esista.", who:"anonimo" },
+  { type:"video",    thumb:"/assets/foresta-sospesa/silvia_MG_0818.jpg", title:"Le voci della mostra", youtube:"" },
+  { type:"dedica",   text:"Non sapevo che si potesse parlare così di noi. Ad alta voce. Senza vergogna. Me ne torno a casa più leggera di dieci anni.", who:"M., 49 anni" },
+  { type:"whatsapp", date:"2 aprile", text:"Ci sono tornata tre volte. Oggi ho portato mia figlia di diciassette anni. Voglio che sappia cosa l'aspetta — e che non è una fine.", who:"anonimo" },
+  { type:"placeholder", text:"Nuova testimonianza in arrivo" }
+];
+
+const itinerario = [
+  { city:"Bologna", desc:"Palazzo d'Accursio · ex-Dynamo · DUMBO — spazi civici e sociali", status:"Prossima", next:true },
+  { city:"Milano",  desc:"In definizione", status:"2026" },
+  { city:"Roma",    desc:"In definizione", status:"2026" }
+];
+
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* ── voci ── */
+function vociHTML(v, i){
+  if (v.type === "dedica")
+    return `<div class="voce voce-dedica">
+      <div class="voce-tag">Dal libro delle dediche</div>
+      <p class="voce-quote">«${esc(v.text)}»</p>
+      <div class="voce-who">— ${esc(v.who)}</div></div>`;
+  if (v.type === "whatsapp")
+    return `<div class="voce">
+      <div class="voce-tag">Messaggio ricevuto · WhatsApp <span class="date">${esc(v.date||'')}</span></div>
+      <p class="voce-msg">«${esc(v.text)}»</p>
+      <div class="voce-who">— ${esc(v.who)}</div></div>`;
+  if (v.type === "video")
+    return `<div class="voce voce-video" data-video="${i}">
+      <img src="${esc(v.thumb)}" alt="${esc(v.title)}" onerror="this.style.display='none'">
+      <div class="voce-video-ov"><div class="play-circle"></div><div class="voce-video-label">${esc(v.title)}</div></div></div>`;
+  return `<div class="voce voce-ph"><span>${esc(v.text||'Nuova testimonianza in arrivo')}</span></div>`;
+}
+document.getElementById('vociGrid').innerHTML = voci.map(vociHTML).join('');
+
+/* ── itinerario ── */
+document.getElementById('itinerario').innerHTML = itinerario.map(t =>
+  `<div class="tappa">
+     <span class="tappa-city">${esc(t.city)}</span>
+     <span class="tappa-desc">${esc(t.desc)}</span>
+     <span class="tappa-status ${t.next?'next':''}">${esc(t.status)}</span>
+   </div>`).join('');
+
+/* ── count-up (parte quando l'elemento entra in vista) ── */
+function animateCount(el){
+  const target = +el.dataset.count;
+  const dur = 1600, t0 = performance.now();
+  const fmt = n => n.toLocaleString('it-IT');
+  function step(now){
+    const p = Math.min((now - t0) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmt(Math.round(target * eased));
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const seen = new WeakSet();
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting && !seen.has(e.target)) { seen.add(e.target); animateCount(e.target); } });
+}, { threshold: 0.4 });
+document.querySelectorAll('[data-count]').forEach(el => io.observe(el));
+
+/* ── video modal ── */
+const modalBg = document.getElementById('modalBg');
+const modalSlot = document.getElementById('modalSlot');
+document.getElementById('vociGrid').addEventListener('click', e => {
+  const tile = e.target.closest('[data-video]'); if (!tile) return;
+  const v = voci[+tile.dataset.video];
+  if (!v.youtube) { return; } // nessun video collegato ancora
+  modalSlot.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(v.youtube)}?autoplay=1" title="${esc(v.title)}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  modalBg.classList.add('open');
+});
+function closeModal(){ modalBg.classList.remove('open'); modalSlot.innerHTML = ''; }
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modalBg.addEventListener('click', e => { if (e.target === modalBg) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ── nav mobile ── */
+document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+document.getElementById('navLinks').querySelectorAll('a').forEach(a => a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
+</script>
+</body>
+</html>
