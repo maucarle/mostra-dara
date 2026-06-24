@@ -167,6 +167,46 @@
   .modal-close { position: absolute; top: -42px; right: 0; background: none; border: none; color: var(--white); font-size: 26px; cursor: pointer; font-family: 'Cormorant Garamond', serif; line-height: 1; }
   .modal-close:hover { color: var(--oro); }
 
+  /* ══ STRISCIA FOTO NODI ══ */
+  .nodi-foto {
+    position: relative; z-index: 5;
+    width: 100%; height: 58vh; min-height: 280px;
+    overflow: hidden; margin-top: 0;
+  }
+  .nodi-img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 40%;
+    display: block;
+    filter: brightness(0.6) saturate(1.15);
+    transform: scale(1.02);
+    transition: transform 8s ease;
+  }
+  .nodi-foto:hover .nodi-img { transform: scale(1.07); }
+  .nodi-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(14,12,10,0.25) 0%, rgba(14,12,10,0.72) 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    padding-bottom: 44px;
+  }
+  .nodi-caption {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: rgba(201,169,110,0.65);
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s;
+  }
+  .nodi-testo {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+    font-size: clamp(1.5rem, 4vw, 2.5rem); line-height: 1.4;
+    color: var(--white); text-align: center;
+    text-shadow: 0 2px 24px rgba(8,6,4,0.7);
+    margin-top: 10px;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.9s ease 0.05s, transform 0.9s ease 0.05s;
+  }
+  .nodi-foto.visible .nodi-caption,
+  .nodi-foto.visible .nodi-testo { opacity: 1; transform: translateY(0); }
+
   /* ══ FOOTER ══ */
   footer { position: relative; z-index: 5; margin-top: 90px; padding: 28px 44px; border-top: 1px solid var(--oro-dim); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   .footer-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: clamp(1rem,2vw,1.05rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); }
@@ -216,6 +256,15 @@
     <div class="stat"><div class="stat-n" data-count="12">0</div><div class="stat-l">eventi e incontri</div></div>
     <div class="stat"><div class="stat-n" data-count="200">0</div><div class="stat-l">metri di nastro rosso</div></div>
   </section>
+
+  <!-- ════ FOTO NODI ════ -->
+  <div class="nodi-foto" id="nodiFoto">
+    <img class="nodi-img" src="/assets/nodi-667.jpeg" alt="L'albero dei 667 nodi — Il Nodo di Dara" loading="lazy">
+    <div class="nodi-overlay">
+      <p class="nodi-caption">L'installazione · La foresta sospesa</p>
+      <p class="nodi-testo">667 fili annodati.<br>Un albero che ha respirato.</p>
+    </div>
+  </div>
 
   <!-- ════ LE VOCI TORNATE INDIETRO ════ -->
   <section class="section">
@@ -346,6 +395,11 @@ function closeModal(){ modalBg.classList.remove('open'); modalSlot.innerHTML = '
 document.getElementById('modalClose').addEventListener('click', closeModal);
 modalBg.addEventListener('click', e => { if (e.target === modalBg) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ── fade-in foto nodi ── */
+new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 }).observe(document.getElementById('nodiFoto'));
 
 /* ── nav mobile ── */
 document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
