@@ -242,6 +242,24 @@
       fill: none;
       stroke-width: 1.5;
     }
+    .media-card-foto { cursor: zoom-in; }
+    .card-img-wrap {
+      width: 100%; aspect-ratio: 4/3; overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .card-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(20%);
+      transition: filter 0.4s, transform 0.5s;
+    }
+    .media-card-foto:hover .card-img-wrap img { filter: grayscale(0%); transform: scale(1.03); }
+
+    /* lightbox articolo */
+    .lb-art { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(8,6,4,0.96); align-items: center; justify-content: center; padding: 24px; }
+    .lb-art.open { display: flex; }
+    .lb-art img { max-width: 100%; max-height: 90vh; object-fit: contain; border: 1px solid var(--oro-dim); }
+    .lb-art-close { position: fixed; top: 20px; right: 24px; background: none; border: none; color: var(--white); font-size: 28px; cursor: pointer; font-family: 'Cormorant Garamond', serif; line-height: 1; z-index: 201; }
+    .lb-art-close:hover { color: var(--oro); }
 
     /* FOOTER */
     footer {
@@ -334,7 +352,7 @@
   </nav>
 
   <div class="page-header">
-    <span class="count-badge">5 articoli</span>
+    <span class="count-badge">6 articoli</span>
     <h1>Rassegna<br>Stampa</h1>
     <p>La copertura mediatica della mostra fotografica di Elisabetta Acquaviva.</p>
   </div>
@@ -409,6 +427,25 @@
       </div>
     </a>
 
+    <!-- ARTICOLO 6 (Giornale locale — foto) -->
+    <div class="media-card media-card-foto" id="cardGiornale">
+      <div class="card-img-wrap">
+        <img src="/assets/articolo-giornale-locale.jpeg" alt="Articolo giornale locale — Il Nodo di Dara" loading="lazy">
+      </div>
+      <div class="card-top">
+        <span class="testata">Giornale locale</span>
+        <span class="data">2026</span>
+      </div>
+      <p class="card-titolo">Articolo sulla mostra</p>
+      <p class="card-occhiello"></p>
+      <div class="card-footer">
+        <span class="card-tipo">Stampa · Cartaceo</span>
+        <span class="card-link">Ingrandisci
+          <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </div>
+    </div>
+
     <!-- ARTICOLO 5 (In Italy) -->
     <a class="media-card" href="https://www.initaly.it/en/articolo/mostre-a-rimini-per-il-25-aprile-fellini-moda-e-rassegne-in-citt-11061" target="_blank" rel="noopener">
       <div class="card-top">
@@ -435,6 +472,11 @@
     </span>
   </footer>
 
+  <div class="lb-art" id="lbArt">
+    <button class="lb-art-close" id="lbArtClose">✕</button>
+    <img src="/assets/articolo-giornale-locale.jpeg" alt="Articolo giornale locale">
+  </div>
+
   <script>
     var toggle = document.getElementById('navToggle');
     var links  = document.getElementById('navLinks');
@@ -442,6 +484,12 @@
     links.querySelectorAll('a').forEach(function(a) {
       a.addEventListener('click', function() { links.classList.remove('open'); });
     });
+
+    var lbArt = document.getElementById('lbArt');
+    document.getElementById('cardGiornale').addEventListener('click', function() { lbArt.classList.add('open'); });
+    document.getElementById('lbArtClose').addEventListener('click', function() { lbArt.classList.remove('open'); });
+    lbArt.addEventListener('click', function(e) { if (e.target === lbArt) lbArt.classList.remove('open'); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') lbArt.classList.remove('open'); });
   </script>
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6cdd8038d56f4ebfb8568bb4fe7b90b2"}'></script>
 <div class="mob-pnav">
