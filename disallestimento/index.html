@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il disallestimento — Il Nodo di Dara</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --oro:       #c9a96e;
+    --oro-dim:   rgba(201,169,110,0.18);
+    --oro-mid:   rgba(201,169,110,0.55);
+    --white:     #f5f5f0;
+    --white-mid: rgba(245,245,240,0.75);
+    --white-low: rgba(245,245,240,0.50);
+    --bg:        #0e0c0a;
+    --bark:      #2c241c;
+    --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); font-family: 'Barlow', sans-serif; font-weight: 300; color: var(--white); min-height: 100vh; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; opacity: 0.4;
+  }
+
+  /* ══ NAV ══ */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between; padding: 20px 44px;
+    background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo img { width: 36px; height: auto; filter: invert(1); opacity: 0.75; }
+  .nav-logo-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: clamp(1rem,2vw,1.05rem); letter-spacing: 0.18em; text-transform: uppercase; color: var(--oro); }
+  .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+  .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: clamp(1rem,2vw,1.05rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--oro); }
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .nav-toggle span { display: block; width: 24px; height: 1px; background: var(--white-low); transition: all 0.3s; }
+  @media (max-width: 980px) {
+    .nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 0; background: rgba(14,12,10,0.97); justify-content: center; align-items: center; gap: 20px; z-index: 200; }
+    .nav-toggle { display: flex; z-index: 300; }
+  }
+
+  /* ══ HERO ══ */
+  .hero {
+    position: relative; z-index: 5;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 160px 24px 80px;
+  }
+  .hero-kicker { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: 13px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 14px; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(2.8rem, 8vw, 5.5rem); line-height: 1.05; color: var(--white); margin-bottom: 20px; }
+  .hero-title em { color: var(--oro); font-style: normal; }
+  .hero-sub { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: clamp(0.95rem, 2vw, 1.05rem); line-height: 1.7; color: var(--white-mid); max-width: 560px; }
+  .hero-note { margin-top: 22px; font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(245,245,240,0.3); }
+  .hero-rule { width: 1px; height: 50px; background: var(--oro-dim); margin: 36px auto 0; }
+
+  /* ══ SEZIONI ══ */
+  .section { position: relative; z-index: 5; max-width: 1280px; margin: 0 auto; padding: 80px 44px 0; }
+  .section-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 28px; }
+  @media (max-width: 980px) { .section { padding: 60px 24px 0; } }
+
+  /* ══ VIDEO TILES ══ */
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+  @media (max-width: 720px) { .video-grid { grid-template-columns: 1fr; } }
+
+  .yt-tile {
+    position: relative; cursor: pointer; overflow: hidden;
+    border: 1px solid var(--oro-dim); aspect-ratio: 16/9;
+    background: var(--bark);
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.3s;
+  }
+  .yt-tile.visible { opacity: 1; transform: translateY(0); }
+  .yt-tile:hover { border-color: var(--oro-mid); }
+  .yt-thumb { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.52) grayscale(20%); transition: filter 0.4s, transform 0.6s var(--ease); }
+  .yt-tile:hover .yt-thumb { filter: brightness(0.65) grayscale(0%); transform: scale(1.03); }
+  .yt-tile.no-thumb .yt-thumb { display: none; }
+  .yt-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; }
+  .yt-play { width: 54px; height: 54px; border: 1.5px solid rgba(245,245,240,0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.3s, border-color 0.3s; }
+  .yt-tile:hover .yt-play { background: rgba(201,169,110,0.22); border-color: var(--oro-mid); }
+  .yt-play::before { content: ''; width: 0; height: 0; border-left: 14px solid var(--white); border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 4px; }
+  .yt-info { text-align: center; }
+  .yt-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 500; font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); }
+  .yt-role { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); margin-top: 5px; }
+  .yt-tile.playing { cursor: default; }
+  .yt-tile.playing .yt-overlay { display: none; }
+  .yt-tile.playing iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  /* ══ FOTO MASONRY ══ */
+  .foto-grid { columns: 3; column-gap: 10px; }
+  @media (max-width: 900px) { .foto-grid { columns: 2; } }
+  @media (max-width: 520px) { .foto-grid { columns: 1; } }
+
+  .foto-item {
+    break-inside: avoid; display: block; width: 100%; margin-bottom: 10px;
+    cursor: zoom-in; overflow: hidden; border: 1px solid var(--oro-dim);
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.55s var(--ease), transform 0.55s var(--ease), border-color 0.3s;
+  }
+  .foto-item.visible { opacity: 1; transform: translateY(0); }
+  .foto-item:hover { border-color: var(--oro-mid); }
+  .foto-item img { display: block; width: 100%; height: auto; transition: transform 0.4s var(--ease); }
+  .foto-item:hover img { transform: scale(1.03); }
+
+  /* ══ LIGHTBOX ══ */
+  .lb-bg { position: fixed; inset: 0; z-index: 200; background: rgba(8,6,4,0.97); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; touch-action: none; }
+  .lb-bg.open { opacity: 1; pointer-events: all; }
+  .lb-img-wrap { max-width: 92vw; max-height: 82vh; display: flex; align-items: center; justify-content: center; }
+  .lb-img { max-width: 92vw; max-height: 82vh; object-fit: contain; display: block; border: 1px solid var(--oro-dim); touch-action: none; transform-origin: center center; transition: opacity 0.2s ease; will-change: transform; }
+  .lb-img.fading { opacity: 0; }
+  .lb-bar { display: flex; align-items: center; gap: 16px; padding: 14px 0 0; }
+  .lb-btn { background: none; border: 1px solid var(--oro-dim); color: var(--white-low); font-family: 'Barlow Condensed', sans-serif; font-size: 15px; letter-spacing: 0.08em; cursor: pointer; padding: 10px 24px; min-height: 44px; transition: color 0.2s, border-color 0.2s; }
+  .lb-btn:hover { color: var(--oro); border-color: var(--oro-mid); }
+  .lb-btn:disabled { opacity: 0.2; cursor: default; }
+  .lb-count { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.24em; color: var(--white-low); min-width: 60px; text-align: center; }
+  .lb-close { position: absolute; top: 16px; right: 20px; background: rgba(14,12,10,0.7); border: 1px solid var(--oro-dim); color: var(--white-low); font-size: 20px; cursor: pointer; font-family: 'Cormorant Garamond', serif; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: color 0.2s, border-color 0.2s; }
+  .lb-close:hover { color: var(--white); border-color: var(--oro-mid); }
+
+  /* ══ CHIUSURA ══ */
+  .chiusura { position: relative; z-index: 5; max-width: 680px; margin: 90px auto 0; padding: 0 44px; text-align: center; }
+  .chiusura-testo { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(1.2rem, 2.5vw, 1.55rem); line-height: 1.65; color: var(--white-mid); }
+  .chiusura-rule { width: 1px; height: 40px; background: var(--oro-dim); margin: 32px auto; }
+  @media (max-width: 720px) { .chiusura { padding: 0 24px; } }
+
+  /* ══ FOOTER ══ */
+  .footer { position: relative; z-index: 5; margin-top: 70px; padding: 28px 44px; border-top: 1px solid var(--oro-dim); text-align: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); }
+  .footer a { color: var(--oro-mid); text-decoration: none; }
+  .footer a:hover { color: var(--oro); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="/">
+    <img src="../logo.jpeg" alt="Nodo di Dara">
+    <span class="nav-logo-text">Nodo di Dara</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">Home</a></li>
+    <li><a href="/progetto">Il Progetto</a></li>
+    <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+    <li><a href="/inaugurazione">Inaugurazione</a></li>
+    <li><a href="/allestimento">Allestimento</a></li>
+    <li><a href="/disallestimento" class="active">Disallestimento</a></li>
+    <li><a href="/eco">L'Eco</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="hero">
+  <p class="hero-kicker">La fine del percorso · Maggio 2026</p>
+  <h1 class="hero-title">Il <em>disallestimento</em></h1>
+  <p class="hero-sub">La foresta è stata smontata. Questo è il materiale non montato di quei giorni — raramente documentato, raramente mostrato.</p>
+  <p class="hero-note">Riprese originali · backstage</p>
+  <div class="hero-rule"></div>
+</header>
+
+<!-- ════ VIDEO ════ -->
+<section class="section">
+  <p class="section-label">Video</p>
+  <div class="video-grid" id="videoGrid"></div>
+</section>
+
+<!-- ════ FOTOGRAFIE ════ -->
+<section class="section">
+  <p class="section-label">Fotografie</p>
+  <div class="foto-grid" id="fotoGrid"></div>
+</section>
+
+<!-- chiusura poetica -->
+<div class="chiusura">
+  <p class="chiusura-testo">I rami sono tornati silenziosi.<br>I 667 nodi, altrove.</p>
+  <div class="chiusura-rule"></div>
+</div>
+
+<!-- lightbox -->
+<div class="lb-bg" id="lbBg">
+  <button class="lb-close" id="lbClose">✕</button>
+  <div class="lb-img-wrap">
+    <img class="lb-img" id="lbImg" src="" alt="">
+  </div>
+  <div class="lb-bar">
+    <button class="lb-btn" id="lbPrev">← Prec</button>
+    <span class="lb-count" id="lbCount"></span>
+    <button class="lb-btn" id="lbNext">Succ →</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <a href="/allestimento">← Allestimento</a>
+  &nbsp;·&nbsp;
+  <a href="/eco">L'Eco →</a>
+</footer>
+
+<script>
+/* ── Video ──
+   Per ogni video: { id: 'ID_YOUTUBE', name: '...', role: '...' } */
+const videos = [
+  // { id: 'YOUTUBE_ID', name: 'Il disallestimento', role: 'Backstage' },
+];
+
+/* ── Foto ──
+   Aggiungere gli URL delle foto */
+const fotos = [
+  // 'https://f002.backblazeb2.com/file/SoundScape/disallestimento/foto1.jpeg',
+];
+
+const vg = document.getElementById('videoGrid');
+videos.forEach((v) => {
+  const el = document.createElement('div');
+  el.className = 'yt-tile' + (v.id ? '' : ' no-thumb');
+  el.innerHTML = v.id ? `<img class="yt-thumb" src="https://img.youtube.com/vi/${v.id}/maxresdefault.jpg" alt="${v.name}">` : '';
+  el.innerHTML += `<div class="yt-overlay"><div class="yt-play"></div><div class="yt-info"><div class="yt-name">${v.name}</div><div class="yt-role">${v.role}</div></div></div>`;
+  el.addEventListener('click', () => {
+    if (!v.id) return;
+    el.classList.add('playing');
+    el.insertAdjacentHTML('beforeend', `<iframe src="https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0" title="${v.name}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`);
+  });
+  vg.appendChild(el);
+});
+
+/* ── Foto ── */
+let lbCurrent = 0;
+const fg = document.getElementById('fotoGrid');
+fotos.forEach((src, i) => {
+  const d = document.createElement('div');
+  d.className = 'foto-item';
+  d.innerHTML = `<img src="${src}" alt="Disallestimento ${i+1}" loading="lazy">`;
+  d.addEventListener('click', () => apri(i));
+  fg.appendChild(d);
+});
+
+/* ── Lightbox ── */
+function apri(i) { lbCurrent = i; document.getElementById('lbBg').classList.add('open'); aggiornaLb(false); }
+function aggiornaLb(fade) {
+  const img = document.getElementById('lbImg');
+  const cambio = () => {
+    img.style.transform = ''; img.style.transition = 'none';
+    img.src = fotos[lbCurrent]; img.alt = `Disallestimento ${lbCurrent+1}`;
+    img.classList.remove('fading');
+    document.getElementById('lbCount').textContent = `${lbCurrent+1} / ${fotos.length}`;
+    document.getElementById('lbPrev').disabled = lbCurrent <= 0;
+    document.getElementById('lbNext').disabled = lbCurrent >= fotos.length - 1;
+  };
+  if (fade) { img.classList.add('fading'); setTimeout(cambio, 180); } else { cambio(); }
+}
+function chiudi() { document.getElementById('lbBg').classList.remove('open'); }
+document.getElementById('lbClose').addEventListener('click', chiudi);
+document.getElementById('lbBg').addEventListener('click', e => { if (e.target.id === 'lbBg') chiudi(); });
+document.getElementById('lbPrev').addEventListener('click', () => { if (lbCurrent > 0) { lbCurrent--; aggiornaLb(true); } });
+document.getElementById('lbNext').addEventListener('click', () => { if (lbCurrent < fotos.length-1) { lbCurrent++; aggiornaLb(true); } });
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lbBg').classList.contains('open')) return;
+  if (e.key === 'ArrowLeft'  && lbCurrent > 0)              { lbCurrent--; aggiornaLb(true); }
+  if (e.key === 'ArrowRight' && lbCurrent < fotos.length-1) { lbCurrent++; aggiornaLb(true); }
+  if (e.key === 'Escape') chiudi();
+});
+
+/* pinch-zoom + pan */
+const lbImg = document.getElementById('lbImg');
+let pz = { scale:1, tx:0, ty:0 }, pz0 = {};
+function applyPZ() { lbImg.style.transform = `translate(${pz.tx}px,${pz.ty}px) scale(${pz.scale})`; }
+function resetPZ() { pz={scale:1,tx:0,ty:0}; lbImg.style.transition='opacity 0.2s ease,transform 0.25s ease'; applyPZ(); setTimeout(()=>{lbImg.style.transition='opacity 0.2s ease';},280); }
+lbImg.addEventListener('touchstart', e=>{e.stopPropagation();lbImg.style.transition='opacity 0.2s ease';if(e.touches.length===2){const t1=e.touches[0],t2=e.touches[1];pz0.dist=Math.hypot(t2.clientX-t1.clientX,t2.clientY-t1.clientY);pz0.scale=pz.scale;pz0.midX=(t1.clientX+t2.clientX)/2;pz0.midY=(t1.clientY+t2.clientY)/2;pz0.tx=pz.tx;pz0.ty=pz.ty;}else if(e.touches.length===1){pz0.x=e.touches[0].clientX;pz0.y=e.touches[0].clientY;pz0.tx=pz.tx;pz0.ty=pz.ty;}},{passive:true});
+lbImg.addEventListener('touchmove', e=>{e.stopPropagation();if(e.touches.length===2){const t1=e.touches[0],t2=e.touches[1];const dist=Math.hypot(t2.clientX-t1.clientX,t2.clientY-t1.clientY);pz.scale=Math.max(1,Math.min(6,pz0.scale*dist/pz0.dist));const midX=(t1.clientX+t2.clientX)/2,midY=(t1.clientY+t2.clientY)/2;pz.tx=pz0.tx+(midX-pz0.midX);pz.ty=pz0.ty+(midY-pz0.midY);applyPZ();}else if(e.touches.length===1&&pz.scale>1){pz.tx=pz0.tx+(e.touches[0].clientX-pz0.x);pz.ty=pz0.ty+(e.touches[0].clientY-pz0.y);applyPZ();}},{passive:true});
+lbImg.addEventListener('touchend', e=>{e.stopPropagation();if(e.touches.length===0&&pz.scale<1.08)resetPZ();},{passive:true});
+let _lastTap=0;
+lbImg.addEventListener('touchend',e=>{if(e.touches.length>0)return;const now=Date.now();if(now-_lastTap<280){if(pz.scale>1.2){resetPZ();}else{const rect=lbImg.getBoundingClientRect(),t=e.changedTouches[0];const ox=t.clientX-rect.left-rect.width/2,oy=t.clientY-rect.top-rect.height/2;pz.scale=2.5;pz.tx=-ox*(2.5-1);pz.ty=-oy*(2.5-1);lbImg.style.transition='opacity 0.2s ease,transform 0.25s ease';applyPZ();setTimeout(()=>{lbImg.style.transition='opacity 0.2s ease';},280);}e.stopPropagation();}_lastTap=now;},{passive:true});
+
+/* ── IntersectionObserver ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ requestAnimationFrame(()=>requestAnimationFrame(()=>e.target.classList.add('visible'))); obs.unobserve(e.target); }});
+}, { threshold: 0.05 });
+document.querySelectorAll('.yt-tile, .foto-item').forEach((el,i) => {
+  el.style.transitionDelay = `${(i%4)*60}ms`;
+  obs.observe(el);
+});
+
+/* ── Nav mobile ── */
+document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+</script>
+</body>
+</html>
