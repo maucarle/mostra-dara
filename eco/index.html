@@ -128,6 +128,16 @@
   .voce-blog-link { display: inline-block; margin-top: 18px; font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--oro-mid); border-bottom: 1px solid var(--oro-dim); padding-bottom: 2px; transition: color 0.3s; }
   .voce-blog:hover .voce-blog-link { color: var(--oro); }
 
+  /* dediche gallery link */
+  .voce-dediche-link { text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-height: 140px; text-align: center; transition: border-color 0.3s, background 0.3s; }
+  .voce-dediche-link:hover { border-color: var(--oro-mid); background: rgba(201,169,110,0.06); }
+  .voce-dediche-link .dediche-preview { display: flex; gap: 6px; }
+  .voce-dediche-link .dediche-preview img { width: 48px; height: 62px; object-fit: cover; filter: grayscale(60%); border-radius: 1px; opacity: 0.7; transition: opacity 0.3s; }
+  .voce-dediche-link:hover .dediche-preview img { opacity: 1; }
+  .voce-dediche-link .dediche-cta { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--oro-mid); border-bottom: 1px solid var(--oro-dim); padding-bottom: 2px; transition: color 0.3s; }
+  .voce-dediche-link:hover .dediche-cta { color: var(--oro); }
+  .voce-dediche-link .dediche-label { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: var(--white-low); }
+
   /* ══ ITINERARIO ══ */
   .tappa { display: flex; align-items: baseline; gap: 20px; padding: 18px 0; border-top: 1px solid rgba(201,169,110,0.14); }
   .tappa:last-child { border-bottom: 1px solid rgba(201,169,110,0.14); }
@@ -180,6 +190,7 @@
       <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
       <li><a href="/eco" class="active">L'Eco</a></li>
       <li><a href="/testimonianze">Le Voci</a></li>
+      <li><a href="/dediche">Dediche</a></li>
       <li><a href="/soundscape">Soundscape</a></li>
       <li><a href="/rassegna-stampa">Stampa</a></li>
     </ul>
@@ -242,14 +253,15 @@
 
 <script>
 const voci = [
-  { type:"dedica",   text:"Sono entrata che avevo paura di invecchiare. Sono uscita che avevo voglia di vivere. Grazie.", who:"una visitatrice" },
+  { type:"dedica",   text:"Non ti cambia la vita, ma cambia il modo di vivere l'età.", who:"Francesca, dal libro delle dediche" },
   { type:"whatsapp", date:"4 marzo 2026", text:"Solo una donna poteva trasformare una fragilità in un momento di meravigliosa forza condivisa! Un'artista che fissa le emozioni nel tempo. Grazie Elisabetta, è stato un piacere.", who:"Baby" },
   { type:"blog", excerpt:"«Dal Nodo di Dara qualcosa si è mosso. Non sapevo come si chiamasse quello che stavo cercando. Ora lo so: si chiama ricominciare.»", source:"peso-leggero.it", title:"Abitare un corpo che cambia", url:"https://www.peso-leggero.it/2026/05/30/abitare-un-corpo-che-cambia/" },
   { type:"whatsapp", date:"4 marzo 2026", text:"Io credo che non smetterò mai di ringraziarti. Tu ci hai aperto l'anima e il cuore con il tuo fare, che magicamente coinvolge e libera mente e corpo di chi hai davanti. Io mi son vista e sentita come mai prima, e come se già ti conoscessi hai fatto a tutte noi un regalo immenso.", who:"Chiara" },
-  { type:"dedica",   text:"Non sapevo che si potesse parlare così di noi. Ad alta voce. Senza vergogna. Me ne torno a casa più leggera di dieci anni.", who:"M., 49 anni" },
+  { type:"dedica",   text:"Grazie, non c'erano le parole. Tu hai trovato l'immagine. Che parla senza parole. POTENTE.", who:"dal libro delle dediche" },
   { type:"whatsapp", date:"7 marzo 2026", text:"Elisabetta, hai saputo cogliere in ognuna di noi quel non detto, quelle parti più nascoste forse, e hai saputo renderci magiche, belle. Ho sentito un grande respiro in questa mostra. Grazie a tutte, meravigliose e uniche.", who:"Fra" },
   { type:"whatsapp", date:"8 marzo 2026", text:"Tu ci hai veramente aiutate a capire chi siamo, cosa siamo diventate e quanta potenza ancora abbiamo dentro, quanta capacità ha la donna in trasformazione. Grazie di averci aiutate a riconoscerlo.", who:"Kicca" },
-  { type:"dedica",   text:"", who:"", ph:true }
+  { type:"dedica",   text:"Sono Raffaella, 56 anni. Sono in menopausa. Sono in salute. Sono circondata da persone stupende. Sono felice.", who:"Raffaella, dal libro delle dediche" },
+  { type:"dediche-link" }
 ];
 
 const itinerario = [
@@ -260,6 +272,14 @@ const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 
 /* ── voci ── */
 function vociHTML(v, i){
+  if (v.type === "dediche-link") {
+    const prev = [3614,3622,3624,3629,3617].map(n =>
+      `<img src="https://f002.backblazeb2.com/file/SoundScape/dediche/IMG_${n}.jpeg" alt="">`).join('');
+    return `<a class="voce voce-dediche-link" href="/dediche">
+      <div class="dediche-preview">${prev}</div>
+      <div class="dediche-label">50 pagine di parole lasciate dai visitatori</div>
+      <span class="dediche-cta">Sfoglia il libro delle dediche →</span></a>`;
+  }
   if (v.type === "dedica" && v.ph)
     return `<div class="voce voce-ph"><span>Prossima dedica dal libro in arrivo</span></div>`;
   if (v.type === "dedica")
