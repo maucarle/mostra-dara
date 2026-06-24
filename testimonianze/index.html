@@ -85,6 +85,47 @@
     margin: 40px auto 0;
   }
 
+  /* ══ REEL ══ */
+  .reel-section {
+    position: relative; z-index: 5;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 10px 24px 0;
+  }
+  .reel-label {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--oro-mid); margin-bottom: 18px;
+  }
+  .reel-player {
+    position: relative; width: 100%; max-width: 340px;
+    aspect-ratio: 9/16; overflow: hidden;
+    border: 1px solid var(--oro-dim); cursor: pointer; background: #000;
+  }
+  .reel-thumb {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: brightness(0.7); transition: filter 0.4s;
+  }
+  .reel-player:hover .reel-thumb { filter: brightness(0.85); }
+  .reel-play {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .reel-play-btn {
+    width: 60px; height: 60px; border: 1.5px solid rgba(245,245,240,0.85); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s;
+  }
+  .reel-player:hover .reel-play-btn { background: rgba(201,169,110,0.25); }
+  .reel-play-btn::before {
+    content: ''; width: 0; height: 0;
+    border-left: 16px solid var(--white);
+    border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+    margin-left: 5px;
+  }
+  .reel-player.playing .reel-play { display: none; }
+  .reel-player.playing .reel-thumb { display: none; }
+  .reel-player.playing iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
   /* ══ GRIGLIA VOCI ══ */
   .voci-wrap {
     position: relative; z-index: 5;
@@ -194,6 +235,14 @@
     <p class="hero-sub">Messaggi delle donne che hanno partecipato al progetto. Parole scambiate nella chat del gruppo, prima e dopo la mostra.</p>
     <div class="hero-rule"></div>
   </header>
+
+  <section class="reel-section">
+    <p class="reel-label">Il reel del progetto</p>
+    <div class="reel-player" id="reelPlayer">
+      <img class="reel-thumb" src="https://img.youtube.com/vi/NOugJBYBG0Q/hqdefault.jpg" alt="Reel — Il Nodo di Dara">
+      <div class="reel-play"><div class="reel-play-btn"></div></div>
+    </div>
+  </section>
 
   <main class="voci-wrap" id="vociWrap"></main>
 
@@ -414,6 +463,12 @@ function render() {
 }
 
 render();
+
+// reel player
+document.getElementById('reelPlayer').addEventListener('click', function() {
+  this.classList.add('playing');
+  this.insertAdjacentHTML('beforeend', '<iframe src="https://www.youtube.com/embed/NOugJBYBG0Q?autoplay=1&rel=0" title="Reel — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>');
+});
 
 // nav toggle
 document.getElementById('navToggle').addEventListener('click', () => {
