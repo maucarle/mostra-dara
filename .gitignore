@@ -1,8 +1,10 @@
 .DS_Store
 
-# Video grandi — serviti da Backblaze B2, non da GitHub
+# Video grandi — serviti da YouTube o Backblaze B2, non da GitHub
 *.mov
 *.MOV
+*.mp4
+*.MP4
 
 # Contenuti locali — foto e didascalie, non in repo
 _contenuti/
