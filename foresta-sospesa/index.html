@@ -240,6 +240,31 @@
   .chip.active { background: var(--oro); border-color: var(--oro); color: var(--bg); }
   .chip.active .n { color: rgba(14,12,10,0.6); }
 
+  /* ── cerca per nome ── */
+  .cerca-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 36px; }
+  .cerca-box { position: relative; width: 100%; max-width: 420px; }
+  .cerca-input {
+    width: 100%; background: transparent; border: 1px solid var(--oro-dim); color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 15px;
+    letter-spacing: 0.12em; padding: 13px 40px 13px 44px; outline: none;
+    transition: border-color 0.3s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(201%2C169%2C110%2C0.55)' stroke-width='1.5' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: 14px center; background-size: 16px;
+  }
+  .cerca-input::placeholder { color: var(--white-low); letter-spacing: 0.1em; }
+  .cerca-input:focus { border-color: var(--oro-mid); }
+  .cerca-clear {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 40px;
+    background: none; border: none; color: var(--white-low); cursor: pointer;
+    font-size: 16px; font-family: 'Barlow', sans-serif; display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s;
+  }
+  .cerca-clear:hover { color: var(--oro); }
+  .cerca-hint {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,245,240,0.28); text-align: center;
+  }
+
   /* layout a due colonne */
   .indice-grid { display: grid; grid-template-columns: 1fr 420px; gap: 40px; align-items: start; }
 
@@ -451,6 +476,14 @@
       <p class="indice-sub">Scegli un sentimento. Scorri le voci. Apri la storia.</p>
     </div>
 
+    <div class="cerca-wrap">
+      <div class="cerca-box">
+        <input type="text" id="cercaInput" class="cerca-input" placeholder="Cerca il tuo nome…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="cerca-clear" id="cercaClear" aria-label="Cancella ricerca" hidden>✕</button>
+      </div>
+      <p class="cerca-hint">Le donne fotografate possono trovare la propria storia</p>
+    </div>
+
     <div class="filtri" id="filtri"></div>
 
     <div class="indice-grid">
@@ -587,6 +620,7 @@ const ORDINE_EMOZIONI = ["Accoglienza","Rinascita","Forza","Convivenza","Smarrim
 
 const TOTALE_MOSTRA = 100;
 let filtro = "Tutte";
+let cerca = "";
 let selez = null;
 let items = [];
 
@@ -630,16 +664,24 @@ function renderFiltri(){
 }
 
 /* ── Lista frasi filtrata ── */
-function vociFiltrate(){ return filtro === "Tutte" ? voci : voci.filter(v => v.emozione === filtro); }
+function vociFiltrate(){
+  let result = filtro === "Tutte" ? voci : voci.filter(v => v.emozione === filtro);
+  if (cerca) { const q = cerca.toLowerCase(); result = result.filter(v => v.name.toLowerCase().includes(q)); }
+  return result;
+}
 function renderLista(){
   const lista = document.getElementById('lista');
   items = vociFiltrate();
+  if (items.length === 0) {
+    lista.innerHTML = `<div class="lista-coda">Nessun risultato per «${esc(cerca)}»</div>`;
+    selez = null; renderPannello(); return;
+  }
   lista.innerHTML = items.map((v,i) =>
     `<div class="voce ${selez===v?'sel':''}" data-i="${i}">
        <div class="voce-frase">«${esc(v.frase)}»</div>
        <div class="voce-meta">${esc(v.name)}${v.age?' · '+esc(v.age):''} · ${esc(v.emozione)}</div>
      </div>`).join('') +
-    (TOTALE_MOSTRA > voci.length ? `<div class="lista-coda">· · · ${TOTALE_MOSTRA - voci.length} voci ancora in arrivo · · ·</div>` : '');
+    (TOTALE_MOSTRA > voci.length && !cerca ? `<div class="lista-coda">· · · ${TOTALE_MOSTRA - voci.length} voci ancora in arrivo · · ·</div>` : '');
   lista.querySelectorAll('.voce').forEach(el => el.addEventListener('click', () => seleziona(items[+el.dataset.i])));
   // mantiene una selezione valida nel pannello desktop
   if (!selez || !items.includes(selez)) selez = items[0] || null;
@@ -731,6 +773,24 @@ document.getElementById('bbPlay').addEventListener('click', () => {
   const p = document.getElementById('bbPlayer');
   p.classList.add('playing');
   p.innerHTML = `<iframe src="https://www.youtube.com/embed/UplpHRDGSyw?autoplay=1&rel=0&modestbranding=1" title="La proiezione — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+});
+
+/* ── Ricerca per nome ── */
+const cercaEl = document.getElementById('cercaInput');
+const cercaClearEl = document.getElementById('cercaClear');
+cercaEl.addEventListener('input', () => {
+  cerca = cercaEl.value.trim();
+  cercaClearEl.hidden = !cerca;
+  if (cerca) { filtro = "Tutte"; renderFiltri(); }
+  renderLista();
+  if (cerca) {
+    const first = document.querySelector('.voce');
+    if (first) first.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+});
+cercaClearEl.addEventListener('click', () => {
+  cerca = ''; cercaEl.value = ''; cercaClearEl.hidden = true;
+  renderLista(); cercaEl.focus();
 });
 
 /* ── Nav mobile ── */
