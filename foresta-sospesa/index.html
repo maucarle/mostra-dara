@@ -489,6 +489,7 @@ const ORDINE_EMOZIONI = ["Accoglienza","Rinascita","Forza","Convivenza","Smarrim
 const TOTALE_MOSTRA = 100;
 let filtro = "Tutte";
 let selez = null;
+let items = [];
 
 const isMobile = () => window.matchMedia('(max-width: 880px)').matches;
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -533,7 +534,7 @@ function renderFiltri(){
 function vociFiltrate(){ return filtro === "Tutte" ? voci : voci.filter(v => v.emozione === filtro); }
 function renderLista(){
   const lista = document.getElementById('lista');
-  const items = vociFiltrate();
+  items = vociFiltrate();
   lista.innerHTML = items.map((v,i) =>
     `<div class="voce ${selez===v?'sel':''}" data-i="${i}">
        <div class="voce-frase">«${esc(v.frase)}»</div>
@@ -568,7 +569,7 @@ function renderPannello(){
 function seleziona(v, forceMobileModal){
   selez = v;
   document.querySelectorAll('.voce').forEach(el => el.classList.remove('sel'));
-  const items = vociFiltrate(); const idx = items.indexOf(v);
+  const idx = items.indexOf(v);
   if (idx >= 0) { const el = document.querySelector(`.voce[data-i="${idx}"]`); if (el) el.classList.add('sel'); }
   renderPannello();
   if (isMobile() || forceMobileModal && isMobile()) {
