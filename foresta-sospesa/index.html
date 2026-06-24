@@ -299,19 +299,25 @@
   /* modal mobile */
   .modal-bg {
     position: fixed; inset: 0; z-index: 150; background: rgba(10,8,6,0.92);
-    backdrop-filter: blur(6px); display: flex; flex-direction: column;
-    align-items: flex-end; justify-content: flex-end;
+    backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center;
     opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
   }
   .modal-bg.open { opacity: 1; pointer-events: all; }
   .modal { width: 100%; max-height: calc(92dvh - 56px); overflow-y: auto; background: var(--bark); }
-  .modal-close {
-    margin: 0 16px 6px 0;
-    background: rgba(14,12,10,0.85); border: 1px solid var(--oro-dim);
-    color: var(--white); font-size: 22px; line-height: 1; cursor: pointer;
-    width: 40px; height: 40px; font-family: 'Cormorant Garamond', serif;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  .modal-header {
+    position: sticky; top: 0; z-index: 5;
+    display: flex; justify-content: flex-end;
+    padding: 8px 12px 4px; background: var(--bark);
+    border-bottom: 1px solid var(--oro-dim);
   }
+  .modal-close {
+    background: none; border: none;
+    color: var(--white-low); font-size: 24px; line-height: 1; cursor: pointer;
+    width: 40px; height: 40px; font-family: 'Cormorant Garamond', serif;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--white); }
   .modal-nav {
     position: sticky; bottom: 0;
     display: flex; align-items: center; justify-content: space-between;
@@ -458,8 +464,10 @@
 
   <!-- modal mobile -->
   <div class="modal-bg" id="modalBg">
-    <button class="modal-close" id="modalClose">✕</button>
     <div class="modal" id="modal">
+      <div class="modal-header">
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
       <div id="modalBody"></div>
       <div class="modal-nav" id="modalNav">
         <button class="modal-nav-btn" id="modalPrev" aria-label="Precedente">← Prec</button>
