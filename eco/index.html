@@ -215,6 +215,32 @@
 
   @media (max-width: 980px) { .section, .eco-cta { padding-left: 24px; padding-right: 24px; } }
 
+  /* ══ SEZIONE INDEX ══ */
+  .sezione-index {
+    position: relative; z-index: 5;
+    max-width: 1100px; margin: 0 auto; padding: 28px 44px 0;
+  }
+  .sezione-index-label {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 400;
+    font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--oro-mid); margin-bottom: 12px;
+  }
+  .sezione-index-links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .sezione-index-links a {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 400;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--oro); text-decoration: none;
+    padding: 9px 15px; border: 1px solid var(--oro-dim);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .sezione-index-links a:hover { border-color: var(--oro-mid); background: rgba(201,169,110,0.06); }
+  @media (max-width: 980px) {
+    .sezione-index { padding: 24px 24px 0; }
+    .sezione-index-links { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .sezione-index-links::-webkit-scrollbar { display: none; }
+    .sezione-index-links a { flex: 0 0 auto; white-space: nowrap; }
+  }
+
   /* ══ ECO CARDS ══ */
   .eco-cards { position: relative; z-index: 5; max-width: 1100px; margin: 0 auto; padding: 60px 44px 0; }
   .eco-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -232,25 +258,25 @@
   .eco-card:hover .eco-card-cta { color: var(--oro); }
 
   /* ══ MOBILE PAGE NAV ══ */
-  .mob-pnav { display: none; }
+
+  /* ── nav sottopagine ── */
+  .nav-sub { display: none; list-style: none; }
   @media (max-width: 980px) {
-    .mob-pnav {
-      display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
-      background: rgba(14,12,10,0.97); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      border-top: 1px solid rgba(201,169,110,0.18);
+    .nav-links.open .nav-sub {
+      display: flex; flex-direction: column; gap: 10px;
+      margin: 10px 0 4px; padding-left: 18px;
+      border-left: 1px solid var(--oro-dim);
     }
-    .mob-pnav a {
-      flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 15px 10px; text-decoration: none;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 400;
-      font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
-      color: rgba(245,245,240,0.55); transition: color 0.2s;
+    .nav-links.open .nav-sub a {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+      font-size: 0.95rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--oro-mid);
     }
-    .mob-pnav a:active { color: var(--oro); }
-    .mob-pnav a + a { border-left: 1px solid rgba(201,169,110,0.18); }
-    .mob-pnav .arr { color: var(--oro); }
-    body { padding-bottom: 56px; }
+    .nav-links.open .nav-sub a:hover,
+    .nav-links.open .nav-sub a.active { color: var(--oro); }
   }
+
+  :focus-visible { outline: 2px solid var(--oro-mid); outline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -264,9 +290,23 @@
     <li><a href="/">Home</a></li>
     <li><a href="/progetto">Il Progetto</a></li>
     <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
-    <li><a href="/eco" class="active">L'Eco</a></li>
+    <li class="has-sub">
+      <a href="/eco" class="active">L'Eco</a>
+      <ul class="nav-sub">
+        <li><a href="/dediche">Dediche</a></li>
+        <li><a href="/testimonianze">Testimonianze</a></li>
+        <li><a href="/storie-social">Storie social</a></li>
+      </ul>
+    </li>
     <li><a href="/eventi">Eventi</a></li>
-    <li><a href="/dietro-le-quinte">Dietro le quinte</a></li>
+    <li class="has-sub">
+      <a href="/dietro-le-quinte">Dietro le quinte</a>
+      <ul class="nav-sub">
+        <li><a href="/inaugurazione">Inaugurazione</a></li>
+        <li><a href="/allestimento">Allestimento</a></li>
+        <li><a href="/disallestimento">Disallestimento</a></li>
+      </ul>
+    </li>
     <li><a href="/rassegna-stampa">Stampa</a></li>
   </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -283,6 +323,15 @@
       <p class="hero-line">Tanti visitatori hanno legato un filo. La foresta è cresciuta.</p>
     </div>
   </header>
+
+  <div class="sezione-index">
+    <p class="sezione-index-label">In questa sezione · 3 pagine</p>
+    <div class="sezione-index-links">
+      <a href="/dediche">Dediche →</a>
+      <a href="/testimonianze">Testimonianze →</a>
+      <a href="/storie-social">Storie social →</a>
+    </div>
+  </div>
 
   <!-- ════ STAT BAND ════ -->
   <section class="stats">
@@ -490,9 +539,5 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
 document.getElementById('navLinks').querySelectorAll('a').forEach(a => a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
 </script>
-<div class="mob-pnav">
-  <a href="/foresta-sospesa"><span class="arr">←</span> La Foresta</a>
-  <a href="/dediche">Dediche <span class="arr">→</span></a>
-</div>
 </body>
 </html>

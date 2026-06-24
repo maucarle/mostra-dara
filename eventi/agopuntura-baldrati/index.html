@@ -404,7 +404,26 @@
       .back-section { padding: 40px 24px 60px; }
       footer { padding: 24px; }
     }
-  </style>
+  
+  /* ── nav sottopagine ── */
+  .nav-sub { display: none; list-style: none; }
+  @media (max-width: 980px) {
+    .nav-links.open .nav-sub {
+      display: flex; flex-direction: column; gap: 10px;
+      margin: 10px 0 4px; padding-left: 18px;
+      border-left: 1px solid var(--oro-dim);
+    }
+    .nav-links.open .nav-sub a {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+      font-size: 0.95rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--oro-mid);
+    }
+    .nav-links.open .nav-sub a:hover,
+    .nav-links.open .nav-sub a.active { color: var(--oro); }
+  }
+
+  :focus-visible { outline: 2px solid var(--oro-mid); outline-offset: 2px; }
+</style>
 </head>
 <body>
   <nav class="nav">
@@ -416,9 +435,23 @@
     <li><a href="/">Home</a></li>
     <li><a href="/progetto">Il Progetto</a></li>
     <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
-    <li><a href="/eco">L'Eco</a></li>
+    <li class="has-sub">
+      <a href="/eco">L'Eco</a>
+      <ul class="nav-sub">
+        <li><a href="/dediche">Dediche</a></li>
+        <li><a href="/testimonianze">Testimonianze</a></li>
+        <li><a href="/storie-social">Storie social</a></li>
+      </ul>
+    </li>
     <li><a href="/eventi" class="active">Eventi</a></li>
-    <li><a href="/dietro-le-quinte">Dietro le quinte</a></li>
+    <li class="has-sub">
+      <a href="/dietro-le-quinte">Dietro le quinte</a>
+      <ul class="nav-sub">
+        <li><a href="/inaugurazione">Inaugurazione</a></li>
+        <li><a href="/allestimento">Allestimento</a></li>
+        <li><a href="/disallestimento">Disallestimento</a></li>
+      </ul>
+    </li>
     <li><a href="/rassegna-stampa">Stampa</a></li>
   </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">
