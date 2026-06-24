@@ -190,19 +190,19 @@
   }
   .nodi-caption {
     font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
-    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
-    color: rgba(201,169,110,0.65);
-    opacity: 0; transform: translateY(10px);
-    transition: opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s;
+    font-size: 14px; letter-spacing: 0.34em; text-transform: uppercase;
+    color: rgba(201,169,110,0.75);
+    opacity: 0; transform: translateY(36px);
+    transition: opacity 1.1s ease, transform 1.1s var(--ease);
   }
   .nodi-testo {
     font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
-    font-size: clamp(1.5rem, 4vw, 2.5rem); line-height: 1.4;
+    font-size: clamp(1.7rem, 4.5vw, 3rem); line-height: 1.35;
     color: var(--white); text-align: center;
-    text-shadow: 0 2px 24px rgba(8,6,4,0.7);
-    margin-top: 10px;
-    opacity: 0; transform: translateY(14px);
-    transition: opacity 0.9s ease 0.05s, transform 0.9s ease 0.05s;
+    text-shadow: 0 2px 28px rgba(8,6,4,0.8);
+    margin-top: 14px;
+    opacity: 0; transform: translateY(44px);
+    transition: opacity 1.1s ease 0.22s, transform 1.1s var(--ease) 0.22s;
   }
   .nodi-foto.visible .nodi-caption,
   .nodi-foto.visible .nodi-testo { opacity: 1; transform: translateY(0); }
@@ -261,7 +261,7 @@
   <div class="nodi-foto" id="nodiFoto">
     <img class="nodi-img" src="/assets/nodi-667.jpeg" alt="L'albero dei 667 nodi — Il Nodo di Dara" loading="lazy">
     <div class="nodi-overlay">
-      <p class="nodi-caption">L'installazione · La foresta sospesa</p>
+      <p class="nodi-caption">L'installazione · Il tuo nodo</p>
       <p class="nodi-testo">667 fili annodati.<br>Un albero che ha respirato.</p>
     </div>
   </div>
@@ -397,9 +397,19 @@ modalBg.addEventListener('click', e => { if (e.target === modalBg) closeModal();
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 /* ── fade-in foto nodi ── */
-new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15 }).observe(document.getElementById('nodiFoto'));
+(function(){
+  const el = document.getElementById('nodiFoto');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        // doppio rAF: assicura che il browser abbia dipinto opacity:0 prima di aggiungere .visible
+        requestAnimationFrame(() => requestAnimationFrame(() => e.target.classList.add('visible')));
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  obs.observe(el);
+})();
 
 /* ── nav mobile ── */
 document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
