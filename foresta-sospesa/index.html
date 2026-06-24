@@ -251,6 +251,24 @@
     border: none; color: var(--white); font-size: 22px; line-height: 1; cursor: pointer;
     width: 36px; height: 36px; font-family: 'Cormorant Garamond', serif;
   }
+  .modal-nav {
+    position: sticky; bottom: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 18px; background: rgba(14,12,10,0.92);
+    border-top: 1px solid var(--oro-dim); backdrop-filter: blur(4px);
+  }
+  .modal-nav-btn {
+    background: none; border: 1px solid var(--oro-dim); color: var(--white-low);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 17px; letter-spacing: 0.05em;
+    cursor: pointer; padding: 7px 18px; border-radius: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .modal-nav-btn:hover { color: var(--oro); border-color: var(--oro-mid); }
+  .modal-nav-btn:disabled { opacity: 0.2; cursor: default; }
+  .modal-nav-count {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 12px; letter-spacing: 0.22em; color: var(--white-low);
+  }
 
   /* soundscape toggle */
   .sound-toggle {
@@ -348,6 +366,11 @@
     <div class="modal" id="modal">
       <button class="modal-close" id="modalClose">✕</button>
       <div id="modalBody"></div>
+      <div class="modal-nav" id="modalNav">
+        <button class="modal-nav-btn" id="modalPrev" aria-label="Precedente">← Prec</button>
+        <span class="modal-nav-count" id="modalNavCount"></span>
+        <button class="modal-nav-btn" id="modalNext" aria-label="Successiva">Succ →</button>
+      </div>
     </div>
   </div>
 
@@ -550,9 +573,43 @@ function seleziona(v, forceMobileModal){
   renderPannello();
   if (isMobile() || forceMobileModal && isMobile()) {
     document.getElementById('modalBody').innerHTML = letturaHTML(v);
+    document.getElementById('modal').scrollTop = 0;
     document.getElementById('modalBg').classList.add('open');
+    aggiornaNavModal();
   }
 }
+
+/* ── Navigazione modal mobile ── */
+function aggiornaNavModal() {
+  const idx = items.indexOf(selez);
+  document.getElementById('modalPrev').disabled = idx <= 0;
+  document.getElementById('modalNext').disabled = idx >= items.length - 1;
+  document.getElementById('modalNavCount').textContent = `${idx + 1} / ${items.length}`;
+}
+
+document.getElementById('modalPrev').addEventListener('click', () => {
+  const idx = items.indexOf(selez);
+  if (idx > 0) seleziona(items[idx - 1]);
+});
+document.getElementById('modalNext').addEventListener('click', () => {
+  const idx = items.indexOf(selez);
+  if (idx < items.length - 1) seleziona(items[idx + 1]);
+});
+
+/* swipe orizzontale per navigare */
+let _tx = 0, _ty = 0;
+document.getElementById('modal').addEventListener('touchstart', e => {
+  _tx = e.touches[0].clientX; _ty = e.touches[0].clientY;
+}, { passive: true });
+document.getElementById('modal').addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - _tx;
+  const dy = e.changedTouches[0].clientY - _ty;
+  if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy)) {
+    const idx = items.indexOf(selez);
+    if (dx < 0 && idx < items.length - 1) seleziona(items[idx + 1]);
+    if (dx > 0 && idx > 0) seleziona(items[idx - 1]);
+  }
+}, { passive: true });
 
 /* ── Modal mobile ── */
 document.getElementById('modalClose').addEventListener('click', () => document.getElementById('modalBg').classList.remove('open'));
