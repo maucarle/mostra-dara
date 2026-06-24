@@ -146,6 +146,64 @@
 
   @keyframes arise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+  /* ══════════════════════ ATTO I.V — LA STANZA BUIA ══════════════════════ */
+  .blackbox {
+    position: relative; z-index: 5;
+    background: #000; padding: 90px 44px 80px; text-align: center;
+  }
+  .blackbox-kicker {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 12px; letter-spacing: 0.34em; text-transform: uppercase;
+    color: var(--oro-mid); margin-bottom: 14px;
+  }
+  .blackbox-title {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.2rem); color: var(--white); margin-bottom: 18px;
+  }
+  .blackbox-desc {
+    font-family: 'Barlow', sans-serif; font-weight: 300;
+    font-size: clamp(0.9rem, 2vw, 1rem); line-height: 1.75;
+    color: var(--white-low); max-width: 520px; margin: 0 auto 42px;
+  }
+  .blackbox-desc strong { color: var(--white-mid); font-weight: 400; }
+  .blackbox-player {
+    position: relative; max-width: 900px; margin: 0 auto;
+    aspect-ratio: 16/9; overflow: hidden; cursor: pointer;
+    border: 1px solid rgba(201,169,110,0.15);
+  }
+  .blackbox-player.playing { cursor: default; }
+  .blackbox-thumb {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; filter: grayscale(40%) brightness(0.55);
+    transition: filter 0.5s;
+  }
+  .blackbox-player:hover:not(.playing) .blackbox-thumb { filter: grayscale(15%) brightness(0.65); }
+  .blackbox-play {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer;
+  }
+  .play-ring {
+    width: 72px; height: 72px; border-radius: 50%;
+    border: 1.5px solid rgba(245,245,240,0.75);
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .play-ring::after {
+    content: ''; width: 0; height: 0;
+    border-left: 22px solid rgba(245,245,240,0.9);
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    margin-left: 5px;
+  }
+  .blackbox-player:hover:not(.playing) .play-ring {
+    border-color: var(--oro); background: rgba(201,169,110,0.18);
+  }
+  .blackbox-player:hover:not(.playing) .play-ring::after { border-left-color: var(--oro); }
+  .blackbox-player iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  }
+  @media (max-width: 720px) { .blackbox { padding: 70px 0 60px; } }
+
   /* ══════════════════════ ATTO II — INDICE PER EMOZIONE ══════════════════════ */
   .indice {
     position: relative; z-index: 5;
@@ -340,6 +398,19 @@
     <div class="soglia-enter">
       <a class="enter-btn" href="#indice" id="enterBtn">Entra fra le voci ↓</a>
       <button class="enter-btn" id="soglieSound" style="cursor:pointer;">♪ Attiva le voci</button>
+    </div>
+  </section>
+
+  <!-- ════════ ATTO I.V — LA STANZA BUIA ════════ -->
+  <section class="blackbox" id="blackbox">
+    <p class="blackbox-kicker">La stanza buia &nbsp;·&nbsp; Al centro del percorso</p>
+    <h2 class="blackbox-title">La proiezione</h2>
+    <p class="blackbox-desc">Questo è il video che i visitatori guardavano seduti nella black box, la stanza oscura al centro della foresta. <strong>Concediti almeno 10 minuti.</strong></p>
+    <div class="blackbox-player" id="bbPlayer">
+      <img class="blackbox-thumb" src="https://img.youtube.com/vi/UplpHRDGSyw/maxresdefault.jpg" alt="La proiezione — Il Nodo di Dara">
+      <button class="blackbox-play" id="bbPlay" aria-label="Guarda il video">
+        <div class="play-ring"></div>
+      </button>
     </div>
   </section>
 
@@ -625,6 +696,13 @@ function playSound(){ audio.play().then(() => { toggle.classList.add('playing');
 function pauseSound(){ audio.pause(); toggle.classList.remove('playing'); label.textContent = 'Soundscape'; }
 toggle.addEventListener('click', () => audio.paused ? playSound() : pauseSound());
 document.getElementById('soglieSound').addEventListener('click', e => { e.preventDefault(); playSound(); });
+
+/* ── Black box player ── */
+document.getElementById('bbPlay').addEventListener('click', () => {
+  const p = document.getElementById('bbPlayer');
+  p.classList.add('playing');
+  p.innerHTML = `<iframe src="https://www.youtube.com/embed/UplpHRDGSyw?autoplay=1&rel=0&modestbranding=1" title="La proiezione — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+});
 
 /* ── Nav mobile ── */
 document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));

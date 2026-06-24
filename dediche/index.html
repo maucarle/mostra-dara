@@ -66,27 +66,68 @@
   .hero-sub { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: clamp(0.95rem, 2vw, 1.05rem); line-height: 1.7; color: var(--white-mid); max-width: 520px; }
   .hero-rule { width: 1px; height: 50px; background: var(--oro-dim); margin: 36px auto 0; }
 
-  /* ══ GALLERIA ══ */
-  .gallery-wrap {
+  /* ══ TRASCRIZIONI ══ */
+  .trascrizioni-wrap {
     position: relative; z-index: 5;
-    max-width: 1400px; margin: 0 auto;
-    padding: 40px 32px 100px;
-    columns: 4; column-gap: 10px;
+    max-width: 1280px; margin: 0 auto; padding: 60px 44px 20px;
+  }
+  @media (max-width: 720px) { .trascrizioni-wrap { padding: 40px 20px 10px; } }
+  .trascrizioni-label {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--oro-mid); margin-bottom: 28px;
+  }
+  .trascrizioni-grid {
+    columns: 3; column-gap: 20px;
+  }
+  @media (max-width: 900px) { .trascrizioni-grid { columns: 2; } }
+  @media (max-width: 520px) { .trascrizioni-grid { columns: 1; } }
+
+  .trasc {
+    break-inside: avoid;
+    border-left: 2px solid var(--oro-dim);
+    padding: 16px 18px 14px;
+    margin-bottom: 18px;
+    background: rgba(44,36,28,0.3);
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-left-color 0.3s;
+  }
+  .trasc.visible { opacity: 1; transform: translateY(0); }
+  .trasc:hover { border-left-color: var(--oro-mid); }
+  .trasc-text {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+    font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.6; color: var(--white-mid);
+  }
+  .trasc-text::before { content: '\201C'; color: var(--oro); }
+  .trasc-text::after  { content: '\201D'; color: var(--oro); }
+  .trasc-chi {
+    margin-top: 10px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low);
+  }
+  .trasc-chi::before { content: '— '; }
+
+  /* ══ SEZIONE GALLERIA ══ */
+  .gallery-section {
+    position: relative; z-index: 5;
+    max-width: 1400px; margin: 0 auto; padding: 50px 32px 0;
+  }
+  .gallery-label {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--oro-mid); margin-bottom: 28px;
+  }
+  .gallery-wrap {
+    columns: 4; column-gap: 10px; padding-bottom: 100px;
   }
   @media (max-width: 1100px) { .gallery-wrap { columns: 3; } }
-  @media (max-width: 720px)  { .gallery-wrap { columns: 2; padding: 24px 16px 60px; column-gap: 8px; } }
+  @media (max-width: 720px)  { .gallery-section { padding: 40px 16px 0; } .gallery-wrap { columns: 2; column-gap: 8px; } }
   @media (max-width: 420px)  { .gallery-wrap { columns: 1; } }
 
   .thumb {
-    break-inside: avoid;
-    display: block; width: 100%;
-    margin-bottom: 10px;
-    cursor: zoom-in;
-    overflow: hidden;
-    border: 1px solid var(--oro-dim);
-    background: var(--bark);
-    opacity: 0;
-    transform: translateY(10px);
+    break-inside: avoid; display: block; width: 100%; margin-bottom: 10px;
+    cursor: zoom-in; overflow: hidden; border: 1px solid var(--oro-dim); background: var(--bark);
+    opacity: 0; transform: translateY(10px);
     transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.3s;
   }
   .thumb.visible { opacity: 1; transform: translateY(0); }
@@ -97,50 +138,63 @@
   /* ══ LIGHTBOX ══ */
   .lb-bg {
     position: fixed; inset: 0; z-index: 200;
-    background: rgba(8,6,4,0.96); backdrop-filter: blur(8px);
+    background: rgba(8,6,4,0.97); backdrop-filter: blur(8px);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none;
     transition: opacity 0.35s ease;
+    /* lascia al browser gestire pinch-zoom sull'immagine */
+    touch-action: pan-x pan-y;
   }
   .lb-bg.open { opacity: 1; pointer-events: all; }
 
   .lb-img-wrap {
-    position: relative; max-width: 90vw; max-height: 84vh;
+    position: relative; max-width: 92vw; max-height: 82vh;
     display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
   }
   .lb-img {
-    max-width: 90vw; max-height: 84vh;
+    max-width: 92vw; max-height: 82vh;
     object-fit: contain; display: block;
     border: 1px solid var(--oro-dim);
+    /* permette pinch-zoom nativo sul browser mobile */
+    touch-action: pinch-zoom;
     transition: opacity 0.2s ease;
   }
   .lb-img.fading { opacity: 0; }
 
   .lb-bar {
-    display: flex; align-items: center; gap: 20px;
-    padding: 16px 0 0;
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 0 0;
   }
   .lb-btn {
     background: none; border: 1px solid var(--oro-dim); color: var(--white-low);
-    font-family: 'Barlow Condensed', sans-serif; font-size: 16px; letter-spacing: 0.08em;
-    cursor: pointer; padding: 9px 22px; border-radius: 2px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 15px; letter-spacing: 0.08em;
+    cursor: pointer; padding: 10px 24px; border-radius: 2px;
     transition: color 0.2s, border-color 0.2s;
+    /* target touch grande per mobile */
+    min-height: 44px;
   }
   .lb-btn:hover { color: var(--oro); border-color: var(--oro-mid); }
   .lb-btn:disabled { opacity: 0.2; cursor: default; }
   .lb-count {
     font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
-    font-size: 13px; letter-spacing: 0.24em; color: var(--white-low);
-    min-width: 70px; text-align: center;
+    font-size: 12px; letter-spacing: 0.24em; color: var(--white-low);
+    min-width: 60px; text-align: center;
   }
   .lb-close {
-    position: absolute; top: 20px; right: 24px;
-    background: none; border: none; color: var(--white-low);
-    font-size: 28px; line-height: 1; cursor: pointer;
+    position: absolute; top: 16px; right: 20px;
+    background: rgba(14,12,10,0.7); border: 1px solid var(--oro-dim);
+    color: var(--white-low); font-size: 20px; line-height: 1; cursor: pointer;
     font-family: 'Cormorant Garamond', serif;
-    transition: color 0.2s;
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s, border-color 0.2s;
   }
-  .lb-close:hover { color: var(--white); }
+  .lb-close:hover { color: var(--white); border-color: var(--oro-mid); }
+  .lb-hint {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(245,245,240,0.22); margin-top: 8px;
+  }
 
   /* ══ FOOTER ══ */
   .footer {
@@ -181,7 +235,17 @@
     <div class="hero-rule"></div>
   </header>
 
-  <main class="gallery-wrap" id="gallery"></main>
+  <!-- trascrizioni selezionate -->
+  <section class="trascrizioni-wrap">
+    <p class="trascrizioni-label">Alcune parole trascritte dal libro</p>
+    <div class="trascrizioni-grid" id="trascrizioniGrid"></div>
+  </section>
+
+  <!-- galleria foto -->
+  <section class="gallery-section">
+    <p class="gallery-label">Tutte le pagine · 50 fogli</p>
+    <div class="gallery-wrap" id="gallery"></div>
+  </section>
 
   <!-- lightbox -->
   <div class="lb-bg" id="lbBg">
@@ -194,6 +258,7 @@
       <span class="lb-count" id="lbCount"></span>
       <button class="lb-btn" id="lbNext">Succ →</button>
     </div>
+    <p class="lb-hint">Pizzica per ingrandire · frecce per navigare</p>
   </div>
 
   <footer class="footer">
@@ -203,37 +268,62 @@
   </footer>
 
 <script>
+/* ── Aggiorna BASE quando carichi le versioni ridotte su B2 ── */
 const BASE = 'https://f002.backblazeb2.com/file/SoundScape/dediche/';
+/* const BASE = 'https://f002.backblazeb2.com/file/SoundScape/dediche-small/'; */
+
 const fotos = Array.from({length: 50}, (_, i) => `${BASE}IMG_${3611 + i}.jpeg`);
 
-let current = 0;
+/* ── Trascrizioni ── */
+const trascrizioni = [
+  { text: "La menopausa ci insegna che il tempo non esiste, esiste solo ciò che facciamo e siamo in quel tempo. Un «danno» che diventa «donna» attraverso l'accettazione di ogni parte di noi.", chi: "anonima, 7 marzo" },
+  { text: "Non ti cambia la vita, ma cambia il modo di vivere l'età.", chi: "Francesca, 7 marzo" },
+  { text: "Grazie, non c'erano le parole. Tu hai trovato l'immagine. Che parla senza parole. POTENTE.", chi: "anonima, 7 marzo" },
+  { text: "I'm Free!!", chi: "Serena, 7 marzo" },
+  { text: "Dedicato a Elisabetta. Hai acceso con il tuo fare una nuova e delicata fase della mia vita e mi hai dato la forza di emergere. Grazie per l'opportunità che mi hai offerto.", chi: "Iris" },
+  { text: "Sono Raffaella, 56 anni. Sono in menopausa. Sono in salute. Sono circondata da persone stupende. Sono felice.", chi: "Raffaella, 14 marzo" },
+  { text: "Grazie Elisabetta per aver saputo guardare oltre gli stereotipi restituendoci una bellezza autentica, fiera e vibrante.", chi: "Vetura, 60 anni" },
+  { text: "Ciao, sono Gemma, ho 25 anni e mi sento attraversare una menopausa precoce. Grazie per questa mostra e a tutte le testimonianze: non mi sento più sola.", chi: "Gemma, 25 anni, 21 marzo" },
+  { text: "Noi donne: più forti del caffè, più dolci del cioccolato!", chi: "anonima, 8 marzo" },
+  { text: "Non ho la menopausa, sono uomo. Ma spero che state tutte bene.", chi: "visitatore, 11 aprile" },
+  { text: "Ciao, sono Alessandra, ho 8 anni. Questo museo è bellissimo!", chi: "Alessandra, 8 anni, 29 aprile" },
+  { text: "Questo mostra racconta la nostra storia.", chi: "anonima" },
+];
 
-/* ── gallery ── */
-const gallery = document.getElementById('gallery');
-fotos.forEach((src, i) => {
-  const a = document.createElement('div');
-  a.className = 'thumb';
-  a.innerHTML = `<img src="${src}" alt="Pagina ${i + 1}" loading="lazy">`;
-  a.addEventListener('click', () => apri(i));
-  gallery.appendChild(a);
+const trGrid = document.getElementById('trascrizioniGrid');
+trascrizioni.forEach(t => {
+  const el = document.createElement('div');
+  el.className = 'trasc';
+  el.innerHTML = `<p class="trasc-text">${t.text}</p><div class="trasc-chi">${t.chi}</div>`;
+  trGrid.appendChild(el);
 });
 
-/* lazy fade-in */
+/* ── Galleria ── */
+let current = 0;
+const gallery = document.getElementById('gallery');
+fotos.forEach((src, i) => {
+  const d = document.createElement('div');
+  d.className = 'thumb';
+  d.innerHTML = `<img src="${src}" alt="Pagina ${i + 1}" loading="lazy">`;
+  d.addEventListener('click', () => apri(i));
+  gallery.appendChild(d);
+});
+
+/* lazy fade-in (trascrizioni + thumb) */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-}, { threshold: 0.05 });
-gallery.querySelectorAll('.thumb').forEach((el, i) => {
-  el.style.transitionDelay = `${(i % 4) * 50}ms`;
+}, { threshold: 0.04 });
+document.querySelectorAll('.trasc, .thumb').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 4) * 55}ms`;
   obs.observe(el);
 });
 
-/* ── lightbox ── */
+/* ── Lightbox ── */
 function apri(i) {
   current = i;
   document.getElementById('lbBg').classList.add('open');
   aggiornaLb(false);
 }
-
 function aggiornaLb(fade) {
   const img = document.getElementById('lbImg');
   const cambio = () => {
@@ -244,14 +334,8 @@ function aggiornaLb(fade) {
     document.getElementById('lbPrev').disabled = current <= 0;
     document.getElementById('lbNext').disabled = current >= fotos.length - 1;
   };
-  if (fade) {
-    img.classList.add('fading');
-    setTimeout(cambio, 180);
-  } else {
-    cambio();
-  }
+  if (fade) { img.classList.add('fading'); setTimeout(cambio, 180); } else { cambio(); }
 }
-
 function chiudi() { document.getElementById('lbBg').classList.remove('open'); }
 
 document.getElementById('lbClose').addEventListener('click', chiudi);
@@ -261,20 +345,26 @@ document.getElementById('lbNext').addEventListener('click', () => { if (current 
 
 document.addEventListener('keydown', e => {
   if (!document.getElementById('lbBg').classList.contains('open')) return;
-  if (e.key === 'ArrowLeft'  && current > 0)               { current--; aggiornaLb(true); }
-  if (e.key === 'ArrowRight' && current < fotos.length - 1) { current++; aggiornaLb(true); }
+  if (e.key === 'ArrowLeft'  && current > 0)                { current--; aggiornaLb(true); }
+  if (e.key === 'ArrowRight' && current < fotos.length - 1)  { current++; aggiornaLb(true); }
   if (e.key === 'Escape') chiudi();
 });
 
-/* swipe mobile */
-let _tx = 0, _ty = 0;
-document.getElementById('lbBg').addEventListener('touchstart', e => {
-  _tx = e.touches[0].clientX; _ty = e.touches[0].clientY;
+/* swipe: solo dito singolo, mai durante pinch */
+let _tx = 0, _ty = 0, _pinch = false;
+const lbBg = document.getElementById('lbBg');
+lbBg.addEventListener('touchstart', e => {
+  _pinch = e.touches.length > 1;
+  if (!_pinch) { _tx = e.touches[0].clientX; _ty = e.touches[0].clientY; }
 }, { passive: true });
-document.getElementById('lbBg').addEventListener('touchend', e => {
+lbBg.addEventListener('touchmove', e => {
+  if (e.touches.length > 1) _pinch = true;
+}, { passive: true });
+lbBg.addEventListener('touchend', e => {
+  if (_pinch) return;
   const dx = e.changedTouches[0].clientX - _tx;
   const dy = e.changedTouches[0].clientY - _ty;
-  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+  if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.5) {
     if (dx < 0 && current < fotos.length - 1) { current++; aggiornaLb(true); }
     if (dx > 0 && current > 0)                { current--; aggiornaLb(true); }
   }
