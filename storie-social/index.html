@@ -67,6 +67,7 @@
 
   /* ══ REEL ══ */
   .reel-section { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; padding: 10px 24px 0; }
+  .reel-duo { display: flex; gap: 32px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
   .reel-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 18px; }
   .reel-label a { color: var(--oro); text-decoration: none; border-bottom: 1px solid var(--oro-dim); transition: border-color 0.3s; }
   .reel-label a:hover { border-color: var(--oro); }
@@ -140,15 +141,27 @@
 <header class="hero">
   <p class="hero-kicker">Il Nodo di Dara · L'eco sui social</p>
   <h1 class="hero-title">Storie <em>condivise</em></h1>
-  <p class="hero-sub">Come la mostra è risuonata fuori dalle sue pareti — il reel di una collega e le storie condivise su Instagram.</p>
+  <p class="hero-sub">Come la mostra è risuonata fuori dalle sue pareti — i reel e le storie condivise su Instagram.</p>
   <div class="hero-rule"></div>
 </header>
 
 <section class="reel-section">
-  <p class="reel-label">Un reel di <a href="https://www.instagram.com/sara_bonvicini_photography/" target="_blank" rel="noopener">Sara Bonvicini</a></p>
-  <div class="reel-player" id="reelPlayer">
-    <img class="reel-thumb" src="https://img.youtube.com/vi/NOugJBYBG0Q/hqdefault.jpg" alt="Reel Sara Bonvicini — Il Nodo di Dara">
-    <div class="reel-play"><div class="reel-play-btn"></div></div>
+  <p class="reel-label">Reel</p>
+  <div class="reel-duo">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+      <div class="reel-player" id="reelEly">
+        <img class="reel-thumb" src="https://img.youtube.com/vi/7xFjMnZGa1s/hqdefault.jpg" alt="Reel Elisabetta Acquaviva — Il Nodo di Dara">
+        <div class="reel-play"><div class="reel-play-btn"></div></div>
+      </div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:var(--white-low)">Elisabetta Acquaviva</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+      <div class="reel-player" id="reelSara">
+        <img class="reel-thumb" src="https://img.youtube.com/vi/NOugJBYBG0Q/hqdefault.jpg" alt="Reel Sara Bonvicini — Il Nodo di Dara">
+        <div class="reel-play"><div class="reel-play-btn"></div></div>
+      </div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:var(--white-low)"><a href="https://www.instagram.com/sara_bonvicini_photography/" target="_blank" rel="noopener" style="color:var(--oro-mid);text-decoration:none">Sara Bonvicini</a></p>
+    </div>
   </div>
 </section>
 
@@ -172,9 +185,13 @@
 </div>
 
 <script>
-document.getElementById('reelPlayer').addEventListener('click', function() {
+document.getElementById('reelEly').addEventListener('click', function() {
   this.classList.add('playing');
-  this.insertAdjacentHTML('beforeend', '<iframe src="https://www.youtube.com/embed/NOugJBYBG0Q?autoplay=1&rel=0" title="Reel — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>');
+  this.insertAdjacentHTML('beforeend', '<iframe src="https://www.youtube.com/embed/7xFjMnZGa1s?autoplay=1&rel=0" title="Reel Elisabetta Acquaviva — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>');
+});
+document.getElementById('reelSara').addEventListener('click', function() {
+  this.classList.add('playing');
+  this.insertAdjacentHTML('beforeend', '<iframe src="https://www.youtube.com/embed/NOugJBYBG0Q?autoplay=1&rel=0" title="Reel Sara Bonvicini — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>');
 });
 
 const obs = new IntersectionObserver(entries => {
