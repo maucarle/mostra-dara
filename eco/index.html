@@ -274,7 +274,7 @@ const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 function vociHTML(v, i){
   if (v.type === "dediche-link") {
     const prev = [3614,3622,3624,3629,3617].map(n =>
-      `<img src="https://f002.backblazeb2.com/file/SoundScape/dediche/IMG_${n}.jpeg" alt="">`).join('');
+      `<img src="/assets/dediche/IMG_${n}.jpeg" alt="">`).join('');
     return `<a class="voce voce-dediche-link" href="/dediche">
       <div class="dediche-preview">${prev}</div>
       <div class="dediche-label">50 pagine di parole lasciate dai visitatori</div>
