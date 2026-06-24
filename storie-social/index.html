@@ -68,6 +68,8 @@
   /* ══ REEL ══ */
   .reel-section { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; padding: 10px 24px 0; }
   .reel-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 18px; }
+  .reel-label a { color: var(--oro); text-decoration: none; border-bottom: 1px solid var(--oro-dim); transition: border-color 0.3s; }
+  .reel-label a:hover { border-color: var(--oro); }
   .reel-player { position: relative; width: 100%; max-width: 340px; aspect-ratio: 9/16; overflow: hidden; border: 1px solid var(--oro-dim); cursor: pointer; background: #000; }
   .reel-thumb { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.7); transition: filter 0.4s; }
   .reel-player:hover .reel-thumb { filter: brightness(0.85); }
@@ -138,14 +140,14 @@
 <header class="hero">
   <p class="hero-kicker">Il Nodo di Dara · L'eco sui social</p>
   <h1 class="hero-title">Storie <em>condivise</em></h1>
-  <p class="hero-sub">Come la mostra è risuonata fuori dalle sue pareti — il reel del progetto e le storie condivise su Instagram.</p>
+  <p class="hero-sub">Come la mostra è risuonata fuori dalle sue pareti — il reel di una collega e le storie condivise su Instagram.</p>
   <div class="hero-rule"></div>
 </header>
 
 <section class="reel-section">
-  <p class="reel-label">Il reel del progetto</p>
+  <p class="reel-label">Un reel di <a href="https://www.instagram.com/sara_bonvicini_photography/" target="_blank" rel="noopener">Sara Bonvicini</a></p>
   <div class="reel-player" id="reelPlayer">
-    <img class="reel-thumb" src="https://img.youtube.com/vi/NOugJBYBG0Q/hqdefault.jpg" alt="Reel — Il Nodo di Dara">
+    <img class="reel-thumb" src="https://img.youtube.com/vi/NOugJBYBG0Q/hqdefault.jpg" alt="Reel Sara Bonvicini — Il Nodo di Dara">
     <div class="reel-play"><div class="reel-play-btn"></div></div>
   </div>
 </section>
