@@ -303,17 +303,16 @@
     opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
   }
   .modal-bg.open { opacity: 1; pointer-events: all; }
-  .modal { width: 100%; max-height: calc(92dvh - 56px); overflow-y: auto; background: var(--bark); }
+  .modal { width: 100%; height: calc(92dvh - 56px); overflow-y: auto; background: var(--bark); }
   .modal-header {
     position: sticky; top: 0; z-index: 5;
     display: flex; justify-content: flex-end;
-    padding: 8px 12px 4px; background: var(--bark);
-    border-bottom: 1px solid var(--oro-dim);
+    padding: 2px 8px 0; background: var(--bark);
   }
   .modal-close {
     background: none; border: none;
-    color: var(--white-low); font-size: 24px; line-height: 1; cursor: pointer;
-    width: 40px; height: 40px; font-family: 'Cormorant Garamond', serif;
+    color: rgba(245,245,240,0.35); font-size: 20px; line-height: 1; cursor: pointer;
+    width: 36px; height: 30px; font-family: 'Cormorant Garamond', serif;
     display: flex; align-items: center; justify-content: center;
     transition: color 0.2s;
   }
