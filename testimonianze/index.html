@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le loro voci — Il Nodo di Dara</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --oro:       #c9a96e;
+    --oro-dim:   rgba(201,169,110,0.18);
+    --oro-mid:   rgba(201,169,110,0.55);
+    --white:     #f5f5f0;
+    --white-mid: rgba(245,245,240,0.75);
+    --white-low: rgba(245,245,240,0.50);
+    --bg:        #0e0c0a;
+    --bark:      #2c241c;
+    --moss:      #3d3328;
+    --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg);
+    font-family: 'Barlow', sans-serif; font-weight: 300;
+    color: var(--white); min-height: 100vh; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; opacity: 0.4;
+  }
+
+  /* ══ NAV ══ */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between; padding: 20px 44px;
+    background: linear-gradient(to bottom, rgba(14,12,10,0.96), transparent);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo img { width: 36px; height: auto; filter: invert(1); opacity: 0.75; }
+  .nav-logo-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: clamp(1rem,2vw,1.05rem); letter-spacing: 0.18em; text-transform: uppercase; color: var(--oro); }
+  .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+  .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: clamp(1rem,2vw,1.05rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--oro); }
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .nav-toggle span { display: block; width: 24px; height: 1px; background: var(--white-low); transition: all 0.3s; }
+  @media (max-width: 980px) {
+    .nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 0; background: rgba(14,12,10,0.97); justify-content: center; align-items: center; overflow-y: auto; padding: 80px 24px 40px; gap: 20px; z-index: 200; }
+    .nav-links.open a { font-size: 1.1rem; }
+    .nav-toggle { display: flex; z-index: 300; }
+  }
+
+  /* ══ HERO ══ */
+  .hero {
+    position: relative; z-index: 5;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 160px 24px 80px;
+  }
+  .hero-kicker {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 400;
+    font-size: 13px; letter-spacing: 0.34em; text-transform: uppercase;
+    color: var(--oro-mid); margin-bottom: 14px;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+    font-size: clamp(2.8rem, 8vw, 5.5rem); line-height: 1.05;
+    color: var(--white); margin-bottom: 22px;
+  }
+  .hero-title em { color: var(--oro); font-style: normal; }
+  .hero-sub {
+    font-family: 'Barlow', sans-serif; font-weight: 300;
+    font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.7;
+    color: var(--white-mid); max-width: 560px;
+  }
+  .hero-rule {
+    width: 1px; height: 60px; background: var(--oro-dim);
+    margin: 40px auto 0;
+  }
+
+  /* ══ GRIGLIA VOCI ══ */
+  .voci-wrap {
+    position: relative; z-index: 5;
+    max-width: 1280px; margin: 0 auto;
+    padding: 60px 44px 120px;
+    columns: 3; column-gap: 22px;
+  }
+  @media (max-width: 960px) { .voci-wrap { columns: 2; padding: 40px 24px 80px; } }
+  @media (max-width: 580px) { .voci-wrap { columns: 1; padding: 30px 20px 60px; } }
+
+  .voce {
+    break-inside: avoid;
+    display: block;
+    background: rgba(44,36,28,0.42);
+    border: 1px solid var(--oro-dim);
+    border-left: 3px solid var(--oro-dim);
+    border-radius: 3px;
+    padding: 28px 26px 24px;
+    margin-bottom: 22px;
+    transition: border-left-color 0.3s, background 0.3s;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-left-color 0.3s, background 0.3s;
+  }
+  .voce.visible { opacity: 1; transform: translateY(0); }
+  .voce:hover { border-left-color: var(--oro); background: rgba(44,36,28,0.66); }
+
+  .voce-date {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--oro-mid); margin-bottom: 14px;
+  }
+  .voce-text {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+    font-size: clamp(1.05rem, 2vw, 1.2rem); line-height: 1.65;
+    color: var(--white-mid);
+  }
+  .voce-text::before { content: '\201C'; color: var(--oro); font-size: 1.3em; line-height: 0; vertical-align: -0.18em; margin-right: 2px; }
+  .voce-text::after  { content: '\201D'; color: var(--oro); font-size: 1.3em; line-height: 0; vertical-align: -0.18em; margin-left:  2px; }
+  .voce-chi {
+    margin-top: 16px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 400;
+    font-size: 12.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--white-low);
+  }
+  .voce-chi::before { content: '— '; }
+
+  /* ══ FOOTER ══ */
+  .footer {
+    position: relative; z-index: 5;
+    border-top: 1px solid var(--oro-dim);
+    padding: 40px 44px;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--white-low);
+  }
+  .footer a { color: var(--oro-mid); text-decoration: none; }
+  .footer a:hover { color: var(--oro); }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="/">
+      <img src="../logo.jpeg" alt="Nodo di Dara" />
+      <span class="nav-logo-text">Nodo di Dara</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/progetto">Il Progetto</a></li>
+      <li><a href="/eventi">Eventi</a></li>
+      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+      <li><a href="/eco">L'Eco</a></li>
+      <li><a href="/testimonianze" class="active">Le Voci</a></li>
+      <li><a href="/soundscape">Soundscape</a></li>
+      <li><a href="/rassegna-stampa">Stampa</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <header class="hero">
+    <p class="hero-kicker">Il Nodo di Dara · Le partecipanti</p>
+    <h1 class="hero-title">Le loro <em>voci</em></h1>
+    <p class="hero-sub">Messaggi delle donne che hanno partecipato al progetto. Parole scambiate nella chat del gruppo, prima e dopo la mostra.</p>
+    <div class="hero-rule"></div>
+  </header>
+
+  <main class="voci-wrap" id="vociWrap"></main>
+
+  <footer class="footer">
+    <a href="/eco">← Torna a L'Eco</a>
+    &nbsp;·&nbsp;
+    ilnododidara.com
+  </footer>
+
+<script>
+const voci = [
+  {
+    date: "luglio 2025",
+    text: "Le emozioni non si spiegano, si vivono. E insieme speriamo di continuare questo percorso. Cerchiamo di regalarci momenti che come questo ci fanno trascorrere tre ore con la percezione di averne vissuta una.",
+    chi: "Stefania"
+  },
+  {
+    date: "luglio 2025",
+    text: "Mi sono sentita accolta e ascoltata. Questo mi ha dato la tranquillità di potermi raccontare come se vi conoscessi da sempre.",
+    chi: "Lara"
+  },
+  {
+    date: "4 marzo 2026",
+    text: "Solo una donna poteva trasformare una fragilità in un momento di meravigliosa forza condivisa. Un'artista che fissa le emozioni nel tempo.",
+    chi: "Baby"
+  },
+  {
+    date: "4 marzo 2026",
+    text: "Io credo che non smetterò mai di ringraziarti. Tu ci hai aperto l'anima e il cuore con il tuo fare, che magicamente coinvolge e libera mente e corpo di chi hai davanti. Io mi son vista e sentita come mai prima, e come se già ti conoscessi hai fatto a tutte noi un regalo immenso.",
+    chi: "Chiara"
+  },
+  {
+    date: "4 marzo 2026",
+    text: "Una volta tanto una crepa che non fa paura.",
+    chi: "Cristina"
+  },
+  {
+    date: "4 marzo 2026",
+    text: "Grazie per questo progetto potente e necessario.",
+    chi: "Debora"
+  },
+  {
+    date: "4 marzo 2026",
+    text: "La forza sei tu, che ci hai riunite in questo progetto unico e profondo. Sarà un'emozione incontrarci.",
+    chi: "Katya"
+  },
+  {
+    date: "4 marzo 2026",
+    text: "Grazie per aver immortalato la parte più delicata di noi donne e averne fatto un'arte da ammirare e preservare.",
+    chi: "Kicca"
+  },
+  {
+    date: "5 marzo 2026",
+    text: "Basterebbe che ciascuna di noi riscrivesse quanto ha espresso in questa chat per trasformare delle semplici pagine bianche in vita, testimonianza, ricordo e ringraziamento per l'impegno che ognuna ha messo in questa iniziativa.",
+    chi: "Raffaella"
+  },
+  {
+    date: "7 marzo 2026",
+    text: "Elisabetta, hai saputo cogliere in ognuna di noi quel non detto, quelle parti più nascoste forse, e hai saputo renderci magiche, belle. Ho sentito un grande respiro in questa mostra.",
+    chi: "Fra"
+  },
+  {
+    date: "7 marzo 2026",
+    text: "Una grande Dara che ha saputo accompagnare ciascuna delle nostre vite nella bellezza dell'accettazione di sé. Mi sono sentita accolta dal primo istante in cui ho varcato la soglia del tuo studio fotografico.",
+    chi: "Eleonora"
+  },
+  {
+    date: "8 marzo 2026",
+    text: "L'energia che si è creata è stata bellissima e fortissima. Quello che si crea tra donne va oltre la solidarietà: diventa condivisione e gioia nel bene e nel male.",
+    chi: "Daniela"
+  },
+  {
+    date: "8 marzo 2026",
+    text: "Tu ci hai veramente aiutate a capire chi siamo, cosa siamo diventate e quanta potenza ancora abbiamo dentro, quanta capacità ha la donna in trasformazione. Grazie di averci aiutate a riconoscerlo.",
+    chi: "Kicca"
+  },
+  {
+    date: "8 marzo 2026",
+    text: "Cosa mi porto via? La consapevolezza che anche nei momenti difficili guardare con un altro obiettivo aiuta a trovarne comunque il bello nascosto.",
+    chi: "Valentina"
+  },
+  {
+    date: "8 marzo 2026",
+    text: "Grazie per avermi fatto sentire unica ma parte di un grande gruppo di donne come me. Buona festa della donna a tutte, per tutta la vita.",
+    chi: "Lucia"
+  },
+  {
+    date: "8 marzo 2026",
+    text: "Hai creato un'energia potente. Vedrai che cambierà qualcosa in molte donne che verranno a vedere il tuo lavoro.",
+    chi: "Roberta"
+  },
+  {
+    date: "19 marzo 2026",
+    text: "Finalmente ieri sono andata a vedere la mostra e, grazie alla giornata uggiosa, era completamente vuota eccetto me. Ho potuto girare indisturbata tra le tele con i vostri volti fino ad incontrare anche il mio.",
+    chi: "Rossa"
+  }
+];
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function render() {
+  const wrap = document.getElementById('vociWrap');
+  wrap.innerHTML = voci.map(v => `
+    <article class="voce">
+      <div class="voce-date">${esc(v.date)}</div>
+      <p class="voce-text">${esc(v.text)}</p>
+      <div class="voce-chi">${esc(v.chi)}</div>
+    </article>
+  `).join('');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+
+  wrap.querySelectorAll('.voce').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 3) * 80}ms`;
+    observer.observe(el);
+  });
+}
+
+render();
+
+// nav toggle
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+</script>
+</body>
+</html>

@@ -120,6 +120,14 @@
   .voce-ph { border: 1px dashed rgba(201,169,110,0.3); display: flex; align-items: center; justify-content: center; text-align: center; min-height: 130px; }
   .voce-ph span { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 17px; color: var(--white-low); }
 
+  /* blog link */
+  .voce-blog { text-decoration: none; display: block; transition: border-color 0.3s; }
+  .voce-blog:hover { border-color: var(--oro-mid); }
+  .voce-blog .voce-quote { color: var(--white-mid); transition: color 0.3s; }
+  .voce-blog:hover .voce-quote { color: var(--oro); }
+  .voce-blog-link { display: inline-block; margin-top: 18px; font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--oro-mid); border-bottom: 1px solid var(--oro-dim); padding-bottom: 2px; transition: color 0.3s; }
+  .voce-blog:hover .voce-blog-link { color: var(--oro); }
+
   /* ══ ITINERARIO ══ */
   .tappa { display: flex; align-items: baseline; gap: 20px; padding: 18px 0; border-top: 1px solid rgba(201,169,110,0.14); }
   .tappa:last-child { border-bottom: 1px solid rgba(201,169,110,0.14); }
@@ -171,6 +179,7 @@
       <li><a href="/eventi">Eventi</a></li>
       <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
       <li><a href="/eco" class="active">L'Eco</a></li>
+      <li><a href="/testimonianze">Le Voci</a></li>
       <li><a href="/soundscape">Soundscape</a></li>
       <li><a href="/rassegna-stampa">Stampa</a></li>
     </ul>
@@ -183,7 +192,7 @@
     <div class="hero-vignette"></div>
     <div class="hero-inner">
       <p class="hero-kicker">L'albero delle storie</p>
-      <div class="hero-num" data-count="1247">0</div>
+      <div class="hero-num" data-count="667">0</div>
       <p class="hero-sub">nodi annodati dai visitatori</p>
       <p class="hero-line">Ogni visitatore ha legato un filo. La foresta è cresciuta.</p>
     </div>
@@ -191,10 +200,10 @@
 
   <!-- ════ STAT BAND ════ -->
   <section class="stats">
-    <div class="stat"><div class="stat-n oro" data-count="1247">0</div><div class="stat-l">nodi annodati</div></div>
-    <div class="stat"><div class="stat-n" data-count="8400">0</div><div class="stat-l">visitatori</div></div>
+    <div class="stat"><div class="stat-n oro" data-count="667">0</div><div class="stat-l">nodi annodati</div></div>
+    <div class="stat"><div class="stat-n" data-count="4200">0</div><div class="stat-l">visitatori</div></div>
     <div class="stat"><div class="stat-n" data-count="12">0</div><div class="stat-l">eventi e incontri</div></div>
-    <div class="stat"><div class="stat-n" data-count="3">0</div><div class="stat-l">città in arrivo</div></div>
+    <div class="stat"><div class="stat-n" data-count="200">0</div><div class="stat-l">metri di nastro rosso</div></div>
   </section>
 
   <!-- ════ LE VOCI TORNATE INDIETRO ════ -->
@@ -232,28 +241,27 @@
   </div>
 
 <script>
-/* ════ DATI — content-driven, scalabile ════
-   ⚠︎ SEGNAPOSTO: numeri (hero/stat) e citazioni qui sotto provengono dal mockup
-   di design e vanno sostituiti con i materiali REALI prima di pubblicare. */
 const voci = [
   { type:"dedica",   text:"Sono entrata che avevo paura di invecchiare. Sono uscita che avevo voglia di vivere. Grazie.", who:"una visitatrice" },
-  { type:"whatsapp", date:"14 marzo", text:"Sono ancora seduta in macchina nel parcheggio, non riesco a guidare. Le voci nella stanza del soundscape mi hanno spaccato il cuore — nel senso più bello che esista.", who:"anonimo" },
-  { type:"video",    thumb:"/assets/foresta-sospesa/silvia_MG_0818.jpg", title:"Le voci della mostra", youtube:"" },
+  { type:"whatsapp", date:"4 marzo 2026", text:"Solo una donna poteva trasformare una fragilità in un momento di meravigliosa forza condivisa! Un'artista che fissa le emozioni nel tempo. Grazie Elisabetta, è stato un piacere.", who:"Baby" },
+  { type:"blog", excerpt:"«Dal Nodo di Dara qualcosa si è mosso. Non sapevo come si chiamasse quello che stavo cercando. Ora lo so: si chiama ricominciare.»", source:"peso-leggero.it", title:"Abitare un corpo che cambia", url:"https://www.peso-leggero.it/2026/05/30/abitare-un-corpo-che-cambia/" },
+  { type:"whatsapp", date:"4 marzo 2026", text:"Io credo che non smetterò mai di ringraziarti. Tu ci hai aperto l'anima e il cuore con il tuo fare, che magicamente coinvolge e libera mente e corpo di chi hai davanti. Io mi son vista e sentita come mai prima, e come se già ti conoscessi hai fatto a tutte noi un regalo immenso.", who:"Chiara" },
   { type:"dedica",   text:"Non sapevo che si potesse parlare così di noi. Ad alta voce. Senza vergogna. Me ne torno a casa più leggera di dieci anni.", who:"M., 49 anni" },
-  { type:"whatsapp", date:"2 aprile", text:"Ci sono tornata tre volte. Oggi ho portato mia figlia di diciassette anni. Voglio che sappia cosa l'aspetta — e che non è una fine.", who:"anonimo" },
-  { type:"placeholder", text:"Nuova testimonianza in arrivo" }
+  { type:"whatsapp", date:"7 marzo 2026", text:"Elisabetta, hai saputo cogliere in ognuna di noi quel non detto, quelle parti più nascoste forse, e hai saputo renderci magiche, belle. Ho sentito un grande respiro in questa mostra. Grazie a tutte, meravigliose e uniche.", who:"Fra" },
+  { type:"whatsapp", date:"8 marzo 2026", text:"Tu ci hai veramente aiutate a capire chi siamo, cosa siamo diventate e quanta potenza ancora abbiamo dentro, quanta capacità ha la donna in trasformazione. Grazie di averci aiutate a riconoscerlo.", who:"Kicca" },
+  { type:"dedica",   text:"", who:"", ph:true }
 ];
 
 const itinerario = [
-  { city:"Bologna", desc:"Palazzo d'Accursio · ex-Dynamo · DUMBO — spazi civici e sociali", status:"Prossima", next:true },
-  { city:"Milano",  desc:"In definizione", status:"2026" },
-  { city:"Roma",    desc:"In definizione", status:"2026" }
+  { city:"Altre città", desc:"La foresta sospesa è pronta a essere installata in nuovi spazi.", status:"In arrivo", next:true }
 ];
 
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
 /* ── voci ── */
 function vociHTML(v, i){
+  if (v.type === "dedica" && v.ph)
+    return `<div class="voce voce-ph"><span>Prossima dedica dal libro in arrivo</span></div>`;
   if (v.type === "dedica")
     return `<div class="voce voce-dedica">
       <div class="voce-tag">Dal libro delle dediche</div>
@@ -264,6 +272,11 @@ function vociHTML(v, i){
       <div class="voce-tag">Messaggio ricevuto · WhatsApp <span class="date">${esc(v.date||'')}</span></div>
       <p class="voce-msg">«${esc(v.text)}»</p>
       <div class="voce-who">— ${esc(v.who)}</div></div>`;
+  if (v.type === "blog")
+    return `<a class="voce voce-blog" href="${esc(v.url)}" target="_blank" rel="noopener">
+      <div class="voce-tag">Dal web · ${esc(v.source)}</div>
+      <p class="voce-quote">${esc(v.excerpt)}</p>
+      <span class="voce-blog-link">${esc(v.title)} →</span></a>`;
   if (v.type === "video")
     return `<div class="voce voce-video" data-video="${i}">
       <img src="${esc(v.thumb)}" alt="${esc(v.title)}" onerror="this.style.display='none'">
