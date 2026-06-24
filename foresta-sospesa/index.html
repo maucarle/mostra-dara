@@ -298,25 +298,25 @@
 
   /* modal mobile */
   .modal-bg {
-    position: fixed; inset: 0; z-index: 150; background: rgba(10,8,6,0.92);
-    backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center;
+    position: fixed; left: 0; right: 0; bottom: 56px; top: 72px;
+    z-index: 140; background: var(--bark);
+    display: flex; flex-direction: column;
     opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
   }
   .modal-bg.open { opacity: 1; pointer-events: all; }
-  .modal { width: 100%; height: calc(92dvh - 56px); overflow-y: auto; background: var(--bark); }
-  .modal-header {
-    position: sticky; top: 0; z-index: 5;
-    display: flex; justify-content: flex-end;
-    padding: 2px 8px 0; background: var(--bark);
+  .modal { width: 100%; flex: 1; overflow-y: auto; }
+
+  /* X nella nav quando modal è aperto */
+  .nav-modal-close {
+    display: none; background: none; border: none;
+    color: var(--white-low); font-size: 24px; line-height: 1; cursor: pointer;
+    width: 44px; height: 44px; font-family: 'Cormorant Garamond', serif;
+    align-items: center; justify-content: center;
   }
-  .modal-close {
-    background: none; border: none;
-    color: rgba(245,245,240,0.35); font-size: 20px; line-height: 1; cursor: pointer;
-    width: 36px; height: 30px; font-family: 'Cormorant Garamond', serif;
-    display: flex; align-items: center; justify-content: center;
-    transition: color 0.2s;
+  @media (max-width: 980px) {
+    body.modal-open .nav-toggle { display: none; }
+    body.modal-open .nav-modal-close { display: flex; }
   }
-  .modal-close:hover { color: var(--white); }
   .modal-nav {
     position: sticky; bottom: 0;
     display: flex; align-items: center; justify-content: space-between;
@@ -414,6 +414,7 @@
       <li><a href="/rassegna-stampa">Stampa</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="nav-modal-close" id="modalClose" aria-label="Chiudi">✕</button>
   </nav>
 
   <!-- ════════ ATTO I — SOGLIA ════════ -->
@@ -464,9 +465,6 @@
   <!-- modal mobile -->
   <div class="modal-bg" id="modalBg">
     <div class="modal" id="modal">
-      <div class="modal-header">
-        <button class="modal-close" id="modalClose">✕</button>
-      </div>
       <div id="modalBody"></div>
       <div class="modal-nav" id="modalNav">
         <button class="modal-nav-btn" id="modalPrev" aria-label="Precedente">← Prec</button>
@@ -677,7 +675,7 @@ function seleziona(v, forceMobileModal){
   if (isMobile() || forceMobileModal && isMobile()) {
     document.getElementById('modalBody').innerHTML = letturaHTML(v);
     document.getElementById('modal').scrollTop = 0;
-    document.getElementById('modalBg').classList.add('open');
+    apriModal();
     aggiornaNavModal();
   }
 }
@@ -715,9 +713,10 @@ document.getElementById('modal').addEventListener('touchend', e => {
 }, { passive: true });
 
 /* ── Modal mobile ── */
-document.getElementById('modalClose').addEventListener('click', () => document.getElementById('modalBg').classList.remove('open'));
-document.getElementById('modalBg').addEventListener('click', e => { if (e.target.id === 'modalBg') document.getElementById('modalBg').classList.remove('open'); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('modalBg').classList.remove('open'); });
+function apriModal() { document.getElementById('modalBg').classList.add('open'); document.body.classList.add('modal-open'); }
+function chiudiModal() { document.getElementById('modalBg').classList.remove('open'); document.body.classList.remove('modal-open'); }
+document.getElementById('modalClose').addEventListener('click', chiudiModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') chiudiModal(); });
 
 /* ── Soundscape ── */
 const audio = document.getElementById('ambient');
