@@ -299,17 +299,18 @@
   /* modal mobile */
   .modal-bg {
     position: fixed; inset: 0; z-index: 150; background: rgba(10,8,6,0.92);
-    backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center;
+    backdrop-filter: blur(6px); display: flex; flex-direction: column;
+    align-items: flex-end; justify-content: flex-end;
     opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
   }
   .modal-bg.open { opacity: 1; pointer-events: all; }
-  .modal { width: 100%; max-height: calc(92dvh - 56px); overflow-y: auto; background: var(--bark); position: relative; }
+  .modal { width: 100%; max-height: calc(92dvh - 56px); overflow-y: auto; background: var(--bark); }
   .modal-close {
-    position: absolute; top: 14px; right: 16px; z-index: 160;
+    margin: 0 16px 6px 0;
     background: rgba(14,12,10,0.85); border: 1px solid var(--oro-dim);
     color: var(--white); font-size: 22px; line-height: 1; cursor: pointer;
     width: 40px; height: 40px; font-family: 'Cormorant Garamond', serif;
-    display: flex; align-items: center; justify-content: center;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .modal-nav {
     position: sticky; bottom: 0;
