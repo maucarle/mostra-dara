@@ -67,7 +67,11 @@
 
   /* ══ REEL ══ */
   .reel-section { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; padding: 10px 24px 0; }
-  .reel-duo { display: flex; gap: 32px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+  .reel-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; width: 100%; }
+  @media (max-width: 720px) { .reel-trio { grid-template-columns: 1fr; max-width: 340px; } }
+  .reel-credit { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--white-low); text-align: center; margin-top: 10px; }
+  .reel-credit a { color: var(--oro-mid); text-decoration: none; }
+  .reel-credit a:hover { color: var(--oro); }
   .reel-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 18px; }
   .reel-label a { color: var(--oro); text-decoration: none; border-bottom: 1px solid var(--oro-dim); transition: border-color 0.3s; }
   .reel-label a:hover { border-color: var(--oro); }
@@ -147,26 +151,26 @@
 
 <section class="reel-section">
   <p class="reel-label">Reel</p>
-  <div class="reel-duo">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+  <div class="reel-trio">
+    <div>
       <div class="reel-player" id="reelEly">
         <img class="reel-thumb" src="https://img.youtube.com/vi/7xFjMnZGa1s/hqdefault.jpg" alt="Reel Elisabetta Acquaviva — Il Nodo di Dara">
         <div class="reel-play"><div class="reel-play-btn"></div></div>
       </div>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:var(--white-low)">Elisabetta Acquaviva</p>
+      <p class="reel-credit">Elisabetta Acquaviva</p>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+    <div>
       <div class="reel-player" style="cursor:default">
         <video src="https://f002.backblazeb2.com/file/SoundScape/nodo+di+dara.MP4" controls playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
       </div>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:var(--white-low)">Elisabetta Acquaviva</p>
+      <p class="reel-credit">Elisabetta Acquaviva</p>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+    <div>
       <div class="reel-player" id="reelSara">
         <img class="reel-thumb" src="https://img.youtube.com/vi/NOugJBYBG0Q/hqdefault.jpg" alt="Reel Sara Bonvicini — Il Nodo di Dara">
         <div class="reel-play"><div class="reel-play-btn"></div></div>
       </div>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:var(--white-low)"><a href="https://www.instagram.com/sara_bonvicini_photography/" target="_blank" rel="noopener" style="color:var(--oro-mid);text-decoration:none">Sara Bonvicini</a></p>
+      <p class="reel-credit"><a href="https://www.instagram.com/sara_bonvicini_photography/" target="_blank" rel="noopener">Sara Bonvicini</a></p>
     </div>
   </div>
 </section>
