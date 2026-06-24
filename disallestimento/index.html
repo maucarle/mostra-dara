@@ -70,6 +70,20 @@
   .section-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 28px; }
   @media (max-width: 980px) { .section { padding: 60px 24px 0; } }
 
+  /* ══ REEL ══ */
+  .reel-section { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; padding: 10px 24px 0; }
+  .reel-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 18px; }
+  .reel-player { position: relative; width: 100%; max-width: 340px; aspect-ratio: 9/16; overflow: hidden; border: 1px solid var(--oro-dim); cursor: pointer; background: #000; }
+  .reel-thumb { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.7); transition: filter 0.4s; }
+  .reel-player:hover .reel-thumb { filter: brightness(0.85); }
+  .reel-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .reel-play-btn { width: 60px; height: 60px; border: 1.5px solid rgba(245,245,240,0.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+  .reel-player:hover .reel-play-btn { background: rgba(201,169,110,0.25); }
+  .reel-play-btn::before { content: ''; width: 0; height: 0; border-left: 16px solid var(--white); border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 5px; }
+  .reel-player.playing .reel-play { display: none; }
+  .reel-player.playing .reel-thumb { display: none; }
+  .reel-player.playing iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
   /* ══ VIDEO TILES ══ */
   .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
   @media (max-width: 720px) { .video-grid { grid-template-columns: 1fr; } }
@@ -165,6 +179,15 @@
   <p class="hero-note">Riprese originali · backstage</p>
   <div class="hero-rule"></div>
 </header>
+
+<!-- ════ RINGRAZIAMENTO ════ -->
+<section class="reel-section">
+  <p class="reel-label">Un ringraziamento</p>
+  <div class="reel-player" id="reelPlayer">
+    <img class="reel-thumb" src="https://img.youtube.com/vi/UQezR4OkeDU/hqdefault.jpg" alt="Ringraziamento — Il Nodo di Dara">
+    <div class="reel-play"><div class="reel-play-btn"></div></div>
+  </div>
+</section>
 
 <!-- ════ VIDEO ════ -->
 <section class="section">
@@ -277,6 +300,12 @@ lbImg.addEventListener('touchmove', e=>{e.stopPropagation();if(e.touches.length=
 lbImg.addEventListener('touchend', e=>{e.stopPropagation();if(e.touches.length===0&&pz.scale<1.08)resetPZ();},{passive:true});
 let _lastTap=0;
 lbImg.addEventListener('touchend',e=>{if(e.touches.length>0)return;const now=Date.now();if(now-_lastTap<280){if(pz.scale>1.2){resetPZ();}else{const rect=lbImg.getBoundingClientRect(),t=e.changedTouches[0];const ox=t.clientX-rect.left-rect.width/2,oy=t.clientY-rect.top-rect.height/2;pz.scale=2.5;pz.tx=-ox*(2.5-1);pz.ty=-oy*(2.5-1);lbImg.style.transition='opacity 0.2s ease,transform 0.25s ease';applyPZ();setTimeout(()=>{lbImg.style.transition='opacity 0.2s ease';},280);}e.stopPropagation();}_lastTap=now;},{passive:true});
+
+/* ── Reel player ── */
+document.getElementById('reelPlayer').addEventListener('click', function() {
+  this.classList.add('playing');
+  this.insertAdjacentHTML('beforeend', '<iframe src="https://www.youtube.com/embed/UQezR4OkeDU?autoplay=1&rel=0" title="Ringraziamento — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>');
+});
 
 /* ── IntersectionObserver ── */
 const obs = new IntersectionObserver(entries => {
