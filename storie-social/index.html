@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dietro le quinte — Il Nodo di Dara</title>
+<title>Storie condivise — Il Nodo di Dara</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600&family=Barlow:wght@200;300;400&display=swap');
@@ -48,7 +48,8 @@
   @media (max-width: 980px) {
     .nav { padding: 18px 24px; }
     .nav-links { display: none; }
-    .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 0; background: rgba(14,12,10,0.97); justify-content: center; align-items: center; gap: 20px; z-index: 200; }
+    .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 0; background: rgba(14,12,10,0.97); justify-content: center; align-items: center; overflow-y: auto; padding: 80px 24px 40px; gap: 20px; z-index: 200; }
+    .nav-links.open a { font-size: 1.1rem; }
     .nav-toggle { display: flex; z-index: 300; }
   }
 
@@ -64,41 +65,32 @@
   .hero-sub { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: clamp(0.95rem, 2vw, 1.05rem); line-height: 1.7; color: var(--white-mid); max-width: 520px; }
   .hero-rule { width: 1px; height: 50px; background: var(--oro-dim); margin: 36px auto 0; }
 
-  /* ══ CARD GRID ══ */
-  .cards-wrap {
-    position: relative; z-index: 5;
-    max-width: 1100px; margin: 0 auto; padding: 60px 44px 100px;
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-  }
-  @media (max-width: 860px) { .cards-wrap { grid-template-columns: 1fr; padding: 40px 24px 80px; } }
+  /* ══ REEL ══ */
+  .reel-section { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; padding: 10px 24px 0; }
+  .reel-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 18px; }
+  .reel-player { position: relative; width: 100%; max-width: 340px; aspect-ratio: 9/16; overflow: hidden; border: 1px solid var(--oro-dim); cursor: pointer; background: #000; }
+  .reel-thumb { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.7); transition: filter 0.4s; }
+  .reel-player:hover .reel-thumb { filter: brightness(0.85); }
+  .reel-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .reel-play-btn { width: 60px; height: 60px; border: 1.5px solid rgba(245,245,240,0.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+  .reel-player:hover .reel-play-btn { background: rgba(201,169,110,0.25); }
+  .reel-play-btn::before { content: ''; width: 0; height: 0; border-left: 16px solid var(--white); border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 5px; }
+  .reel-player.playing .reel-play { display: none; }
+  .reel-player.playing .reel-thumb { display: none; }
+  .reel-player.playing iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-  .card {
-    display: flex; flex-direction: column;
-    border: 1px solid var(--oro-dim); text-decoration: none;
-    transition: border-color 0.3s, background 0.3s;
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.3s, background 0.3s;
-  }
-  .card.visible { opacity: 1; transform: translateY(0); }
-  .card:hover { border-color: var(--oro-mid); background: rgba(44,36,28,0.4); }
-
-  .card-num {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 200;
-    font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1;
-    color: var(--oro-dim); padding: 32px 28px 0;
-    transition: color 0.3s;
-  }
-  .card:hover .card-num { color: var(--oro-mid); }
-
-  .card-body { padding: 16px 28px 32px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
-  .card-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); }
-  .card-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(1.6rem, 3vw, 2rem); line-height: 1.2; color: var(--white); }
-  .card-desc { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 14px; line-height: 1.6; color: var(--white-low); margin-top: 4px; }
-  .card-cta { margin-top: auto; padding-top: 20px; font-family: 'Barlow Condensed', sans-serif; font-weight: 400; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--oro-mid); transition: color 0.3s; }
-  .card:hover .card-cta { color: var(--oro); }
+  /* ══ STORIE ══ */
+  .storie-section { position: relative; z-index: 5; max-width: 900px; margin: 0 auto; padding: 60px 44px 0; }
+  .storie-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 22px; }
+  .storie-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  @media (max-width: 720px) { .storie-grid { grid-template-columns: repeat(2, 1fr); } .storie-section { padding: 40px 20px 0; } }
+  .storia-item { aspect-ratio: 9/16; overflow: hidden; border: 1px solid var(--oro-dim); opacity: 0; transform: translateY(10px); transition: opacity 0.55s var(--ease), transform 0.55s var(--ease); }
+  .storia-item.visible { opacity: 1; transform: translateY(0); }
+  .storia-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s var(--ease); }
+  .storia-item:hover img { transform: scale(1.03); }
 
   /* ══ FOOTER ══ */
-  .footer { position: relative; z-index: 5; padding: 28px 44px; border-top: 1px solid var(--oro-dim); text-align: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); }
+  .footer { position: relative; z-index: 5; margin-top: 90px; padding: 28px 44px; border-top: 1px solid var(--oro-dim); text-align: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-low); }
   .footer a { color: var(--oro-mid); text-decoration: none; }
   .footer a:hover { color: var(--oro); }
 
@@ -135,63 +127,58 @@
     <li><a href="/">Home</a></li>
     <li><a href="/progetto">Il Progetto</a></li>
     <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
-    <li><a href="/eco">L'Eco</a></li>
+    <li><a href="/eco" class="active">L'Eco</a></li>
     <li><a href="/eventi">Eventi</a></li>
-    <li><a href="/dietro-le-quinte" class="active">Dietro le quinte</a></li>
+    <li><a href="/dietro-le-quinte">Dietro le quinte</a></li>
     <li><a href="/rassegna-stampa">Stampa</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <header class="hero">
-  <p class="hero-kicker">Il Nodo di Dara · Materiale non montato</p>
-  <h1 class="hero-title">Dietro le <em>quinte</em></h1>
-  <p class="hero-sub">L'inaugurazione, i giorni di allestimento, il congedo. Materiale originale, non montato — il progetto visto da dentro.</p>
+  <p class="hero-kicker">Il Nodo di Dara · L'eco sui social</p>
+  <h1 class="hero-title">Storie <em>condivise</em></h1>
+  <p class="hero-sub">Come la mostra è risuonata fuori dalle sue pareti — il reel del progetto e le storie condivise su Instagram.</p>
   <div class="hero-rule"></div>
 </header>
 
-<div class="cards-wrap" id="cardsWrap">
-  <a class="card" href="/inaugurazione">
-    <div class="card-num">I</div>
-    <div class="card-body">
-      <div class="card-label">7 Marzo 2026</div>
-      <div class="card-title">L'inaugurazione</div>
-      <div class="card-desc">La serata di apertura. Video e fotografie del giorno in cui la foresta ha aperto le porte.</div>
-      <div class="card-cta">Entra →</div>
-    </div>
-  </a>
-  <a class="card" href="/allestimento">
-    <div class="card-num">II</div>
-    <div class="card-body">
-      <div class="card-label">Febbraio – Marzo 2026</div>
-      <div class="card-title">L'allestimento</div>
-      <div class="card-desc">Riprese originali dei giorni di preparazione. La foresta prima di essere foresta.</div>
-      <div class="card-cta">Entra →</div>
-    </div>
-  </a>
-  <a class="card" href="/disallestimento">
-    <div class="card-num">III</div>
-    <div class="card-body">
-      <div class="card-label">Maggio 2026</div>
-      <div class="card-title">Il disallestimento</div>
-      <div class="card-desc">Il congedo. Raramente documentato, raramente mostrato — i giorni in cui la foresta è stata smontata.</div>
-      <div class="card-cta">Entra →</div>
-    </div>
-  </a>
-</div>
+<section class="reel-section">
+  <p class="reel-label">Il reel del progetto</p>
+  <div class="reel-player" id="reelPlayer">
+    <img class="reel-thumb" src="https://img.youtube.com/vi/NOugJBYBG0Q/hqdefault.jpg" alt="Reel — Il Nodo di Dara">
+    <div class="reel-play"><div class="reel-play-btn"></div></div>
+  </div>
+</section>
 
-<footer class="footer">ilnododidara.com</footer>
+<section class="storie-section">
+  <p class="storie-label">Storie condivise sui social</p>
+  <div class="storie-grid">
+    <div class="storia-item"><img src="/testimonianze/storie/storia-nodi.jpeg" alt="Storia Instagram" loading="lazy"></div>
+    <div class="storia-item"><img src="/testimonianze/storie/storia-regalo.jpeg" alt="Storia Instagram" loading="lazy"></div>
+    <div class="storia-item"><img src="/testimonianze/storie/storia-immersiva.jpeg" alt="Storia Instagram" loading="lazy"></div>
+    <div class="storia-item"><img src="/testimonianze/storie/storia-grazie.jpeg" alt="Storia Instagram" loading="lazy"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <a href="/eco">← Torna a L'Eco</a>
+  &nbsp;·&nbsp; ilnododidara.com
+</footer>
 
 <div class="mob-pnav">
-  <a href="/eventi"><span class="arr">←</span> Eventi</a>
-  <a href="/rassegna-stampa">Stampa <span class="arr">→</span></a>
+  <a href="/eco"><span class="arr">←</span> L'Eco</a>
 </div>
 
 <script>
+document.getElementById('reelPlayer').addEventListener('click', function() {
+  this.classList.add('playing');
+  this.insertAdjacentHTML('beforeend', '<iframe src="https://www.youtube.com/embed/NOugJBYBG0Q?autoplay=1&rel=0" title="Reel — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>');
+});
+
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { requestAnimationFrame(() => requestAnimationFrame(() => e.target.classList.add('visible'))); obs.unobserve(e.target); }});
-}, { threshold: 0.1 });
-document.querySelectorAll('.card').forEach((el, i) => { el.style.transitionDelay = `${i * 100}ms`; obs.observe(el); });
+}, { threshold: 0.05 });
+document.querySelectorAll('.storia-item').forEach((el, i) => { el.style.transitionDelay = `${i * 80}ms`; obs.observe(el); });
 
 document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
 </script>

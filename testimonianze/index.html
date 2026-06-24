@@ -85,60 +85,6 @@
     margin: 40px auto 0;
   }
 
-  /* ══ REEL ══ */
-  .reel-section {
-    position: relative; z-index: 5;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 10px 24px 0;
-  }
-  .reel-label {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 300;
-    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
-    color: var(--oro-mid); margin-bottom: 18px;
-  }
-  .reel-player {
-    position: relative; width: 100%; max-width: 340px;
-    aspect-ratio: 9/16; overflow: hidden;
-    border: 1px solid var(--oro-dim); cursor: pointer; background: #000;
-  }
-  .reel-thumb {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    filter: brightness(0.7); transition: filter 0.4s;
-  }
-  .reel-player:hover .reel-thumb { filter: brightness(0.85); }
-  .reel-play {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .reel-play-btn {
-    width: 60px; height: 60px; border: 1.5px solid rgba(245,245,240,0.85); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.3s;
-  }
-  .reel-player:hover .reel-play-btn { background: rgba(201,169,110,0.25); }
-  .reel-play-btn::before {
-    content: ''; width: 0; height: 0;
-    border-left: 16px solid var(--white);
-    border-top: 10px solid transparent; border-bottom: 10px solid transparent;
-    margin-left: 5px;
-  }
-  .reel-player.playing .reel-play { display: none; }
-  .reel-player.playing .reel-thumb { display: none; }
-  .reel-player.playing iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-
-  /* ══ STORIE ══ */
-  .storie-section {
-    position: relative; z-index: 5;
-    max-width: 900px; margin: 0 auto; padding: 50px 44px 0;
-  }
-  .storie-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--oro-mid); margin-bottom: 22px; }
-  .storie-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  @media (max-width: 720px) { .storie-grid { grid-template-columns: repeat(2, 1fr); } .storie-section { padding: 40px 20px 0; } }
-  .storia-item { aspect-ratio: 9/16; overflow: hidden; border: 1px solid var(--oro-dim); opacity: 0; transform: translateY(10px); transition: opacity 0.55s var(--ease), transform 0.55s var(--ease); }
-  .storia-item.visible { opacity: 1; transform: translateY(0); }
-  .storia-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s var(--ease); }
-  .storia-item:hover img { transform: scale(1.03); }
-
   /* ══ GRIGLIA VOCI ══ */
   .voci-wrap {
     position: relative; z-index: 5;
@@ -229,13 +175,14 @@
       <span class="nav-logo-text">Nodo di Dara</span>
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/">Home</a></li>
-      <li><a href="/progetto">Il Progetto</a></li>
-      <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
-      <li><a href="/eco">L'Eco</a></li>      <li><a href="/dediche">Dediche</a></li>
-      <li><a href="/eventi">Eventi</a></li>
-      <li><a href="/dietro-le-quinte">Dietro le quinte</a></li>      <li><a href="/rassegna-stampa">Stampa</a></li>
-    </ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/progetto">Il Progetto</a></li>
+    <li><a href="/foresta-sospesa">La Foresta Sospesa</a></li>
+    <li><a href="/eco" class="active">L'Eco</a></li>
+    <li><a href="/eventi">Eventi</a></li>
+    <li><a href="/dietro-le-quinte">Dietro le quinte</a></li>
+    <li><a href="/rassegna-stampa">Stampa</a></li>
+  </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 
@@ -245,24 +192,6 @@
     <p class="hero-sub">Messaggi delle donne che hanno partecipato al progetto. Parole scambiate nella chat del gruppo, prima e dopo la mostra.</p>
     <div class="hero-rule"></div>
   </header>
-
-  <section class="reel-section">
-    <p class="reel-label">Il reel del progetto</p>
-    <div class="reel-player" id="reelPlayer">
-      <img class="reel-thumb" src="https://img.youtube.com/vi/NOugJBYBG0Q/hqdefault.jpg" alt="Reel — Il Nodo di Dara">
-      <div class="reel-play"><div class="reel-play-btn"></div></div>
-    </div>
-  </section>
-
-  <section class="storie-section">
-    <p class="storie-label">Storie condivise sui social</p>
-    <div class="storie-grid">
-      <div class="storia-item"><img src="storie/storia-nodi.jpeg" alt="Storia Instagram" loading="lazy"></div>
-      <div class="storia-item"><img src="storie/storia-regalo.jpeg" alt="Storia Instagram" loading="lazy"></div>
-      <div class="storia-item"><img src="storie/storia-immersiva.jpeg" alt="Storia Instagram" loading="lazy"></div>
-      <div class="storia-item"><img src="storie/storia-grazie.jpeg" alt="Storia Instagram" loading="lazy"></div>
-    </div>
-  </section>
 
   <main class="voci-wrap" id="vociWrap"></main>
 
@@ -483,18 +412,6 @@ function render() {
 }
 
 render();
-
-// storie fade-in
-const storieObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { requestAnimationFrame(() => requestAnimationFrame(() => e.target.classList.add('visible'))); storieObs.unobserve(e.target); }});
-}, { threshold: 0.05 });
-document.querySelectorAll('.storia-item').forEach((el, i) => { el.style.transitionDelay = `${i * 80}ms`; storieObs.observe(el); });
-
-// reel player
-document.getElementById('reelPlayer').addEventListener('click', function() {
-  this.classList.add('playing');
-  this.insertAdjacentHTML('beforeend', '<iframe src="https://www.youtube.com/embed/NOugJBYBG0Q?autoplay=1&rel=0" title="Reel — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>');
-});
 
 // nav toggle
 document.getElementById('navToggle').addEventListener('click', () => {
