@@ -3,3 +3,6 @@
 # Video grandi — serviti da Backblaze B2, non da GitHub
 *.mov
 *.MOV
+
+# Contenuti locali — foto e didascalie, non in repo
+_contenuti/
