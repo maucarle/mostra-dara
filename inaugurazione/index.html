@@ -168,19 +168,52 @@
     }
 
     /* VIDEO PORTRAIT (9:16 da iPhone) */
-    .video-portrait-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: 8px;
+    /*
+     * Container 9:16 — iframe 16:9 sovradimensionato e centrato.
+     * Le bande nere (pillarbox) escono dal overflow:hidden.
+     * Calcolo: l'iframe va scalato all'altezza del container →
+     *   larghezza iframe = altezza × (16/9) = larghezza-container × (16/9)² ≈ 316%
+     * Il contenuto ritratto al centro dell'iframe riempie esattamente il container.
+     */
+    .video-wrap {
+      position: relative; max-width: 380px; margin: 8px auto 0;
+      aspect-ratio: 9/16; overflow: hidden; cursor: pointer;
+      border: 1px solid var(--oro-dim); background: #000;
     }
-    .video-portrait {
-      width: 100%;
-      max-width: 340px;
-      aspect-ratio: 9/16;
-      border: 1px solid var(--oro-dim);
-      display: block;
-      background: #000;
-      object-fit: contain;
+    .video-wrap.playing { cursor: default; }
+    /* thumbnail: scala all'altezza, larghezza auto → stessa proporzione dell'iframe */
+    .video-thumb {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      height: 100%; width: auto;
+      filter: grayscale(30%) brightness(0.6);
+      transition: filter 0.4s;
+    }
+    .video-wrap:hover:not(.playing) .video-thumb { filter: grayscale(10%) brightness(0.72); }
+    .video-play {
+      position: absolute; inset: 0; display: flex;
+      align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer;
+    }
+    .video-play-ring {
+      width: 72px; height: 72px; border-radius: 50%;
+      border: 1.5px solid rgba(245,245,240,0.75);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .video-play-ring::after {
+      content: ''; width: 0; height: 0;
+      border-left: 22px solid rgba(245,245,240,0.9);
+      border-top: 13px solid transparent; border-bottom: 13px solid transparent;
+      margin-left: 5px;
+    }
+    .video-wrap:hover:not(.playing) .video-play-ring {
+      border-color: var(--oro); background: rgba(201,169,110,0.18);
+    }
+    .video-wrap:hover:not(.playing) .video-play-ring::after { border-left-color: var(--oro); }
+    /* iframe: altezza 100%, larghezza = (16/9)² × 100% ≈ 316%, centrato */
+    .video-wrap iframe {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      height: 100%; width: calc(100% * 256 / 81); border: 0;
     }
 
     /* FOTO GRID */
@@ -357,10 +390,6 @@
       .section { padding: 40px 24px; }
       .foto-grid { grid-template-columns: repeat(2, 1fr); }
       footer { padding: 24px; }
-      /* Video portrait: full-width su mobile, mantiene 9/16 */
-      .video-portrait {
-        max-width: 100%;
-      }
     }
   
   /* ── nav sottopagine ── */
@@ -478,10 +507,11 @@
   <!-- VIDEO -->
   <div class="section">
     <p class="section-label">Video</p>
-    <div class="video-portrait-wrap">
-      <video class="video-portrait" controls playsinline>
-        <source src="https://f002.backblazeb2.com/file/SoundScape/inaugurazione.mov" type="video/mp4">
-      </video>
+    <div class="video-wrap" id="videoWrap">
+      <img class="video-thumb" src="https://img.youtube.com/vi/wth2llmnlbA/maxresdefault.jpg" alt="Inaugurazione — Il Nodo di Dara">
+      <button class="video-play" id="videoPlay" aria-label="Guarda il video">
+        <div class="video-play-ring"></div>
+      </button>
     </div>
   </div>
 
@@ -598,6 +628,12 @@
     toggle.addEventListener('click', function() { links.classList.toggle('open'); });
     links.querySelectorAll('a').forEach(function(a) {
       a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+
+    document.getElementById('videoPlay').addEventListener('click', function() {
+      var wrap = document.getElementById('videoWrap');
+      wrap.classList.add('playing');
+      wrap.innerHTML = '<iframe src="https://www.youtube.com/embed/wth2llmnlbA?autoplay=1&rel=0&modestbranding=1" title="Inaugurazione — Il Nodo di Dara" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
     });
   </script>
 
