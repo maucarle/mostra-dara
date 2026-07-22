@@ -420,6 +420,7 @@
 <script>
 const voci = [
   { type:"dedica",   text:"Non ti cambia la vita, ma cambia il modo di vivere l'età.", who:"Francesca, dal libro delle dediche" },
+  { type:"email", date:"10 luglio 2026", text:"Questa mattina ho visto sul sito \"Il Nodo di Dara\" e sono rimasta profondamente colpita, a tratti commossa: un progetto che trovo di una delicatezza potente. È un ossimoro, lo so, ma è ciò che ho provato. Mi sono sentita accarezzata come da una piuma morbida che però smuove le montagne. Complimenti per l'idea e per il coraggio di mettersi a nudo e consegnarsi senza veli attraverso l'arte. Grazie per questo viaggio inaspettato che mi hai fatto fare.", who:"Alessandra, che ha scoperto il progetto dal sito" },
   { type:"whatsapp", date:"4 marzo 2026", text:"Solo una donna poteva trasformare una fragilità in un momento di meravigliosa forza condivisa! Un'artista che fissa le emozioni nel tempo. Grazie Elisabetta, è stato un piacere.", who:"Baby" },
   { type:"blog", excerpt:"«Dal Nodo di Dara qualcosa si è mosso. Non sapevo come si chiamasse quello che stavo cercando. Ora lo so: si chiama ricominciare.»", source:"peso-leggero.it", title:"Abitare un corpo che cambia", url:"https://www.peso-leggero.it/2026/05/30/abitare-un-corpo-che-cambia/" },
   { type:"whatsapp", date:"4 marzo 2026", text:"Io credo che non smetterò mai di ringraziarti. Tu ci hai aperto l'anima e il cuore con il tuo fare, che magicamente coinvolge e libera mente e corpo di chi hai davanti. Io mi son vista e sentita come mai prima, e come se già ti conoscessi hai fatto a tutte noi un regalo immenso.", who:"Chiara" },
@@ -451,6 +452,11 @@ function vociHTML(v, i){
     return `<div class="voce voce-dedica">
       <div class="voce-tag">Dal libro delle dediche</div>
       <p class="voce-quote">«${esc(v.text)}»</p>
+      <div class="voce-who">— ${esc(v.who)}</div></div>`;
+  if (v.type === "email")
+    return `<div class="voce">
+      <div class="voce-tag">Messaggio ricevuto · Email <span class="date">${esc(v.date||'')}</span></div>
+      <p class="voce-msg">«${esc(v.text)}»</p>
       <div class="voce-who">— ${esc(v.who)}</div></div>`;
   if (v.type === "whatsapp")
     return `<div class="voce">
