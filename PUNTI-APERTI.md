@@ -1,0 +1,1 @@
+../../../projects-registry/projects/mostra-dara/PUNTI-APERTI.md
